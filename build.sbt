@@ -9,6 +9,7 @@ lazy val root = project
     name := "minesweeper-scala",
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "org.typelevel" %%% "cats-effect" % "3.4.1"
+      "org.typelevel" %%% "cats-effect" % "3.4.1",
+      "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     )
   )
