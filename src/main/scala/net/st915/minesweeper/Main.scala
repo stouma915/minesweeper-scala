@@ -1,6 +1,7 @@
 package net.st915.minesweeper
 
 import cats.effect.IO
+import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
 import org.scalajs.dom.{
   Document,
@@ -12,10 +13,10 @@ import org.scalajs.dom.{
 
 @main def main(): Unit = {
   
-  import cats.effect.unsafe.implicits.global
-
   implicit val _document: Document = document
   implicit val _window: Window = window
+  implicit val _runtime: IORuntime =
+    cats.effect.unsafe.implicits.global
 
   def appendToBody(e: Element): IO[Unit] = IO {
     document.body.appendChild(e)

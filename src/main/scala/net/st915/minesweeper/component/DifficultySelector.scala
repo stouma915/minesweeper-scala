@@ -1,6 +1,7 @@
 package net.st915.minesweeper.component
 
 import cats.effect.IO
+import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.Difficulty
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.{
@@ -15,8 +16,6 @@ import scala.util.chaining.*
 
 object DifficultySelector {
 
-  import cats.effect.unsafe.implicits.global
-
   def changeDifficulty(diff: Difficulty)(implicit wind: Window): IO[Unit] = IO {
     val url = new URL(wind.location.href)
 
@@ -27,7 +26,7 @@ object DifficultySelector {
     wind.location.href = newUrl
   }
 
-  def make(implicit doc: Document, wind: Window): IO[Element] = IO {
+  def make(implicit doc: Document, wind: Window, runtime: IORuntime): IO[Element] = IO {
     doc.createElement("div")
       .tap { div =>
         Difficulty.Difficulties.foreach { diff =>
