@@ -20,11 +20,11 @@ object UnknownDifficulty {
         .createElement("div")
         .tap { div =>
           doc
-            .createElement("p")
+            .createElement("h2")
             .tap(_.appendChild("Unknown Difficulty.".textNode))
-            .tap(_.appendChild(diffSelector))
             .tap(div.appendChild)
         }
+        .tap(_.appendChild(diffSelector))
     }
   } yield unknownDiff
 

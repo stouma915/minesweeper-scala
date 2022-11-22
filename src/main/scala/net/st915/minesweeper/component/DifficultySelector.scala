@@ -28,6 +28,13 @@ object DifficultySelector {
     doc
       .createElement("div")
       .tap { div =>
+        doc
+          .createElement("span")
+          .tap(_.appendChild("Difficulties:".textNode))
+          .tap(_.appendChild(doc.createElement("br")))
+          .tap(div.appendChild)
+      }
+      .tap { div =>
         Difficulty.Difficulties.foreach { diff =>
           doc
             .createElement("a")
