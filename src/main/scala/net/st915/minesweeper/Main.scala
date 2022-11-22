@@ -1,25 +1,30 @@
 package net.st915.minesweeper
 
 import cats.effect.IO
-import org.scalajs.dom.document
+import net.st915.minesweeper.implicits.*
+import org.scalajs.dom.{Document, document}
+
+import scala.util.chaining.*
 
 @main def main(): Unit = {
   
   import cats.effect.unsafe.implicits.global
 
+  implicit val _document: Document = document
+
   val printTestMessage = IO {
     println("TEST")
   }
 
-  val addTestElement = IO {
-    val testElement = document.createElement("h1")
-    testElement.textContent = "TEST"
-    document.body.appendChild(testElement)
+  val appendTestMessage = IO {
+    document.createElement("h1")
+      .tap(_.appendChild("ABCD".textNode))
+      .tap(document.body.appendChild)
   }
 
   val task = for {
     _ <- printTestMessage
-    _ <- addTestElement
+    _ <- appendTestMessage
   } yield ()
 
   task.unsafeRunAndForget()
