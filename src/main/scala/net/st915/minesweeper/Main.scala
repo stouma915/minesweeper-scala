@@ -20,9 +20,7 @@ import org.scalajs.dom.{
   implicit val _runtime: IORuntime =
     cats.effect.unsafe.implicits.global
 
-  def appendToBody(e: Element): IO[Unit] = IO {
-    document.body.appendChild(e)
-  }
+  val appendToBody: Element => IO[Unit] = e => IO(document.body.appendChild(e))
 
   val getDifficulty: IO[Option[Difficulty]] = IO {
     val params = new URLSearchParams(window.location.search)
