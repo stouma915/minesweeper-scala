@@ -11,7 +11,7 @@ object TestMessage {
   def make(implicit doc: Document): IO[Element] = IO {
     doc
       .createElement("h1")
-      .tap(_.appendChild("ABCD".textNode))
+      .tap(_.appendChild("TEST".textNode))
   }
 
 }
