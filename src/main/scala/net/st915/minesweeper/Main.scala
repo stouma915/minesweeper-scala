@@ -10,7 +10,7 @@ import org.scalajs.dom.{Document, Element, document}
 
   implicit val _document: Document = document
 
-  val appendToBody = (e: Element) => IO[Unit] {
+  def appendToBody(e: Element): IO[Unit] = IO {
     document.body.appendChild(e)
   }
 
