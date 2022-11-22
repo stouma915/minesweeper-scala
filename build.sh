@@ -2,8 +2,8 @@
 
 mkdir -p out
 
-cp -f *.html out
-cp -f *.css out
+cp -f index.html out
+cp -rf resources out
 
 sbt fastLinkJS
 

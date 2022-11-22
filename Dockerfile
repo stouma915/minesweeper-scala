@@ -4,8 +4,8 @@ WORKDIR /work/build
 
 COPY project project
 COPY src src
-COPY *.html .
-COPY *.css .
+COPY resources resources
+COPY index.html .
 COPY build.sbt .
 COPY build.sh .
 
