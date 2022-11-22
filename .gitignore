@@ -2,6 +2,7 @@
 *.iml
 
 .bsp/
+null/
 
 /project/target
 /project/project
