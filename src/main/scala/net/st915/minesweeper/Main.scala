@@ -4,14 +4,7 @@ import cats.data.OptionT
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
-import org.scalajs.dom.{
-  Document,
-  Element,
-  URLSearchParams,
-  Window,
-  document,
-  window
-}
+import org.scalajs.dom.*
 
 @main def main(): Unit = {
 

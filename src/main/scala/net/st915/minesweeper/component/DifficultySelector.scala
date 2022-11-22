@@ -4,7 +4,7 @@ import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.Difficulty
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{Document, Element, HTMLLinkElement, URL, Window}
+import org.scalajs.dom.*
 
 import scala.util.chaining.*
 
