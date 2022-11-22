@@ -2,7 +2,7 @@
 
 mkdir -p target/pages
 
-cp -f src/main/resources/index.html target/pages
+cp -f index.html target/pages
 
 sbt fastLinkJS
 
