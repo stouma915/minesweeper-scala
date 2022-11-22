@@ -27,7 +27,7 @@ import org.scalajs.dom.{
   val getDifficulty: IO[Option[Difficulty]] = IO {
     val params = new URLSearchParams(window.location.search)
     if (params.has("d")) {
-      Difficulty.Difficulties.find(_.name eq params.get("d"))
+      Difficulty.Difficulties.find(_.id eq params.get("d"))
     } else {
       Some(Difficulty.Easy)
     }

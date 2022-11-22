@@ -14,7 +14,7 @@ object DifficultySelector {
     val url = new URL(wind.location.href)
 
     val param =
-      if (diff eq Difficulty.Default) "" else s"?d=${diff.name}"
+      if (diff eq Difficulty.Default) "" else s"?d=${diff.id}"
     val newUrl = s"${url.origin}${url.pathname}$param"
 
     wind.location.href = newUrl
@@ -39,7 +39,7 @@ object DifficultySelector {
           doc
             .createElement("a")
             .asInstanceOf[HTMLLinkElement]
-            .tap(_.appendChild(diff.name.textNode))
+            .tap(_.appendChild(diff.displayName.textNode))
             .tap(_.appendChild(doc.createElement("br")))
             .tap(_.href = "#")
             .tap(_.onclick = _ => changeDifficulty(diff).unsafeRunAndForget())

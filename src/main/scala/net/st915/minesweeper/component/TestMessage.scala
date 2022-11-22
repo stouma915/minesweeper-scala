@@ -14,7 +14,11 @@ object TestMessage {
       .createElement("h1")
       .tap(_.appendChild("TEST.".textNode))
       .tap(_.appendChild(doc.createElement("br")))
-      .tap(_.appendChild(s"Current difficulty is ${difficulty.name}.".textNode))
+      .tap(
+        _.appendChild(
+          s"Current difficulty is ${difficulty.displayName}.".textNode
+        )
+      )
   }
 
 }
