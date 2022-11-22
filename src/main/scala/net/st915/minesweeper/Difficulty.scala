@@ -42,5 +42,5 @@ case class Difficulty(
   name: String,
   width: Int,
   height: Int,
-  mines: Int
+  numOfMines: Int
 )
