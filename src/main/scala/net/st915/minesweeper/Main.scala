@@ -2,7 +2,12 @@ package net.st915.minesweeper
 
 import cats.effect.IO
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{Document, HTMLLinkElement, document}
+import org.scalajs.dom.{
+  Document,
+  Element,
+  HTMLLinkElement,
+  document
+}
 
 import scala.util.chaining.*
 
@@ -12,22 +17,17 @@ import scala.util.chaining.*
 
   implicit val _document: Document = document
 
-  val printTestMessage = IO {
-    println("TEST")
-  }
-
-  val appendTestMessage = IO {
+  val makeTestMessage = IO[Element] {
     document.createElement("h1")
       .tap(_.appendChild("ABCD".textNode))
-      .tap(document.body.appendChild)
   }
 
-  val appendAboutPage = IO {
+  val makeAboutPage = IO[Element] {
     document.createElement("div")
-      .tap(div =>
+      .tap { div =>
         document.createElement("p")
           .tap(_.appendChild("This site is licensed under the ".textNode))
-          .tap(p =>
+          .tap { p =>
             document.createElement("a")
               .asInstanceOf[HTMLLinkElement]
               .tap(_.appendChild("MIT License".textNode))
@@ -35,11 +35,11 @@ import scala.util.chaining.*
                 "https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE"
               )
               .tap(p.appendChild)
-          )
+          }
           .tap(_.appendChild(".".textNode))
           .tap(_.appendChild(document.createElement("br")))
           .tap(_.appendChild("This site is open source. ".textNode))
-          .tap(p =>
+          .tap { p =>
             document.createElement("a")
               .asInstanceOf[HTMLLinkElement]
               .tap(_.appendChild("Improve this site".textNode))
@@ -47,11 +47,11 @@ import scala.util.chaining.*
                 "https://github.com/stouma915/minesweeper-scala"
               )
               .tap(p.appendChild)
-          )
+          }
           .tap(_.appendChild(".".textNode))
           .tap(_.appendChild(document.createElement("br")))
           .tap(_.appendChild("Powered by ".textNode))
-          .tap(p =>
+          .tap { p =>
             document.createElement("a")
               .asInstanceOf[HTMLLinkElement]
               .tap(_.appendChild("GitHub Pages".textNode))
@@ -59,17 +59,21 @@ import scala.util.chaining.*
                 "https://pages.github.com"
               )
               .tap(p.appendChild)
-          )
+          }
           .tap(_.appendChild(".".textNode))
           .tap(div.appendChild)
-      )
-      .tap(document.body.appendChild)
+      }
+  }
+
+  val appendToBody = (e: Element) => IO[Unit] {
+    document.body.appendChild(e)
   }
 
   val task = for {
-    _ <- printTestMessage
-    _ <- appendTestMessage
-    _ <- appendAboutPage
+    testMessage <- makeTestMessage
+    aboutPage <- makeAboutPage
+    _ <- appendToBody(testMessage)
+    _ <- appendToBody(aboutPage)
   } yield ()
 
   task.unsafeRunAndForget()
