@@ -3,16 +3,10 @@ package net.st915.minesweeper
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
-import org.scalajs.dom.{
-  Document,
-  Element,
-  Window,
-  document,
-  window
-}
+import org.scalajs.dom.{Document, Element, Window, document, window}
 
 @main def main(): Unit = {
-  
+
   implicit val _document: Document = document
   implicit val _window: Window = window
   implicit val _runtime: IORuntime =

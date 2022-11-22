@@ -9,7 +9,8 @@ import scala.util.chaining.*
 object TestMessage {
 
   def make(implicit doc: Document): IO[Element] = IO {
-    doc.createElement("h1")
+    doc
+      .createElement("h1")
       .tap(_.appendChild("ABCD".textNode))
   }
 

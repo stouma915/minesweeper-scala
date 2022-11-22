@@ -9,12 +9,18 @@ import scala.util.chaining.*
 
 object UnknownDifficulty {
 
-  def make(implicit doc: Document, wind: Window, runtime: IORuntime): IO[Element] = for {
+  def make(implicit
+      doc: Document,
+      wind: Window,
+      runtime: IORuntime
+  ): IO[Element] = for {
     diffSelector <- DifficultySelector.make
     unknownDiff <- IO {
-      doc.createElement("div")
+      doc
+        .createElement("div")
         .tap { div =>
-          doc.createElement("p")
+          doc
+            .createElement("p")
             .tap(_.appendChild("Unknown Difficulty.".textNode))
             .tap(_.appendChild(diffSelector))
             .tap(div.appendChild)

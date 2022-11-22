@@ -2,45 +2,45 @@ package net.st915.minesweeper
 
 object Difficulty {
 
-  val Easy = Difficulty(
+  final val Easy = Difficulty(
     "easy",
     9,
     9,
     10
   )
-  val Normal = Difficulty(
+  final val Normal = Difficulty(
     "normal",
     16,
     16,
     40
   )
-  val Hard = Difficulty(
+  final val Hard = Difficulty(
     "hard",
     30,
     16,
     99
   )
-  val Impossible = Difficulty(
+  final val Impossible = Difficulty(
     "impossible",
     9,
     9,
     67
   )
 
-  val Difficulties = Seq(
+  final val Difficulties = Seq(
     Easy,
     Normal,
     Hard,
     Impossible
   )
 
-  val Default = Easy
+  final val Default = Easy
 
 }
 
 case class Difficulty(
-  name: String,
-  width: Int,
-  height: Int,
-  numOfMines: Int
+    name: String,
+    width: Int,
+    height: Int,
+    numOfMines: Int
 )
