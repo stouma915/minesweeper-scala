@@ -12,6 +12,24 @@ object GameScreen {
   def make(difficulty: Difficulty)(implicit doc: Document): IO[Element] = IO {
     doc
       .createElement("div")
+      .tap(_.classList.add("gameScreen"))
+      .tap { div =>
+        (0 until difficulty.height).foreach { line =>
+          doc
+            .createElement("div")
+            .tap(_.classList.add("line"))
+            .tap { lineDiv =>
+              (0 until difficulty.width).foreach { cell =>
+                doc
+                  .createElement("div")
+                  .tap(_.classList.add("cellNotOpened"))
+                  .tap(_.id = s"${line}_$cell")
+                  .tap(lineDiv.appendChild)
+              }
+            }
+            .tap(div.appendChild)
+        }
+      }
   }
 
 }
