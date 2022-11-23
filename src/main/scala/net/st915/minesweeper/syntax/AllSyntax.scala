@@ -1,3 +1,4 @@
 package net.st915.minesweeper.syntax
 
-trait AllSyntax extends StringSyntax
+trait AllSyntax extends DocumentSyntax
+                with StringSyntax
