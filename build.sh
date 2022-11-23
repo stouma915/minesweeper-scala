@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCALA_VERSION=3.2.1
+readonly SCALA_VERSION=3.2.1
 
 mkdir -p out
 
