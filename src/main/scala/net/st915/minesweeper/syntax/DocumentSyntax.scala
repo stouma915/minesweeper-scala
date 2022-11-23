@@ -9,7 +9,7 @@ trait DocumentSyntax {
     def createElementWithType[A](name: String): A =
       doc
         .createElement(name)
-        .asInstaceOf[A]
+        .asInstanceOf[A]
 
   }
 
