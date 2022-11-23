@@ -11,12 +11,18 @@ import scala.util.chaining.*
 
 object GameScreen {
 
-  def onClick(implicit event: MouseEvent, coord: Coordinate): IO[Unit] =
+  private def onClick(implicit
+      event: MouseEvent,
+      coord: Coordinate
+  ): IO[Unit] =
     IO {
       println(s"CLICK: (${coord.x}, ${coord.y})")
     }
 
-  def onRightClick(implicit event: MouseEvent, coord: Coordinate): IO[Unit] =
+  private def onRightClick(implicit
+      event: MouseEvent,
+      coord: Coordinate
+  ): IO[Unit] =
     IO {
       println(s"RIGHT CLICK: (${coord.x}, ${coord.y})")
     }

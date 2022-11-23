@@ -10,7 +10,9 @@ import scala.util.chaining.*
 
 object DifficultySelector {
 
-  def changeDifficulty(diff: Difficulty)(implicit wind: Window): IO[Unit] = IO {
+  private def changeDifficulty(
+      diff: Difficulty
+  )(implicit wind: Window): IO[Unit] = IO {
     val url = new URL(wind.location.href)
 
     val param =
