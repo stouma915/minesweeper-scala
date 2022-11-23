@@ -1,6 +1,6 @@
-package net.st915.minesweeper
+package net.st915.minesweeper.difficulty
 
-object Difficulty {
+object Difficulties {
 
   final val Easy = Difficulty(
     "e",
@@ -31,7 +31,7 @@ object Difficulty {
     67
   )
 
-  final val Difficulties = Seq(
+  final val All = List(
     Easy,
     Normal,
     Hard,
@@ -41,11 +41,3 @@ object Difficulty {
   final val Default = Easy
 
 }
-
-case class Difficulty(
-    id: String,
-    displayName: String,
-    width: Int,
-    height: Int,
-    numOfMines: Int
-)

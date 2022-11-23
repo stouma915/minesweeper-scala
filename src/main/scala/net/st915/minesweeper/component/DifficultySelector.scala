@@ -2,7 +2,7 @@ package net.st915.minesweeper.component
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.Difficulty
+import net.st915.minesweeper.difficulty.{Difficulty, Difficulties}
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.*
 
@@ -14,7 +14,7 @@ object DifficultySelector {
     val url = new URL(wind.location.href)
 
     val param =
-      if (diff eq Difficulty.Default) "" else s"?d=${diff.id}"
+      if (diff eq Difficulties.Default) "" else s"?d=${diff.id}"
     val newUrl = s"${url.origin}${url.pathname}$param"
 
     wind.location.href = newUrl
@@ -35,7 +35,7 @@ object DifficultySelector {
           .tap(div.appendChild)
       }
       .tap { div =>
-        Difficulty.Difficulties.foreach { diff =>
+        Difficulties.All.foreach { diff =>
           doc
             .createElement("a")
             .asInstanceOf[HTMLLinkElement]

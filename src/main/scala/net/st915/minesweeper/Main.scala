@@ -4,6 +4,7 @@ import cats.data.OptionT
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
+import net.st915.minesweeper.difficulty.{Difficulty, Difficulties}
 import org.scalajs.dom.*
 
 @main def main(): Unit = {
@@ -18,9 +19,9 @@ import org.scalajs.dom.*
   val getDifficulty: IO[Option[Difficulty]] = IO {
     val params = new URLSearchParams(window.location.search)
     if (params.has("d")) {
-      Difficulty.Difficulties.find(_.id eq params.get("d"))
+      Difficulties.All.find(_.id eq params.get("d"))
     } else {
-      Some(Difficulty.Easy)
+      Some(Difficulties.Easy)
     }
   }
 
