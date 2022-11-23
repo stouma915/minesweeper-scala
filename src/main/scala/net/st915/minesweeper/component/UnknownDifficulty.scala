@@ -15,7 +15,7 @@ object UnknownDifficulty {
       runtime: IORuntime
   ): IO[Element] = for {
     diffSelector <- DifficultySelector.make
-    unknownDiff <- IO {
+    component <- IO {
       doc
         .createElement("div")
         .tap { div =>
@@ -26,6 +26,6 @@ object UnknownDifficulty {
         }
         .tap(_.appendChild(diffSelector))
     }
-  } yield unknownDiff
+  } yield component
 
 }
