@@ -21,7 +21,7 @@ import org.scalajs.dom.*
     if (params.has("d")) {
       Difficulties.All.find(_.id eq params.get("d"))
     } else {
-      Some(Difficulties.Easy)
+      Some(Difficulties.Default)
     }
   }
 
