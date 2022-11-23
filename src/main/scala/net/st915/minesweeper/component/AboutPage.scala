@@ -17,8 +17,7 @@ object AboutPage {
           .tap(_.appendChild("This site is licensed under the ".textNode))
           .tap { p =>
             doc
-              .createElement("a")
-              .asInstanceOf[HTMLLinkElement]
+              .createElementWithType[HTMLLinkElement]("a")
               .tap(_.appendChild("MIT License".textNode))
               .tap(_.href =
                 "https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE"
@@ -30,8 +29,7 @@ object AboutPage {
           .tap(_.appendChild("This site is open source. ".textNode))
           .tap { p =>
             doc
-              .createElement("a")
-              .asInstanceOf[HTMLLinkElement]
+              .createElementWithType[HTMLLinkElement]("a")
               .tap(_.appendChild("Improve this site".textNode))
               .tap(_.href = "https://github.com/stouma915/minesweeper-scala")
               .tap(p.appendChild)
@@ -41,8 +39,7 @@ object AboutPage {
           .tap(_.appendChild("Powered by ".textNode))
           .tap { p =>
             doc
-              .createElement("a")
-              .asInstanceOf[HTMLLinkElement]
+              .createElementWithType[HTMLLinkElement]("a")
               .tap(_.appendChild("GitHub Pages".textNode))
               .tap(_.href = "https://pages.github.com")
               .tap(p.appendChild)

@@ -39,8 +39,7 @@ object DifficultySelector {
       .tap { div =>
         Difficulties.All.foreach { diff =>
           doc
-            .createElement("a")
-            .asInstanceOf[HTMLLinkElement]
+            .createElementWithType[HTMLLinkElement]("a")
             .tap(_.appendChild(diff.displayName.textNode))
             .tap(_.appendChild(doc.createElement("br")))
             .tap(_.href = "#")

@@ -6,7 +6,7 @@ trait DocumentSyntax {
 
   implicit class DocumentOps(doc: Document) {
 
-    def createElementWithType[A >: Element](name: String): A =
+    def createElementWithType[A <: Element](name: String): A =
       doc
         .createElement(name)
         .asInstanceOf[A]

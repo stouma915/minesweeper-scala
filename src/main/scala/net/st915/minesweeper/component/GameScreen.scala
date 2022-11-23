@@ -43,8 +43,7 @@ object GameScreen {
                 implicit val _coord: Coordinate = Coordinate(x, y)
 
                 doc
-                  .createElement("div")
-                  .asInstanceOf[HTMLDivElement]
+                  .createElementWithType[HTMLDivElement]("div")
                   .tap(_.classList.add("cellNotOpened"))
                   .tap(_.id = s"${x}_$y")
                   .tap(_.onclick = implicit e => {
