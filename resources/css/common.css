@@ -12,18 +12,18 @@ div.gameScreen {
 
 div.line {
   width: fit-content;
-  height: 48px;
+  height: 32px;
 }
 
 div.cellNotOpened {
   display: inline-block;
   background-color: #bbbbbb;
   content: "";
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   box-sizing: border-box;
-  border-top: 6px solid #ffffff;
-  border-left: 6px solid #ffffff;
-  border-right: 6px solid #a0a0a0;
-  border-bottom: 6px solid #a0a0a0;
+  border-top: 5px solid #ffffff;
+  border-left: 5px solid #ffffff;
+  border-right: 5px solid #a0a0a0;
+  border-bottom: 5px solid #a0a0a0;
 }
