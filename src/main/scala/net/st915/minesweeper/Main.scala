@@ -32,10 +32,10 @@ import org.scalajs.dom.*
     unknownDiff <- optT(UnknownDifficulty.make)
     _ <- optT(appendToBody(unknownDiff))
     difficulty <- optT(getDifficulty)
-    testMessage <- optT(TestMessage.make(difficulty))
+    gameScreen <- optT(GameScreen.make(difficulty))
     diffSelect <- optT(DifficultySelector.make)
     _ <- optT(IO(Some(unknownDiff.remove())))
-    _ <- optT(appendToBody(testMessage))
+    _ <- optT(appendToBody(gameScreen))
     _ <- optT(appendToBody(diffSelect))
   } yield ()
 
