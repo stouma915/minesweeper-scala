@@ -22,8 +22,7 @@ case class GameLogic(difficulty: Difficulty)(implicit
         val coord = Coordinate(x, y)
 
         doc
-          .getElementById(s"${x}_$y")
-          .asInstanceOf[HTMLElement]
+          .getElementByIdWithType[HTMLElement](s"${x}_$y")
           .tap { cell =>
             val clsName = cell.className
 

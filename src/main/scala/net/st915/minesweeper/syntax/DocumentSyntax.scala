@@ -11,6 +11,11 @@ trait DocumentSyntax {
         .createElement(name)
         .asInstanceOf[A]
 
+    def getElementByIdWithType[A <: Element](id: String): A =
+      doc
+        .getElementById(id)
+        .asInstanceOf[A]
+
   }
 
 }
