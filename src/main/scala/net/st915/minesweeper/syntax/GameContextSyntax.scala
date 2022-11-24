@@ -6,11 +6,11 @@ trait GameContextSyntax {
 
   implicit class GameContextOps(context: GameContext) {
 
-    def addOpened(coord: Coordinate): GameContext =
-      context.updateOpened(context.opened.appended(coord))
+    def addOpened(coord: Coordinate): Unit =
+      context.opened = context.opened.appended(coord)
 
-    def addFlagged(coord: Coordinate): GameContext =
-      context.updateFlagged(context.flagged.appended(coord))
+    def addFlagged(coord: Coordinate): Unit =
+      context.flagged = context.flagged.appended(coord)
 
     def isOpened(coord: Coordinate): Boolean =
       context.opened.contains(coord)

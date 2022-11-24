@@ -9,56 +9,10 @@ object GameContext {
 }
 
 case class GameContext(
-    gameStarted: Boolean = false,
-    gameEnded: Boolean = false,
-    opened: List[Coordinate] = List(),
-    mines: List[Coordinate] = List(),
-    flagged: List[Coordinate] = List()
-) {
-
-  def updateGameStarted(bool: Boolean): GameContext =
-    GameContext(
-      bool,
-      gameEnded,
-      opened,
-      mines,
-      flagged
-    )
-
-  def updateGameEnded(bool: Boolean): GameContext =
-    GameContext(
-      gameStarted,
-      bool,
-      opened,
-      mines,
-      flagged
-    )
-
-  def updateOpened(list: List[Coordinate]): GameContext =
-    GameContext(
-      gameStarted,
-      gameEnded,
-      list,
-      mines,
-      flagged
-    )
-
-  def updateMines(list: List[Coordinate]): GameContext =
-    GameContext(
-      gameStarted,
-      gameEnded,
-      opened,
-      list,
-      flagged
-    )
-
-  def updateFlagged(list: List[Coordinate]): GameContext =
-    GameContext(
-      gameStarted,
-      gameEnded,
-      opened,
-      mines,
-      list
-    )
-
-}
+    var loopHandle: Int = 0,
+    var gameStarted: Boolean = false,
+    var gameEnded: Boolean = false,
+    var opened: List[Coordinate] = List(),
+    var mines: List[Coordinate] = List(),
+    var flagged: List[Coordinate] = List()
+)

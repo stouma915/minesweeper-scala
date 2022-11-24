@@ -20,17 +20,17 @@ case class GameLogic(difficulty: Difficulty)(implicit
 
   def cellClicked(
       event: CellClickEvent
-  )(implicit context: GameContext): IO[GameContext] = IO {
+  )(implicit context: GameContext): IO[Unit] = IO {
     val coord = event.coord
 
     if (!context.isOpened(coord)) {
       context.addOpened(coord)
-    } else context
+    }
   }
 
   def cellRightClicked(
       event: CellRightClickEvent
-  )(implicit context: GameContext): IO[GameContext] = IO {
+  )(implicit context: GameContext): IO[Unit] = IO {
     context
   }
 

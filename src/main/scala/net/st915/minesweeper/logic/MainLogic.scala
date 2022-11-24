@@ -15,31 +15,32 @@ case class MainLogic(gameLogic: GameLogic)(implicit
 
   def startGameLoop: IO[Unit] = for {
     context <- IO(GameContext.empty)
-    _ <- contextLoop(context)
+    loopHandle <- IO {
+      wind.setInterval(
+        () => contextLoop(context).unsafeRunAndForget(),
+        1
+      )
+    }
+    _ <- IO(context.loopHandle = loopHandle)
   } yield ()
 
-  def contextLoop(context: GameContext): IO[GameContext] =
-    if (context.gameEnded) IO(context)
-    else
+  def contextLoop(context: GameContext): IO[Unit] =
+    if (!context.gameEnded) {
       for {
-        newContext <- updateContext(context)
-        loopContext <- contextLoop(newContext)
-      } yield loopContext
+        maybeEvent <- EventQueue.nextEvent
+        _ <- maybeEvent match {
+          case Some(event) =>
+            implicit val _context: GameContext = context
 
-  def updateContext(context: GameContext): IO[GameContext] = for {
-    maybeEvent <- EventQueue.nextEvent
-    newContext <- maybeEvent match {
-      case Some(event) =>
-        implicit val _context: GameContext = context
-
-        event match {
-          case e: CellClickEvent      => gameLogic.cellClicked(e)
-          case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
-          case _                      => IO(context)
+            event match {
+              case e: CellClickEvent      => gameLogic.cellClicked(e)
+              case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
+              case _                      => IO.unit
+            }
+          case None => IO.unit
         }
-      case None => IO(context)
-    }
-    _ <- gameLogic.updateDocument(newContext)
-  } yield newContext
+        _ <- gameLogic.updateDocument(context)
+      } yield ()
+    } else IO.unit
 
 }
