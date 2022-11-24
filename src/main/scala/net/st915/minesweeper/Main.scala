@@ -19,11 +19,8 @@ import org.scalajs.dom.*
 
   val getDifficulty: IO[Option[Difficulty]] = IO {
     val params = new URLSearchParams(window.location.search)
-    if (params.has("d")) {
-      Difficulties.All.find(_.id eq params.get("d"))
-    } else {
-      Some(Difficulties.Default)
-    }
+    if (params.has("d")) Difficulties.All.find(_.id eq params.get("d"))
+    else Some(Difficulties.Default)
   }
 
   import scala.language.implicitConversions
