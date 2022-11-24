@@ -2,8 +2,7 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.Coordinate
-import net.st915.minesweeper.GameContext
+import net.st915.minesweeper.{Coordinate, GameContext}
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import org.scalajs.dom.{Document, Window}
