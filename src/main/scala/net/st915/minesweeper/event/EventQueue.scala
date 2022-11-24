@@ -11,13 +11,11 @@ object EventQueue {
   }
 
   def nextEvent: IO[Option[Event]] = IO {
-    eventQueue.headOption
+    eventQueue.headOption match
+      case Some(x) =>
+        eventQueue = eventQueue.drop(1)
+        Some(x)
+      case None => None
   }
-
-  def increment: IO[Unit] = IO {
-    eventQueue = eventQueue.drop(1)
-  }
-
-  def all: IO[List[Event]] = IO(eventQueue)
 
 }

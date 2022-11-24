@@ -40,7 +40,6 @@ case class MainLogic(gameLogic: GameLogic)(implicit
       case None => IO(context)
     }
     _ <- gameLogic.updateDocument(newContext)
-    _ <- EventQueue.increment
   } yield newContext
 
 }
