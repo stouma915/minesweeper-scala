@@ -2,11 +2,11 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.{Coordinate, GameContext}
+import net.st915.minesweeper.{Constants, Coordinate, GameContext}
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{Document, Window, console}
+import org.scalajs.dom.{Document, HTMLElement, Window, console}
 
 import scala.util.chaining.*
 
@@ -16,7 +16,28 @@ case class GameLogic(difficulty: Difficulty)(implicit
     runtime: IORuntime
 ) {
 
-  def updateDocument(context: GameContext): IO[Unit] = IO {}
+  def updateDocument(context: GameContext): IO[Unit] = IO {
+    (0 until difficulty.height).foreach { y =>
+      (0 until difficulty.width).foreach { x =>
+        val coord = Coordinate(x, y)
+
+        doc
+          .getElementById(s"${x}_$y")
+          .asInstanceOf[HTMLElement]
+          .tap { cell =>
+            val clsName = cell.className
+
+            if (context.isOpened(coord)) {
+              if (clsName != Constants.OpenedCellClasses)
+                cell.className = Constants.OpenedCellClasses
+            } else {
+              if (clsName != Constants.NotOpenedCellClasses)
+                cell.className = Constants.NotOpenedCellClasses
+            }
+          }
+      }
+    }
+  }
 
   def cellClicked(
       event: CellClickEvent
@@ -30,8 +51,6 @@ case class GameLogic(difficulty: Difficulty)(implicit
 
   def cellRightClicked(
       event: CellRightClickEvent
-  )(implicit context: GameContext): IO[Unit] = IO {
-    context
-  }
+  )(implicit context: GameContext): IO[Unit] = IO {}
 
 }
