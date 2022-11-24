@@ -9,7 +9,6 @@ object GameContext {
 }
 
 case class GameContext(
-    var loopHandle: Int = 0,
     var gameStarted: Boolean = false,
     var gameEnded: Boolean = false,
     var opened: List[Coordinate] = List(),

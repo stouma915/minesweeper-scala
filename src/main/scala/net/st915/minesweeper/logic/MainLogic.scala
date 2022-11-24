@@ -15,13 +15,12 @@ case class MainLogic(gameLogic: GameLogic)(implicit
 
   def startGameLoop: IO[Unit] = for {
     context <- IO(GameContext.empty)
-    loopHandle <- IO {
+    _ <- IO {
       wind.setInterval(
         () => contextLoop(context).unsafeRunAndForget(),
         1
       )
     }
-    _ <- IO(context.loopHandle = loopHandle)
   } yield ()
 
   def contextLoop(context: GameContext): IO[Unit] =
