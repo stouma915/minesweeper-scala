@@ -12,21 +12,17 @@ import scala.util.chaining.*
 
 object GameScreen {
 
-  private def onClick(implicit
-      event: MouseEvent,
-      coord: Coordinate
-  ): IO[Unit] = for {
-    event <- IO(CellClickEvent(coord))
-    _ <- EventQueue.queue(event)
-  } yield ()
+  private def onClick(implicit coord: Coordinate): IO[Unit] =
+    for {
+      event <- IO(CellClickEvent(coord))
+      _ <- EventQueue.queue(event)
+    } yield ()
 
-  private def onRightClick(implicit
-      event: MouseEvent,
-      coord: Coordinate
-  ): IO[Unit] = for {
-    event <- IO(CellRightClickEvent(coord))
-    _ <- EventQueue.queue(event)
-  } yield ()
+  private def onRightClick(implicit coord: Coordinate): IO[Unit] =
+    for {
+      event <- IO(CellRightClickEvent(coord))
+      _ <- EventQueue.queue(event)
+    } yield ()
 
   def make(
       difficulty: Difficulty
@@ -51,11 +47,11 @@ object GameScreen {
                       .tap(_.add("cellNotOpened"))
                   }
                   .tap(_.id = s"${x}_$y")
-                  .tap(_.onclick = implicit e => {
+                  .tap(_.onclick = e => {
                     e.preventDefault()
                     onClick.unsafeRunAndForget()
                   })
-                  .tap(_.oncontextmenu = implicit e => {
+                  .tap(_.oncontextmenu = e => {
                     e.preventDefault()
                     onRightClick.unsafeRunAndForget()
                   })
