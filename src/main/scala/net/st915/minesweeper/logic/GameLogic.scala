@@ -5,7 +5,8 @@ import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.{Coordinate, GameContext}
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
-import org.scalajs.dom.{Document, Window}
+import net.st915.minesweeper.implicits.*
+import org.scalajs.dom.{Document, Window, console}
 
 import scala.util.chaining.*
 
@@ -20,7 +21,11 @@ case class GameLogic(difficulty: Difficulty)(implicit
   def cellClicked(
       event: CellClickEvent
   )(implicit context: GameContext): IO[GameContext] = IO {
-    context
+    val coord = event.coord
+
+    if (!context.isOpened(coord)) {
+      context.addOpened(coord)
+    } else context
   }
 
   def cellRightClicked(
