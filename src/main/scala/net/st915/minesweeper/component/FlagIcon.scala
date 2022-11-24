@@ -16,8 +16,7 @@ object FlagIcon {
         doc
           .createElement("div")
           .tap { part =>
-            part
-              .classList
+            part.classList
               .tap(_.add("flagPart"))
               .tap(_.add("flagTop"))
           }
@@ -27,8 +26,7 @@ object FlagIcon {
         doc
           .createElement("div")
           .tap { part =>
-            part
-              .classList
+            part.classList
               .tap(_.add("flagPart"))
               .tap(_.add("flagMiddle"))
           }
@@ -38,8 +36,7 @@ object FlagIcon {
         doc
           .createElement("div")
           .tap { part =>
-            part
-              .classList
+            part.classList
               .tap(_.add("flagPart"))
               .tap(_.add("flagBottom"))
           }

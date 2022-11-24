@@ -11,22 +11,21 @@ import org.scalajs.dom.{Document, Window}
 import scala.util.chaining.*
 
 case class GameLogic(difficulty: Difficulty)(implicit
-  doc: Document,
-  wind: Window,
-  runtime: IORuntime
+    doc: Document,
+    wind: Window,
+    runtime: IORuntime
 ) {
 
-  def updateDocument(context: GameContext): IO[Unit] = IO {
-  }
+  def updateDocument(context: GameContext): IO[Unit] = IO {}
 
   def cellClicked(
-    event: CellClickEvent
+      event: CellClickEvent
   )(implicit context: GameContext): IO[GameContext] = IO {
     context
   }
 
   def cellRightClicked(
-    event: CellRightClickEvent
+      event: CellRightClickEvent
   )(implicit context: GameContext): IO[GameContext] = IO {
     context
   }

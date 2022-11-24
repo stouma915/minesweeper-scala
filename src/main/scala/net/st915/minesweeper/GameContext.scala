@@ -13,9 +13,9 @@ object GameContext {
 }
 
 case class GameContext(
-  gameStarted: Boolean,
-  gameEnded: Boolean,
-  opened: List[Coordinate]
+    gameStarted: Boolean,
+    gameEnded: Boolean,
+    opened: List[Coordinate]
 ) {
 
   def updateGameStarted(bool: Boolean): GameContext =

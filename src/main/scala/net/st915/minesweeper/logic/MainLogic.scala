@@ -8,9 +8,9 @@ import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.*
 
 case class MainLogic(gameLogic: GameLogic)(implicit
-  doc: Document,
-  wind: Window,
-  runtime: IORuntime
+    doc: Document,
+    wind: Window,
+    runtime: IORuntime
 ) {
 
   def startGameLoop: IO[Unit] = for {
@@ -20,10 +20,11 @@ case class MainLogic(gameLogic: GameLogic)(implicit
 
   def contextLoop(context: GameContext): IO[GameContext] =
     if (context.gameEnded) IO(context)
-    else for {
-      newContext <- updateContext(context)
-      loopContext <- contextLoop(newContext)
-    } yield loopContext
+    else
+      for {
+        newContext <- updateContext(context)
+        loopContext <- contextLoop(newContext)
+      } yield loopContext
 
   def updateContext(context: GameContext): IO[GameContext] = for {
     maybeEvent <- EventQueue.nextEvent
@@ -32,9 +33,9 @@ case class MainLogic(gameLogic: GameLogic)(implicit
         implicit val _context: GameContext = context
 
         event match {
-          case e: CellClickEvent => gameLogic.cellClicked(e)
+          case e: CellClickEvent      => gameLogic.cellClicked(e)
           case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
-          case _ => IO(context)
+          case _                      => IO(context)
         }
       case None => IO(context)
     }

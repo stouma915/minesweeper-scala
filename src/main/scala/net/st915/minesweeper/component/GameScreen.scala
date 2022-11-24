@@ -46,8 +46,7 @@ object GameScreen {
                 doc
                   .createElementWithType[HTMLDivElement]("div")
                   .tap { cellDiv =>
-                    cellDiv
-                      .classList
+                    cellDiv.classList
                       .tap(_.add("cell"))
                       .tap(_.add("cellNotOpened"))
                   }
