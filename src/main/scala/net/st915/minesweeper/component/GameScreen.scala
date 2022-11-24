@@ -45,7 +45,12 @@ object GameScreen {
 
                 doc
                   .createElementWithType[HTMLDivElement]("div")
-                  .tap(_.classList.add("cellNotOpened"))
+                  .tap { cellDiv =>
+                    cellDiv
+                      .classList
+                      .tap(_.add("cell"))
+                      .tap(_.add("cellNotOpened"))
+                  }
                   .tap(_.id = s"${x}_$y")
                   .tap(_.onclick = implicit e => {
                     e.preventDefault()
