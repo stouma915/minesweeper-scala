@@ -4,6 +4,7 @@ import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.difficulty.Difficulty
+import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.{Document, Element, HTMLDivElement, MouseEvent}
 
@@ -14,18 +15,18 @@ object GameScreen {
   private def onClick(implicit
       event: MouseEvent,
       coord: Coordinate
-  ): IO[Unit] =
-    IO {
-      println(s"CLICK: (${coord.x}, ${coord.y})")
-    }
+  ): IO[Unit] = for {
+    event <- IO(CellClickEvent(coord))
+    _ <- EventQueue.queue(event)
+  } yield ()
 
   private def onRightClick(implicit
       event: MouseEvent,
       coord: Coordinate
-  ): IO[Unit] =
-    IO {
-      println(s"RIGHT CLICK: (${coord.x}, ${coord.y})")
-    }
+  ): IO[Unit] = for {
+    event <- IO(CellRightClickEvent(coord))
+    _ <- EventQueue.queue(event)
+  } yield ()
 
   def make(
       difficulty: Difficulty
