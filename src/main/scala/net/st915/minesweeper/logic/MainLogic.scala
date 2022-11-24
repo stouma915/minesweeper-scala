@@ -7,7 +7,7 @@ import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.*
 
-case class MainLogic()(implicit
+case class MainLogic(gameLogic: GameLogic)(implicit
   doc: Document,
   wind: Window,
   runtime: IORuntime
@@ -27,14 +27,18 @@ case class MainLogic()(implicit
 
   def updateContext(context: GameContext): IO[GameContext] = for {
     maybeEvent <- EventQueue.nextEvent
-    newContext <- IO {
-      maybeEvent match {
-        case Some(event) =>
-          // TODO
-          context
-        case None => context
-      }
+    newContext <- maybeEvent match {
+      case Some(event) =>
+        implicit val _context: GameContext = context
+
+        event match {
+          case e: CellClickEvent => gameLogic.cellClicked(e)
+          case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
+          case _ => IO(context)
+        }
+      case None => IO(context)
     }
+    _ <- gameLogic.updateDocument(newContext)
     _ <- EventQueue.increment
   } yield newContext
 

@@ -34,3 +34,43 @@ div.cellNotOpened {
 div.cellOpened {
   background-color: #c0c0c0;
 }
+
+div.flag {
+  position: relative;
+  display: inline-block;
+  z-index: 10;
+  width: 22px;
+  height: 22px;
+}
+
+div.flagPart {
+  position: relative;
+  display: block;
+  z-index: 20;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 0;
+  height: 0;
+}
+
+div.flagTop {
+  left: calc(50% - 1px);
+  border-style: solid;
+  border-width: 5px 0 5px 11px;
+  border-color: transparent transparent transparent #ff0000;
+}
+
+div.flagMiddle {
+  left: calc(50% - 1px);
+  width: 1px;
+  height: 5px;
+  background-color: #000000;
+}
+
+div.flagBottom {
+  width: 16px;
+  height: 0px;
+  border-bottom: 7px solid #000000;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}

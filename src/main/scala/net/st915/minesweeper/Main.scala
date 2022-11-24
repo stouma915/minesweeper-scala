@@ -5,7 +5,7 @@ import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
 import net.st915.minesweeper.difficulty.{Difficulty, Difficulties}
-import net.st915.minesweeper.logic.MainLogic
+import net.st915.minesweeper.logic.*
 import org.scalajs.dom.*
 
 @main def main(): Unit = {
@@ -39,7 +39,8 @@ import org.scalajs.dom.*
     _ <- optT(IO(Some(unknownDiff.remove())))
     _ <- optT(appendToBody(gameScreen))
     _ <- optT(appendToBody(diffSelect))
-    _ <- optT(MainLogic().startGameLoop)
+    gameLogic <- optT(IO(Some(GameLogic(difficulty))))
+    _ <- optT(MainLogic(gameLogic).startGameLoop)
   } yield ()
 
   val program = for {
