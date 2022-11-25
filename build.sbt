@@ -1,5 +1,5 @@
 ThisBuild / version := "1.0.0"
-ThisBuild / description := "Minesweeper made with Scala.js"
+ThisBuild / description := "Minesweeper made with Scala.js + cats-effect"
 ThisBuild / scalaVersion := "3.2.1"
 
 lazy val root = project
