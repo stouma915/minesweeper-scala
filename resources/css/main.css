@@ -122,3 +122,18 @@ div.mineMiddleCenter {
   z-index: 50;
   border-radius: 50%;
 }
+
+div.btn {
+  width: fit-content;
+  height: 1.5em;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+}
+
+span.btnText {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 0.5em;
+  height: 1.5em;
+}

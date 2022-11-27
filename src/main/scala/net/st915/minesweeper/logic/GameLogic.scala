@@ -38,6 +38,9 @@ case class GameLogic(difficulty: Difficulty)(implicit
     }
   }
 
+  def restartButtonClicked(implicit context: GameContext): IO[Unit] = IO {
+  }
+
   def cellClicked(
       event: CellClickEvent
   )(implicit context: GameContext): IO[Unit] = IO {
