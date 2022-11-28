@@ -55,6 +55,23 @@ case class GameLogic(difficulty: Difficulty)(implicit
                 if (flagContainer.style.display != "none")
                   flagContainer.style.display = "none"
               }
+
+              val flagPlaceholderContainer =
+                doc.getElementByIdWithType[HTMLDivElement](
+                  s"flagPlaceholderContainer_${coord.x}_${coord.y}"
+                )
+              if (context.flagPlaceMode) {
+                if (!context.isOpened(coord) && !context.isFlagged(coord)) {
+                  if (flagPlaceholderContainer.style.display != "block")
+                    flagPlaceholderContainer.style.display = "block"
+                } else {
+                  if (flagPlaceholderContainer.style.display != "none")
+                    flagPlaceholderContainer.style.display = "none"
+                }
+              } else {
+                if (flagPlaceholderContainer.style.display != "none")
+                  flagPlaceholderContainer.style.display = "none"
+              }
             }
         }
     )
@@ -78,25 +95,37 @@ case class GameLogic(difficulty: Difficulty)(implicit
       _ <- context.init
     } yield ()
 
+  def openCell(coord: Coordinate)(implicit context: GameContext): IO[Unit] =
+    IO {
+      if (!context.isOpened(coord) && !context.isFlagged(coord)) {
+        context.addOpened(coord)
+      }
+    }
+
+  def toggleFlagged(
+      coord: Coordinate
+  )(implicit context: GameContext): IO[Unit] =
+    IO {
+      if (!context.isOpened(coord)) {
+        if (context.isFlagged(coord)) context.removeFlagged(coord)
+        else context.addFlagged(coord)
+      }
+    }
+
   def cellClicked(
       event: CellClickEvent
-  )(implicit context: GameContext): IO[Unit] = IO {
-    val coord = event.coord
-
-    if (!context.isOpened(coord) && !context.isFlagged(coord)) {
-      context.addOpened(coord)
-    }
-  }
+  )(implicit context: GameContext): IO[Unit] =
+    if (!context.flagPlaceMode)
+      openCell(event.coord)
+    else
+      toggleFlagged(event.coord)
 
   def cellRightClicked(
       event: CellRightClickEvent
-  )(implicit context: GameContext): IO[Unit] = IO {
-    val coord = event.coord
-
-    if (!context.isOpened(coord)) {
-      if (context.isFlagged(coord)) context.removeFlagged(coord)
-      else context.addFlagged(coord)
-    }
-  }
+  )(implicit context: GameContext): IO[Unit] =
+    if (!context.flagPlaceMode)
+      toggleFlagged(event.coord)
+    else
+      IO.unit
 
 }
