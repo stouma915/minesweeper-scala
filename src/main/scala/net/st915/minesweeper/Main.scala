@@ -11,8 +11,7 @@ import org.scalajs.dom.*
 
   implicit val _document: Document = document
   implicit val _window: Window = window
-  implicit val _runtime: IORuntime =
-    cats.effect.unsafe.implicits.global
+  implicit val _runtime: IORuntime = cats.effect.unsafe.implicits.global
 
   val appendToBody: Element => IO[Unit] = e => IO(document.body.appendChild(e))
 
