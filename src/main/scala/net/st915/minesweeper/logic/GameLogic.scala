@@ -2,9 +2,9 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
+import net.st915.minesweeper.*
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
-import net.st915.minesweeper.*
 import org.scalajs.dom.*
 
 import scala.util.chaining.*
