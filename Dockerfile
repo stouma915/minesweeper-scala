@@ -9,7 +9,10 @@ COPY index.html .
 COPY build.sbt .
 COPY build.sh .
 
-RUN bash build.sh
+RUN sed 's/\r$//' build.sh > build_fixed.sh
+RUN chmod +x build_fixed.sh
+
+RUN bash build_fixed.sh
 
 FROM nginx:1.23-alpine
 
