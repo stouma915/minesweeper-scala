@@ -6,4 +6,8 @@ case class Difficulty(
     width: Int,
     height: Int,
     numOfMines: Int
-)
+) {
+
+  require(numOfMines <= (width * height) - 9)
+
+}
