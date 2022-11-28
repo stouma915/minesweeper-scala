@@ -84,6 +84,7 @@ object GameScreen {
                         .tap { cellDiv =>
                           val program = for {
                             flagIcon <- FlagIcon.make
+                            flagPlaceholderIcon <- FlagPlaceholderIcon.make
                             mineIcon <- MineIcon.make
                             _ <- IO {
                               doc
@@ -92,6 +93,15 @@ object GameScreen {
                                 .tap(_.id = s"flagContainer_${x}_$y")
                                 .tap(_.style.display = "none")
                                 .tap(_.appendChild(flagIcon))
+                                .tap(cellDiv.appendChild)
+                            }
+                            _ <- IO {
+                              doc
+                                .createElementWithType[HTMLDivElement]("div")
+                                .tap(_.classList.add("iconContainer"))
+                                .tap(_.id = s"flagPlaceholderContainer_${x}_$y")
+                                .tap(_.style.display = "none")
+                                .tap(_.appendChild(flagPlaceholderIcon))
                                 .tap(cellDiv.appendChild)
                             }
                             _ <- IO {
