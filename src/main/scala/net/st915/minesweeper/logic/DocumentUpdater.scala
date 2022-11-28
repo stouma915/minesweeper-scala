@@ -2,6 +2,7 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
+import net.st915.minesweeper.component.Button
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.implicits.*
 import net.st915.minesweeper.{Constants, GameContext, Util}
@@ -14,18 +15,13 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
 ) {
 
   def updateFlagPlaceButtonText(implicit context: GameContext): IO[Unit] =
-    IO {
-      val element = doc.getElementById(Constants.FlagPlaceButtonId)
-      val currentText = element.textContent
-
-      if (context.flagPlaceMode) {
-        if (currentText != Constants.InFlagPlaceModeText)
-          element.textContent = Constants.InFlagPlaceModeText
-      } else {
-        if (currentText != Constants.NotFlagPlaceModeText)
-          element.textContent = Constants.NotFlagPlaceModeText
-      }
-    }
+    Button.updateText(
+      Constants.FlagPlaceButtonId,
+      if (context.flagPlaceMode)
+        Constants.InFlagPlaceModeText
+      else
+        Constants.NotFlagPlaceModeText
+    )
 
   def updateCellClasses(implicit context: GameContext): IO[Unit] =
     Util.forAllCoords(

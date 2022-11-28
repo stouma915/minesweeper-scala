@@ -15,7 +15,10 @@ object Button {
   )(implicit doc: Document): IO[Unit] = IO {
     doc
       .getElementByIdWithType[HTMLSpanElement](id)
-      .tap(_.textContent = text)
+      .tap { span =>
+        if (span.textContent != text)
+          span.textContent = text
+      }
   }
 
   def make(
