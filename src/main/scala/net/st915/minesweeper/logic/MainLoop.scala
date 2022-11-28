@@ -7,23 +7,23 @@ import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.*
 
-case class MainLogic(gameLogic: GameLogic)(implicit
+case class MainLoop(gameLogic: GameLogic)(implicit
     doc: Document,
     wind: Window,
     runtime: IORuntime
 ) {
 
-  def startGameLoop: IO[Unit] = for {
+  def startMainLoop: IO[Unit] = for {
     context <- IO(GameContext.empty)
     _ <- IO {
       wind.setInterval(
-        () => contextLoop(context).unsafeRunAndForget(),
+        () => eventLoop(context).unsafeRunAndForget(),
         1
       )
     }
   } yield ()
 
-  def contextLoop(context: GameContext): IO[Unit] =
+  def eventLoop(context: GameContext): IO[Unit] =
     if (!context.gameEnded) {
       for {
         maybeEvent <- EventQueue.nextEvent

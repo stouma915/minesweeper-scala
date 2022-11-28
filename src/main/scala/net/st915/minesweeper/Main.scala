@@ -37,7 +37,7 @@ import org.scalajs.dom.*
     _ <- optT(appendToBody(gameScreen))
     _ <- optT(appendToBody(diffSelect))
     gameLogic <- optT(IO(Some(GameLogic(difficulty))))
-    _ <- optT(MainLogic(gameLogic).startGameLoop)
+    _ <- optT(MainLoop(gameLogic).startMainLoop)
   } yield ()
 
   val program = for {
