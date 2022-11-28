@@ -26,6 +26,7 @@ import org.scalajs.dom.*
   import scala.language.implicitConversions
   implicit def ioAToIOOptA[A](io: IO[A]): IO[Option[A]] = io.map(x => Some(x))
   def optT[A](io: IO[Option[A]]): OptionT[IO, A] = OptionT(io)
+  def ioSome[A](a: A): IO[Option[A]] = IO(Some(a))
 
   val renderGame = for {
     unknownDiff <- optT(UnknownDifficulty.make)
@@ -33,11 +34,11 @@ import org.scalajs.dom.*
     difficulty <- optT(getDifficulty)
     gameScreen <- optT(GameScreen.make(difficulty))
     diffSelect <- optT(DifficultySelector.make)
-    _ <- optT(IO(Some(unknownDiff.remove())))
+    _ <- optT(ioSome(unknownDiff.remove()))
     _ <- optT(appendToBody(gameScreen))
     _ <- optT(appendToBody(diffSelect))
-    gameLogic <- optT(IO(Some(GameLogic(difficulty))))
-    docUpdater <- optT(IO(Some(DocumentUpdater(difficulty))))
+    gameLogic <- optT(ioSome(GameLogic(difficulty)))
+    docUpdater <- optT(ioSome(DocumentUpdater(difficulty)))
     _ <- optT(MainLoop(gameLogic, docUpdater).startMainLoop)
   } yield ()
 
