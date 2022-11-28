@@ -81,6 +81,32 @@ object GameScreen {
                           e.preventDefault()
                           onRightClick.unsafeRunAndForget()
                         })
+                        .tap { cellDiv =>
+                          val program = for {
+                            flagIcon <- FlagIcon.make
+                            mineIcon <- MineIcon.make
+                            _ <- IO {
+                              doc
+                                .createElementWithType[HTMLDivElement]("div")
+                                .tap(_.classList.add("iconContainer"))
+                                .tap(_.id = s"flagContainer_${x}_$y")
+                                .tap(_.style.display = "none")
+                                .tap(_.appendChild(flagIcon))
+                                .tap(cellDiv.appendChild)
+                            }
+                            _ <- IO {
+                              doc
+                                .createElementWithType[HTMLDivElement]("div")
+                                .tap(_.classList.add("iconContainer"))
+                                .tap(_.id = s"mineContainer_${x}_$y")
+                                .tap(_.style.display = "none")
+                                .tap(_.appendChild(mineIcon))
+                                .tap(cellDiv.appendChild)
+                            }
+                          } yield ()
+
+                          program.unsafeRunAndForget()
+                        }
                         .tap(lineDiv.appendChild)
                     }
                   }
