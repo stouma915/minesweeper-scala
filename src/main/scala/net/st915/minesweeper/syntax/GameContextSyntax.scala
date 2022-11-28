@@ -12,6 +12,9 @@ trait GameContextSyntax {
     def addFlagged(coord: Coordinate): Unit =
       context.flagged = context.flagged.appended(coord)
 
+    def removeFlagged(coord: Coordinate): Unit =
+      context.flagged = context.flagged.filter(_ != coord)
+
     def isOpened(coord: Coordinate): Boolean =
       context.opened.contains(coord)
 

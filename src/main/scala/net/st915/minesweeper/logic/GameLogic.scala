@@ -6,7 +6,7 @@ import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import net.st915.minesweeper.{Constants, Coordinate, GameContext, Util}
-import org.scalajs.dom.{Document, HTMLElement, Window, console}
+import org.scalajs.dom.*
 
 import scala.util.chaining.*
 
@@ -37,13 +37,23 @@ case class GameLogic(difficulty: Difficulty)(implicit
             .getElementByIdWithType[HTMLElement](s"${coord.x}_${coord.y}")
             .tap { cell =>
               val clsName = cell.className
-
               if (context.isOpened(coord)) {
                 if (clsName != Constants.OpenedCellClasses)
                   cell.className = Constants.OpenedCellClasses
               } else {
                 if (clsName != Constants.NotOpenedCellClasses)
                   cell.className = Constants.NotOpenedCellClasses
+              }
+
+              val flagContainer = doc.getElementByIdWithType[HTMLDivElement](
+                s"flagContainer_${coord.x}_${coord.y}"
+              )
+              if (context.isFlagged(coord)) {
+                if (flagContainer.style.display != "block")
+                  flagContainer.style.display = "block"
+              } else {
+                if (flagContainer.style.display != "none")
+                  flagContainer.style.display = "none"
               }
             }
         }
@@ -73,13 +83,20 @@ case class GameLogic(difficulty: Difficulty)(implicit
   )(implicit context: GameContext): IO[Unit] = IO {
     val coord = event.coord
 
-    if (!context.isOpened(coord)) {
+    if (!context.isOpened(coord) && !context.isFlagged(coord)) {
       context.addOpened(coord)
     }
   }
 
   def cellRightClicked(
       event: CellRightClickEvent
-  )(implicit context: GameContext): IO[Unit] = IO {}
+  )(implicit context: GameContext): IO[Unit] = IO {
+    val coord = event.coord
+
+    if (!context.isOpened(coord)) {
+      if (context.isFlagged(coord)) context.removeFlagged(coord)
+      else context.addFlagged(coord)
+    }
+  }
 
 }
