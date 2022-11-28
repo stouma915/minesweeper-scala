@@ -2,7 +2,7 @@ body {
   font-family: sans-serif;
 }
 
-div.gameScreen {
+div.cellList {
   user-select: none;
   overflow: hidden;
   width: fit-content;
