@@ -8,6 +8,6 @@ case class Difficulty(
     numOfMines: Int
 ) {
 
-  require(numOfMines <= (width * height) - 9)
+  require(numOfMines < (width * height) - 9)
 
 }
