@@ -5,7 +5,7 @@ import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
-import net.st915.minesweeper.{Constants, Coordinate, GameContext}
+import net.st915.minesweeper.{Constants, Coordinate, GameContext, Util}
 import org.scalajs.dom.{Document, HTMLElement, Window, console}
 
 import scala.util.chaining.*
@@ -29,13 +29,12 @@ case class GameLogic(difficulty: Difficulty)(implicit
           element.textContent = Constants.NotFlagPlaceModeText
       }
     }
-    _ <- IO {
-      (0 until difficulty.height).foreach { y =>
-        (0 until difficulty.width).foreach { x =>
-          val coord = Coordinate(x, y)
-
+    _ <- Util.forAllCoords(
+      difficulty,
+      coord =>
+        IO {
           doc
-            .getElementByIdWithType[HTMLElement](s"${x}_$y")
+            .getElementByIdWithType[HTMLElement](s"${coord.x}_${coord.y}")
             .tap { cell =>
               val clsName = cell.className
 
@@ -48,8 +47,7 @@ case class GameLogic(difficulty: Difficulty)(implicit
               }
             }
         }
-      }
-    }
+    )
   } yield ()
 
   def flagPlaceButtonClicked(implicit context: GameContext): IO[Unit] = IO {
