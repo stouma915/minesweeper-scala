@@ -9,8 +9,18 @@ import scala.util.chaining.*
 
 object Button {
 
+  def updateText(
+    id: String,
+    text: String
+  )(implicit doc: Document): IO[Unit] = IO {
+    doc
+      .getElementByIdWithType[HTMLSpanElement](id)
+      .tap(_.textContent = text)
+  }
+
   def make(
     text: String,
+    id: String,
     onClick: IO[Unit]
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = IO {
     doc
@@ -20,7 +30,8 @@ object Button {
         doc
           .createElementWithType[HTMLSpanElement]("span")
           .tap(_.classList.add("btnText"))
-          .tap(_.appendChild(text.textNode))
+          .tap(_.textContent = text)
+          .tap(_.id = id)
           .tap(_.onclick = e => {
             e.preventDefault()
             onClick.unsafeRunAndForget()

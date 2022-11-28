@@ -2,6 +2,7 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
+import net.st915.minesweeper.component.Button
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*

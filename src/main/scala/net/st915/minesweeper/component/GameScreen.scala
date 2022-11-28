@@ -2,7 +2,7 @@ package net.st915.minesweeper.component
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.Coordinate
+import net.st915.minesweeper.{Constants, Coordinate}
 import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
@@ -35,6 +35,7 @@ object GameScreen {
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = for {
     restartButton <- Button.make(
       "Restart",
+      Constants.RestartButtonId,
       onRestartButtonClick
     )
     component <- IO {
