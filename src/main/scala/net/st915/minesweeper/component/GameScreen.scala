@@ -36,6 +36,18 @@ object GameScreen {
       _ <- EventQueue.queue(event)
     } yield ()
 
+  def updateCellClassName(coord: Coordinate, newClassName: String)(implicit
+      doc: Document
+  ): IO[Unit] =
+    IO {
+      doc
+        .getElementByIdWithType[HTMLDivElement](s"${coord.x}_${coord.y}")
+        .tap { cellElem =>
+          if (cellElem.className != newClassName)
+            cellElem.className = newClassName
+        }
+    }
+
   def make(
       difficulty: Difficulty
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = for {
@@ -86,32 +98,23 @@ object GameScreen {
                             flagIcon <- FlagIcon.make
                             flagPlaceholderIcon <- FlagPlaceholderIcon.make
                             mineIcon <- MineIcon.make
+                            flagContainer <- IconContainer.make(
+                              s"flagContainer_${x}_$y",
+                              flagIcon
+                            )
+                            flagPlaceholderContainer <- IconContainer.make(
+                              s"flagPlaceholderContainer_${x}_$y",
+                              flagPlaceholderIcon
+                            )
+                            mineContainer <- IconContainer.make(
+                              s"mineContainer_${x}_$y",
+                              mineIcon
+                            )
                             _ <- IO {
-                              doc
-                                .createElementWithType[HTMLDivElement]("div")
-                                .tap(_.classList.add("iconContainer"))
-                                .tap(_.id = s"flagContainer_${x}_$y")
-                                .tap(_.style.display = "none")
-                                .tap(_.appendChild(flagIcon))
-                                .tap(cellDiv.appendChild)
-                            }
-                            _ <- IO {
-                              doc
-                                .createElementWithType[HTMLDivElement]("div")
-                                .tap(_.classList.add("iconContainer"))
-                                .tap(_.id = s"flagPlaceholderContainer_${x}_$y")
-                                .tap(_.style.display = "none")
-                                .tap(_.appendChild(flagPlaceholderIcon))
-                                .tap(cellDiv.appendChild)
-                            }
-                            _ <- IO {
-                              doc
-                                .createElementWithType[HTMLDivElement]("div")
-                                .tap(_.classList.add("iconContainer"))
-                                .tap(_.id = s"mineContainer_${x}_$y")
-                                .tap(_.style.display = "none")
-                                .tap(_.appendChild(mineIcon))
-                                .tap(cellDiv.appendChild)
+                              cellDiv
+                                .tap(_.appendChild(flagContainer))
+                                .tap(_.appendChild(flagPlaceholderContainer))
+                                .tap(_.appendChild(mineContainer))
                             }
                           } yield ()
 
