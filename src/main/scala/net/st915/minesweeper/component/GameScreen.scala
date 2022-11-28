@@ -11,48 +11,38 @@ import scala.util.chaining.*
 
 object GameScreen {
 
-  private def onCellClick(coord: Coordinate): IO[Unit] =
-    for {
-      event <- IO(CellClickEvent(coord))
-      _ <- EventQueue.queue(event)
-    } yield ()
-
-  private def onCellRightClick(coord: Coordinate): IO[Unit] =
-    for {
-      event <- IO(CellRightClickEvent(coord))
-      _ <- EventQueue.queue(event)
-    } yield ()
-
-  private def onFlagPlaceButtonClick: IO[Unit] =
-    for {
-      event <- IO(ButtonClickEvent(Constants.FlagPlaceButtonId))
-      _ <- EventQueue.queue(event)
-    } yield ()
-
-  private def onRestartButtonClick: IO[Unit] =
-    for {
-      event <- IO(ButtonClickEvent(Constants.RestartButtonId))
-      _ <- EventQueue.queue(event)
-    } yield ()
-
   def make(
       difficulty: Difficulty
   )(implicit doc: Document, runtime: IORuntime): IO[Element] =
     for {
       cellList <- CellList.make(
         difficulty,
-        onCellClick,
-        onCellRightClick
+        coord =>
+          for {
+            event <- IO(CellClickEvent(coord))
+            _ <- EventQueue.queue(event)
+          } yield (),
+        coord =>
+          for {
+            event <- IO(CellRightClickEvent(coord))
+            _ <- EventQueue.queue(event)
+          } yield ()
       )
       flagPlaceButton <- Button.make(
         Constants.NotFlagPlaceModeText,
         Constants.FlagPlaceButtonId,
-        onFlagPlaceButtonClick
+        for {
+          event <- IO(ButtonClickEvent(Constants.FlagPlaceButtonId))
+          _ <- EventQueue.queue(event)
+        } yield ()
       )
       restartButton <- Button.make(
         "Restart",
         Constants.RestartButtonId,
-        onRestartButtonClick
+        for {
+          event <- IO(ButtonClickEvent(Constants.RestartButtonId))
+          _ <- EventQueue.queue(event)
+        } yield ()
       )
       component <- IO {
         doc
