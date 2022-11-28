@@ -43,6 +43,8 @@ import org.scalajs.dom.*
   } yield ()
 
   val program = for {
+    infoText <- InformationText.make
+    _ <- appendToBody(infoText)
     _ <- renderGame.value
     aboutPage <- AboutPage.make
     _ <- appendToBody(aboutPage)
