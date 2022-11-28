@@ -2,8 +2,8 @@ package net.st915.minesweeper.component
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.{Difficulties, Difficulty}
 import net.st915.minesweeper.implicits.*
+import net.st915.minesweeper.{Difficulties, Difficulty}
 import org.scalajs.dom.*
 
 import scala.util.chaining.*
