@@ -15,7 +15,7 @@ object GameScreen {
       difficulty: Difficulty
   )(implicit doc: Document, runtime: IORuntime): IO[Element] =
     for {
-      cellList <- CellList.make(
+      cellArray <- CellArray.make(
         difficulty,
         coord =>
           for {
@@ -48,7 +48,7 @@ object GameScreen {
         doc
           .createElement("div")
           .tap(_.classList.add("gameScreen"))
-          .tap(_.appendChild(cellList))
+          .tap(_.appendChild(cellArray))
           .tap(_.appendChild(doc.makeBR))
           .tap(_.appendChild(flagPlaceButton))
           .tap(_.appendChild(doc.makeBR))

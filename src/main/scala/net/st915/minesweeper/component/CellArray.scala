@@ -8,7 +8,7 @@ import org.scalajs.dom.*
 
 import scala.util.chaining.*
 
-object CellList {
+object CellArray {
 
   def make(
       difficulty: Difficulty,
@@ -18,8 +18,8 @@ object CellList {
     IO {
       doc
         .createElement("div")
-        .tap(_.classList.add("cellList"))
-        .tap { cellListDiv =>
+        .tap(_.classList.add("cellArray"))
+        .tap { div =>
           (0 until difficulty.height).foreach { y =>
             doc
               .createElement("div")
@@ -36,7 +36,7 @@ object CellList {
                   program.unsafeRunAndForget()
                 }
               }
-              .tap(cellListDiv.appendChild)
+              .tap(div.appendChild)
           }
         }
     }
