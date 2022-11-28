@@ -1,5 +1,6 @@
 package net.st915.minesweeper
 
+import cats.effect.IO
 import net.st915.minesweeper.Coordinate
 
 object GameContext {
@@ -14,4 +15,14 @@ case class GameContext(
     var opened: List[Coordinate] = List(),
     var mines: List[Coordinate] = List(),
     var flagged: List[Coordinate] = List()
-)
+) {
+
+  def init: IO[Unit] = IO {
+    gameStarted = false
+    gameEnded = false
+    opened = List()
+    mines = List()
+    flagged = List()
+  }
+
+}
