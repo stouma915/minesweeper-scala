@@ -16,26 +16,44 @@ case class GameLogic(difficulty: Difficulty)(implicit
     runtime: IORuntime
 ) {
 
-  def updateDocument(context: GameContext): IO[Unit] = IO {
-    (0 until difficulty.height).foreach { y =>
-      (0 until difficulty.width).foreach { x =>
-        val coord = Coordinate(x, y)
+  def updateDocument(context: GameContext): IO[Unit] = for {
+    _ <- IO {
+      val element = doc.getElementById(Constants.FlagPlaceButtonId)
+      val currentText = element.textContent
 
-        doc
-          .getElementByIdWithType[HTMLElement](s"${x}_$y")
-          .tap { cell =>
-            val clsName = cell.className
-
-            if (context.isOpened(coord)) {
-              if (clsName != Constants.OpenedCellClasses)
-                cell.className = Constants.OpenedCellClasses
-            } else {
-              if (clsName != Constants.NotOpenedCellClasses)
-                cell.className = Constants.NotOpenedCellClasses
-            }
-          }
+      if (context.flagPlaceMode) {
+        if (currentText != Constants.InFlagPlaceModeText)
+          element.textContent = Constants.InFlagPlaceModeText
+      } else {
+        if (currentText != Constants.NotFlagPlaceModeText)
+          element.textContent = Constants.NotFlagPlaceModeText
       }
     }
+    _ <- IO {
+      (0 until difficulty.height).foreach { y =>
+        (0 until difficulty.width).foreach { x =>
+          val coord = Coordinate(x, y)
+
+          doc
+            .getElementByIdWithType[HTMLElement](s"${x}_$y")
+            .tap { cell =>
+              val clsName = cell.className
+
+              if (context.isOpened(coord)) {
+                if (clsName != Constants.OpenedCellClasses)
+                  cell.className = Constants.OpenedCellClasses
+              } else {
+                if (clsName != Constants.NotOpenedCellClasses)
+                 cell.className = Constants.NotOpenedCellClasses
+              }
+            }
+        }
+      }
+    }
+  } yield ()
+
+  def flagPlaceButtonClicked(implicit context: GameContext): IO[Unit] = IO {
+    context.flagPlaceMode = !context.flagPlaceMode
   }
 
   def restartButtonClicked(implicit context: GameContext): IO[Unit] =

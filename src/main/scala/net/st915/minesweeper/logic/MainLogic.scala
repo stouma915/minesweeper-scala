@@ -32,10 +32,11 @@ case class MainLogic(gameLogic: GameLogic)(implicit
             implicit val _context: GameContext = context
 
             event match {
-              case e: CellClickEvent          => gameLogic.cellClicked(e)
-              case e: CellRightClickEvent     => gameLogic.cellRightClicked(e)
-              case _: RestartButtonClickEvent => gameLogic.restartButtonClicked
-              case _                          => IO.unit
+              case e: CellClickEvent            => gameLogic.cellClicked(e)
+              case e: CellRightClickEvent       => gameLogic.cellRightClicked(e)
+              case _: FlagPlaceButtonClickEvent => gameLogic.flagPlaceButtonClicked
+              case _: RestartButtonClickEvent   => gameLogic.restartButtonClicked
+              case _                            => IO.unit
             }
           case None => IO.unit
         }
