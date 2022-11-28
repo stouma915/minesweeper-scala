@@ -1,4 +1,4 @@
-package net.st915.minesweeper.difficulty
+package net.st915.minesweeper
 
 case class Difficulty(
     id: String,

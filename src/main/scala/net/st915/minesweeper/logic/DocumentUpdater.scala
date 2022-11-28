@@ -3,9 +3,8 @@ package net.st915.minesweeper.logic
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.{Button, GameScreen, IconContainer}
-import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.implicits.*
-import net.st915.minesweeper.{Constants, GameContext, Util}
+import net.st915.minesweeper.{Constants, Difficulty, GameContext, Util}
 import org.scalajs.dom.*
 
 case class DocumentUpdater(difficulty: Difficulty)(implicit

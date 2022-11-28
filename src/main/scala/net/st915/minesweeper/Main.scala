@@ -4,7 +4,6 @@ import cats.data.OptionT
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.component.*
-import net.st915.minesweeper.difficulty.{Difficulties, Difficulty}
 import net.st915.minesweeper.logic.*
 import org.scalajs.dom.*
 
