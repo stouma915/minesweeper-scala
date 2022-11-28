@@ -50,6 +50,15 @@ case class GameLogic(difficulty: Difficulty)(implicit
     )
   } yield ()
 
+  def buttonClicked(
+      event: ButtonClickEvent
+  )(implicit context: GameContext): IO[Unit] =
+    event.buttonId match {
+      case Constants.FlagPlaceButtonId => flagPlaceButtonClicked
+      case Constants.RestartButtonId   => restartButtonClicked
+      case _                           => IO.unit
+    }
+
   def flagPlaceButtonClicked(implicit context: GameContext): IO[Unit] = IO {
     context.flagPlaceMode = !context.flagPlaceMode
   }

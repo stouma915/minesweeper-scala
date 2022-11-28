@@ -26,13 +26,13 @@ object GameScreen {
 
   private def onFlagPlaceButtonClick: IO[Unit] =
     for {
-      event <- IO(FlagPlaceButtonClickEvent())
+      event <- IO(ButtonClickEvent(Constants.FlagPlaceButtonId))
       _ <- EventQueue.queue(event)
     } yield ()
 
   private def onRestartButtonClick: IO[Unit] =
     for {
-      event <- IO(RestartButtonClickEvent())
+      event <- IO(ButtonClickEvent(Constants.RestartButtonId))
       _ <- EventQueue.queue(event)
     } yield ()
 
