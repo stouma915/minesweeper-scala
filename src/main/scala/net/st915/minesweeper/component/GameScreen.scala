@@ -24,15 +24,18 @@ object GameScreen {
       _ <- EventQueue.queue(event)
     } yield ()
 
+  private def onRestartButtonClick: IO[Unit] =
+    for {
+      event <- IO(RestartButtonClickEvent())
+      _ <- EventQueue.queue(event)
+    } yield ()
+
   def make(
       difficulty: Difficulty
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = for {
     restartButton <- Button.make(
       "Restart",
-      for {
-        event <- IO(RestartButtonClickEvent())
-        _ <- EventQueue.queue(event)
-      } yield ()
+      onRestartButtonClick
     )
     component <- IO {
       doc
