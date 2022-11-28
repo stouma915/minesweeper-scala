@@ -7,7 +7,7 @@ import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import org.scalajs.dom.*
 
-case class MainLoop(gameLogic: GameLogic)(implicit
+case class MainLoop(gameLogic: GameLogic, docUpdater: DocumentUpdater)(implicit
     doc: Document,
     wind: Window,
     runtime: IORuntime
@@ -39,7 +39,7 @@ case class MainLoop(gameLogic: GameLogic)(implicit
             }
           case None => IO.unit
         }
-        _ <- gameLogic.updateDocument(context)
+        _ <- docUpdater.updateDocument(context)
       } yield ()
     } else IO.unit
 

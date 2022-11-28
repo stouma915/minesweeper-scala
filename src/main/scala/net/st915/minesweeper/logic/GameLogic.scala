@@ -16,67 +16,6 @@ case class GameLogic(difficulty: Difficulty)(implicit
     runtime: IORuntime
 ) {
 
-  def updateDocument(context: GameContext): IO[Unit] = for {
-    _ <- IO {
-      val element = doc.getElementById(Constants.FlagPlaceButtonId)
-      val currentText = element.textContent
-
-      if (context.flagPlaceMode) {
-        if (currentText != Constants.InFlagPlaceModeText)
-          element.textContent = Constants.InFlagPlaceModeText
-      } else {
-        if (currentText != Constants.NotFlagPlaceModeText)
-          element.textContent = Constants.NotFlagPlaceModeText
-      }
-    }
-    _ <- Util.forAllCoords(
-      difficulty,
-      coord =>
-        IO {
-          doc
-            .getElementByIdWithType[HTMLElement](s"${coord.x}_${coord.y}")
-            .tap { cell =>
-              val clsName = cell.className
-              if (context.isOpened(coord)) {
-                if (clsName != Constants.OpenedCellClasses)
-                  cell.className = Constants.OpenedCellClasses
-              } else {
-                if (clsName != Constants.NotOpenedCellClasses)
-                  cell.className = Constants.NotOpenedCellClasses
-              }
-
-              val flagContainer = doc.getElementByIdWithType[HTMLDivElement](
-                s"flagContainer_${coord.x}_${coord.y}"
-              )
-              if (context.isFlagged(coord)) {
-                if (flagContainer.style.display != "block")
-                  flagContainer.style.display = "block"
-              } else {
-                if (flagContainer.style.display != "none")
-                  flagContainer.style.display = "none"
-              }
-
-              val flagPlaceholderContainer =
-                doc.getElementByIdWithType[HTMLDivElement](
-                  s"flagPlaceholderContainer_${coord.x}_${coord.y}"
-                )
-              if (context.flagPlaceMode) {
-                if (!context.isOpened(coord) && !context.isFlagged(coord)) {
-                  if (flagPlaceholderContainer.style.display != "block")
-                    flagPlaceholderContainer.style.display = "block"
-                } else {
-                  if (flagPlaceholderContainer.style.display != "none")
-                    flagPlaceholderContainer.style.display = "none"
-                }
-              } else {
-                if (flagPlaceholderContainer.style.display != "none")
-                  flagPlaceholderContainer.style.display = "none"
-              }
-            }
-        }
-    )
-  } yield ()
-
   def buttonClicked(
       event: ButtonClickEvent
   )(implicit context: GameContext): IO[Unit] =
