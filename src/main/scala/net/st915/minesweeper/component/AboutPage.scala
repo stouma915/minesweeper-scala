@@ -25,7 +25,7 @@ object AboutPage {
               .tap(p.appendChild)
           }
           .tap(_.appendChild(".".textNode))
-          .tap(_.appendChild(doc.createElement("br")))
+          .tap(_.appendChild(doc.makeBR))
           .tap(_.appendChild("This site is open source. ".textNode))
           .tap { p =>
             doc
@@ -35,7 +35,7 @@ object AboutPage {
               .tap(p.appendChild)
           }
           .tap(_.appendChild(".".textNode))
-          .tap(_.appendChild(doc.createElement("br")))
+          .tap(_.appendChild(doc.makeBR))
           .tap(_.appendChild("Powered by ".textNode))
           .tap { p =>
             doc

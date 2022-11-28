@@ -77,9 +77,9 @@ object GameScreen {
             }
             .tap(div.appendChild)
         }
-        .tap(_.appendChild(doc.createElement("br")))
+        .tap(_.appendChild(doc.makeBR))
         .tap(_.appendChild(restartButton))
-        .tap(_.appendChild(doc.createElement("br")))
+        .tap(_.appendChild(doc.makeBR))
     }
   } yield component
 

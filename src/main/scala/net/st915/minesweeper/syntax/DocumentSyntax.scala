@@ -1,6 +1,6 @@
 package net.st915.minesweeper.syntax
 
-import org.scalajs.dom.{Document, Element}
+import org.scalajs.dom.{Document, Element, HTMLBRElement}
 
 trait DocumentSyntax {
 
@@ -15,6 +15,9 @@ trait DocumentSyntax {
       doc
         .getElementById(id)
         .asInstanceOf[A]
+
+    def makeBR: HTMLBRElement =
+      doc.createElementWithType[HTMLBRElement]("br")
 
   }
 

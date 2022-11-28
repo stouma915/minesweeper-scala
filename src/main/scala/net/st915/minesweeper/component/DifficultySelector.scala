@@ -33,7 +33,7 @@ object DifficultySelector {
         doc
           .createElement("span")
           .tap(_.appendChild("Difficulties:".textNode))
-          .tap(_.appendChild(doc.createElement("br")))
+          .tap(_.appendChild(doc.makeBR))
           .tap(div.appendChild)
       }
       .tap { div =>
@@ -41,7 +41,7 @@ object DifficultySelector {
           doc
             .createElementWithType[HTMLLinkElement]("a")
             .tap(_.appendChild(diff.displayName.textNode))
-            .tap(_.appendChild(doc.createElement("br")))
+            .tap(_.appendChild(doc.makeBR))
             .tap(_.href = "#")
             .tap(_.onclick = _ => changeDifficulty(diff).unsafeRunAndForget())
             .tap(div.appendChild)
