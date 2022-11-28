@@ -44,7 +44,7 @@ case class GameLogic(difficulty: Difficulty)(implicit
                   cell.className = Constants.OpenedCellClasses
               } else {
                 if (clsName != Constants.NotOpenedCellClasses)
-                 cell.className = Constants.NotOpenedCellClasses
+                  cell.className = Constants.NotOpenedCellClasses
               }
             }
         }

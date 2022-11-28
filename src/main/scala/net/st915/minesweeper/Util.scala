@@ -8,8 +8,8 @@ import net.st915.minesweeper.difficulty.Difficulty
 object Util {
 
   def eachCoord(
-    difficulty: Difficulty,
-    program: Coordinate => IO[Unit]
+      difficulty: Difficulty,
+      program: Coordinate => IO[Unit]
   )(implicit runtime: IORuntime): IO[Unit] = IO {
     (0 until difficulty.height).foreach { y =>
       (0 until difficulty.width).foreach { x =>

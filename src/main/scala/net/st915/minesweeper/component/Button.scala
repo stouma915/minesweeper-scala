@@ -10,8 +10,8 @@ import scala.util.chaining.*
 object Button {
 
   def updateText(
-    id: String,
-    text: String
+      id: String,
+      text: String
   )(implicit doc: Document): IO[Unit] = IO {
     doc
       .getElementByIdWithType[HTMLSpanElement](id)
@@ -19,9 +19,9 @@ object Button {
   }
 
   def make(
-    text: String,
-    id: String,
-    onClick: IO[Unit]
+      text: String,
+      id: String,
+      onClick: IO[Unit]
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = IO {
     doc
       .createElement("div")
