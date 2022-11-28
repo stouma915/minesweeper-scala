@@ -24,6 +24,12 @@ object GameScreen {
       _ <- EventQueue.queue(event)
     } yield ()
 
+  private def onFlagPlaceButtonClick: IO[Unit] =
+    for {
+      event <- IO(FlagPlaceButtonClickEvent())
+      _ <- EventQueue.queue(event)
+    } yield ()
+
   private def onRestartButtonClick: IO[Unit] =
     for {
       event <- IO(RestartButtonClickEvent())
@@ -33,6 +39,11 @@ object GameScreen {
   def make(
       difficulty: Difficulty
   )(implicit doc: Document, runtime: IORuntime): IO[Element] = for {
+    flagPlaceButton <- Button.make(
+      Constants.NotFlagPlaceModeText,
+      Constants.FlagPlaceButtonId,
+      onFlagPlaceButtonClick
+    )
     restartButton <- Button.make(
       "Restart",
       Constants.RestartButtonId,
@@ -78,6 +89,8 @@ object GameScreen {
             }
             .tap(div.appendChild)
         }
+        .tap(_.appendChild(doc.makeBR))
+        .tap(_.appendChild(flagPlaceButton))
         .tap(_.appendChild(doc.makeBR))
         .tap(_.appendChild(restartButton))
         .tap(_.appendChild(doc.makeBR))

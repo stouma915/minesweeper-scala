@@ -14,7 +14,8 @@ case class GameContext(
     var gameEnded: Boolean = false,
     var opened: List[Coordinate] = List(),
     var mines: List[Coordinate] = List(),
-    var flagged: List[Coordinate] = List()
+    var flagged: List[Coordinate] = List(),
+    var flagPlaceMode: Boolean = false
 ) {
 
   def init: IO[Unit] = IO {
@@ -23,6 +24,7 @@ case class GameContext(
     opened = List()
     mines = List()
     flagged = List()
+    flagPlaceMode = false
   }
 
 }
