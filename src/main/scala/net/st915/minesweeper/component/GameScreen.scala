@@ -11,13 +11,13 @@ import scala.util.chaining.*
 
 object GameScreen {
 
-  private def onClick(implicit coord: Coordinate): IO[Unit] =
+  private def onClick(coord: Coordinate): IO[Unit] =
     for {
       event <- IO(CellClickEvent(coord))
       _ <- EventQueue.queue(event)
     } yield ()
 
-  private def onRightClick(implicit coord: Coordinate): IO[Unit] =
+  private def onRightClick(coord: Coordinate): IO[Unit] =
     for {
       event <- IO(CellRightClickEvent(coord))
       _ <- EventQueue.queue(event)
@@ -34,18 +34,6 @@ object GameScreen {
       event <- IO(ButtonClickEvent(Constants.RestartButtonId))
       _ <- EventQueue.queue(event)
     } yield ()
-
-  def updateCellClassName(coord: Coordinate, newClassName: String)(implicit
-      doc: Document
-  ): IO[Unit] =
-    IO {
-      doc
-        .getElementByIdWithType[HTMLDivElement](s"${coord.x}_${coord.y}")
-        .tap { cellElem =>
-          if (cellElem.className != newClassName)
-            cellElem.className = newClassName
-        }
-    }
 
   def make(
       difficulty: Difficulty
@@ -74,52 +62,14 @@ object GameScreen {
                   .tap(_.classList.add("line"))
                   .tap { lineDiv =>
                     (0 until difficulty.width).foreach { x =>
-                      implicit val _coord: Coordinate = Coordinate(x, y)
+                      val coord = Coordinate(x, y)
 
-                      doc
-                        .createElementWithType[HTMLDivElement]("div")
-                        .tap { cellDiv =>
-                          cellDiv.classList
-                            .tap(_.add("cell"))
-                            .tap(_.add("cellNotOpened"))
-                        }
-                        .tap(_.id = s"${x}_$y")
-                        .tap(_.onclick = e => {
-                          e.preventDefault()
-                          onClick.unsafeRunAndForget()
-                        })
-                        .tap(_.oncontextmenu = e => {
-                          e.preventDefault()
-                          onRightClick.unsafeRunAndForget()
-                        })
-                        .tap { cellDiv =>
-                          val program = for {
-                            flagIcon <- FlagIcon.make
-                            flagPlaceholderIcon <- FlagPlaceholderIcon.make
-                            mineIcon <- MineIcon.make
-                            flagContainer <- IconContainer.make(
-                              s"flagContainer_${x}_$y",
-                              flagIcon
-                            )
-                            flagPlaceholderContainer <- IconContainer.make(
-                              s"flagPlaceholderContainer_${x}_$y",
-                              flagPlaceholderIcon
-                            )
-                            mineContainer <- IconContainer.make(
-                              s"mineContainer_${x}_$y",
-                              mineIcon
-                            )
-                            _ <- IO {
-                              cellDiv
-                                .tap(_.appendChild(flagContainer))
-                                .tap(_.appendChild(flagPlaceholderContainer))
-                                .tap(_.appendChild(mineContainer))
-                            }
-                          } yield ()
+                      val program = for {
+                        cell <- Cell.make(coord, onClick, onRightClick)
+                        _ <- IO(lineDiv.appendChild(cell))
+                      } yield ()
 
-                          program.unsafeRunAndForget()
-                        }
-                        .tap(lineDiv.appendChild)
+                      program.unsafeRunAndForget()
                     }
                   }
                   .tap(cellsDiv.appendChild)
