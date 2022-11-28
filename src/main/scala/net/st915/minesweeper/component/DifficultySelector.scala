@@ -43,7 +43,10 @@ object DifficultySelector {
             .tap(_.appendChild(diff.displayName.textNode))
             .tap(_.appendChild(doc.makeBR))
             .tap(_.href = "#")
-            .tap(_.onclick = _ => changeDifficulty(diff).unsafeRunAndForget())
+            .tap(_.onclick = e => {
+              e.preventDefault()
+              changeDifficulty(diff).unsafeRunAndForget()
+            })
             .tap(div.appendChild)
         }
       }
