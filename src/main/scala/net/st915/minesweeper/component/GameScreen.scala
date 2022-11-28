@@ -6,7 +6,7 @@ import net.st915.minesweeper.difficulty.Difficulty
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.implicits.*
 import net.st915.minesweeper.{Constants, Coordinate}
-import org.scalajs.dom.{Document, Element, HTMLDivElement, MouseEvent}
+import org.scalajs.dom.*
 
 import scala.util.chaining.*
 

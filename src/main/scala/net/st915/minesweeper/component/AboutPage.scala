@@ -2,7 +2,7 @@ package net.st915.minesweeper.component
 
 import cats.effect.IO
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{Document, Element, HTMLLinkElement}
+import org.scalajs.dom.*
 
 import scala.util.chaining.*
 

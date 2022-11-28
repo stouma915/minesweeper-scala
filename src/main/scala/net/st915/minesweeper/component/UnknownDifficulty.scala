@@ -3,7 +3,7 @@ package net.st915.minesweeper.component
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{Document, Element, Window}
+import org.scalajs.dom.*
 
 import scala.util.chaining.*
 

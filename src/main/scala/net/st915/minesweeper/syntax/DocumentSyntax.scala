@@ -1,6 +1,6 @@
 package net.st915.minesweeper.syntax
 
-import org.scalajs.dom.{Document, Element, HTMLBRElement}
+import org.scalajs.dom.*
 
 trait DocumentSyntax {
 

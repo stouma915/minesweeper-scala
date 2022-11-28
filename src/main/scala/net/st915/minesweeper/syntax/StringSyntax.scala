@@ -1,6 +1,6 @@
 package net.st915.minesweeper.syntax
 
-import org.scalajs.dom.{Document, Text}
+import org.scalajs.dom.*
 
 trait StringSyntax {
 
