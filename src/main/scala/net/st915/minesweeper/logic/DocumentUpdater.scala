@@ -73,26 +73,25 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     Util.forAllCoords(
       difficulty,
       coord =>
-        if (context.isOpened(coord) && !context.isMine(coord))
-          for {
-            mineCount <- IO {
-              MineLogic.calcMineCount(
-                context,
-                coord,
-                difficulty
-              )
+        for {
+          mineCount <- IO {
+            MineLogic.calcMineCount(
+              context,
+              coord,
+              difficulty
+            )
+          }
+          _ <- IO {
+            (1 to 8).foreach { i =>
+              MineCountContainer.updateVisibility(
+                s"mineCount_${i}_${coord.x}_${coord.y}",
+                context.isOpened(coord) &&
+                !context.isMine(coord) &&
+                (i eq mineCount)
+              ).unsafeRunAndForget()
             }
-            _ <- IO {
-              (1 to 8).foreach { i =>
-                MineCountContainer.updateVisibility(
-                  s"mineCount_${i}_${coord.x}_${coord.y}",
-                  i eq mineCount
-                ).unsafeRunAndForget()
-              }
-            }
-          } yield ()
-        else
-          IO.unit
+          }
+        } yield ()
     )
 
   def updateDocument(context: GameContext): IO[Unit] = {
