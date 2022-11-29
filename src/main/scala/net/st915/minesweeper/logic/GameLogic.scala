@@ -24,13 +24,26 @@ case class GameLogic(difficulty: Difficulty)(implicit
       case _                           => IO.unit
     }
 
-  def flagPlaceButtonClicked(implicit context: GameContext): IO[Unit] = IO {
-    context.flagPlaceMode = !context.flagPlaceMode
-  }
+  def flagPlaceButtonClicked(implicit context: GameContext): IO[Unit] =
+    if (context.gameStarted && !context.gameEnded)
+      IO {
+        context.flagPlaceMode = !context.flagPlaceMode
+      }
+    else
+      IO.unit
 
   def restartButtonClicked(implicit context: GameContext): IO[Unit] =
     for {
       _ <- context.init
+    } yield ()
+
+  def startGame(coord: Coordinate)(implicit context: GameContext): IO[Unit] =
+    for {
+      _ <- context.init
+      mines <- MineLogic.generate(coord, difficulty)
+      _ <- IO(context.mines = mines)
+      _ <- IO(context.gameStarted = true)
+      _ <- openCell(coord)
     } yield ()
 
   def openCell(coord: Coordinate)(implicit context: GameContext): IO[Unit] =
@@ -53,16 +66,25 @@ case class GameLogic(difficulty: Difficulty)(implicit
   def cellClicked(
       event: CellClickEvent
   )(implicit context: GameContext): IO[Unit] =
-    if (!context.flagPlaceMode)
-      openCell(event.coord)
+    if (!context.gameEnded)
+      if (context.gameStarted)
+        if (!context.flagPlaceMode)
+          openCell(event.coord)
+        else
+          toggleFlagged(event.coord)
+      else
+        startGame(event.coord)
     else
-      toggleFlagged(event.coord)
+      IO.unit
 
   def cellRightClicked(
       event: CellRightClickEvent
   )(implicit context: GameContext): IO[Unit] =
-    if (!context.flagPlaceMode)
-      toggleFlagged(event.coord)
+    if (context.gameStarted && !context.gameEnded)
+      if (!context.flagPlaceMode)
+        toggleFlagged(event.coord)
+      else
+        IO.unit
     else
       IO.unit
 

@@ -58,6 +58,16 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
         )
     )
 
+  def updateMineDisplay(implicit context: GameContext): IO[Unit] =
+    Util.forAllCoords(
+      difficulty,
+      coord =>
+        IconContainer.updateVisibility(
+          s"mineContainer_${coord.x}_${coord.y}",
+          context.isOpened(coord) && context.isMine(coord)
+        )
+    )
+
   def updateDocument(context: GameContext): IO[Unit] = {
     implicit val _context: GameContext = context
 
@@ -66,6 +76,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
       _ <- updateCellClasses
       _ <- updateFlagDisplay
       _ <- updateFlagPlaceholderDisplay
+      _ <- updateMineDisplay
     } yield ()
   }
 

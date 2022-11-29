@@ -118,7 +118,7 @@ div.flagPlaceholderBottom {
 }
 
 div.mine {
-  position: relative;
+  position: absolute;
   display: inline;
   z-index: 10;
   width: 30px;
