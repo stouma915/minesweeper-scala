@@ -29,17 +29,21 @@ case class MainLoop(gameLogic: GameLogic, docUpdater: DocumentUpdater)(implicit
         maybeEvent <- EventQueue.nextEvent
         _ <- maybeEvent match {
           case Some(event) =>
-            implicit val _context: GameContext = context
+            for {
+              _ <- {
+                implicit val _context: GameContext = context
 
-            event match {
-              case e: ButtonClickEvent    => gameLogic.buttonClicked(e)
-              case e: CellClickEvent      => gameLogic.cellClicked(e)
-              case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
-              case _                      => IO.unit
-            }
+                event match {
+                  case e: ButtonClickEvent    => gameLogic.buttonClicked(e)
+                  case e: CellClickEvent      => gameLogic.cellClicked(e)
+                  case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
+                  case _                      => IO.unit
+                }
+              }
+              _ <- docUpdater.updateDocument(context)
+            } yield ()
           case None => IO.unit
         }
-        _ <- docUpdater.updateDocument(context)
       } yield ()
     } else IO.unit
 
