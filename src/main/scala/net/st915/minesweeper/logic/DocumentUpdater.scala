@@ -2,8 +2,9 @@ package net.st915.minesweeper.logic
 
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.component.{Button, Cell, IconContainer}
+import net.st915.minesweeper.component.*
 import net.st915.minesweeper.implicits.*
+import net.st915.minesweeper.logic.MineLogic
 import net.st915.minesweeper.{Constants, Difficulty, GameContext, Util}
 import org.scalajs.dom.*
 
@@ -68,6 +69,32 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
         )
     )
 
+  def updateMineCount(implicit context: GameContext): IO[Unit] =
+    Util.forAllCoords(
+      difficulty,
+      coord =>
+        if (context.isOpened(coord) && !context.isMine(coord))
+          for {
+            mineCount <- IO {
+              MineLogic.calcMineCount(
+                context,
+                coord,
+                difficulty
+              )
+            }
+            _ <- IO {
+              (1 to 8).foreach { i =>
+                MineCountContainer.updateVisibility(
+                  s"mineCount_${i}_${coord.x}_${coord.y}",
+                  i eq mineCount
+                ).unsafeRunAndForget()
+              }
+            }
+          } yield ()
+        else
+          IO.unit
+    )
+
   def updateDocument(context: GameContext): IO[Unit] = {
     implicit val _context: GameContext = context
 
@@ -77,6 +104,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
       _ <- updateFlagDisplay
       _ <- updateFlagPlaceholderDisplay
       _ <- updateMineDisplay
+      _ <- updateMineCount
     } yield ()
   }
 

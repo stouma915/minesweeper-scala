@@ -58,6 +58,19 @@ object Cell {
           .tap(_.appendChild(flagContainer))
           .tap(_.appendChild(flagPlaceholderContainer))
           .tap(_.appendChild(mineContainer))
+          .tap { cell =>
+            (1 to 8).foreach { i =>
+              val program = for {
+                mineCountContainer <- MineCountContainer.make(
+                  s"mineCount_${i}_${coord.x}_${coord.y}",
+                  i
+                )
+                _ <- IO(cell.appendChild(mineCountContainer))
+              } yield ()
+
+              program.unsafeRunAndForget()
+            }
+          }
       }
     } yield component
 
