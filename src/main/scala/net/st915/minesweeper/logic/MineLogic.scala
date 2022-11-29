@@ -1,8 +1,8 @@
 package net.st915.minesweeper.logic
 
 import cats.effect.IO
-import net.st915.minesweeper.{Coordinate, Difficulty, GameContext, Util}
 import net.st915.minesweeper.implicits.*
+import net.st915.minesweeper.{Coordinate, Difficulty, GameContext, Util}
 
 import scala.annotation.tailrec
 import scala.util.Random
