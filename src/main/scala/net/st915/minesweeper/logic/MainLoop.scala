@@ -18,7 +18,7 @@ case class MainLoop(gameLogic: GameLogic, docUpdater: DocumentUpdater)(implicit
     _ <- IO {
       wind.setInterval(
         () => eventLoop(context).unsafeRunAndForget(),
-        1
+        10
       )
     }
   } yield ()
