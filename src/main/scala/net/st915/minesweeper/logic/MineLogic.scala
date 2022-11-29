@@ -1,7 +1,7 @@
 package net.st915.minesweeper.logic
 
 import cats.effect.IO
-import net.st915.minesweeper.{Coordinate, Difficulty, GameContext}
+import net.st915.minesweeper.{Coordinate, Difficulty, GameContext, Util}
 import net.st915.minesweeper.implicits.*
 
 import scala.util.Random
@@ -12,7 +12,7 @@ object MineLogic {
       startPoint: Coordinate,
       difficulty: Difficulty
   ): IO[List[Coordinate]] = IO {
-    val blacklist = List(startPoint) // TODO
+    val blacklist = Util.get3x3(startPoint, difficulty)
 
     def _generate(mines: List[Coordinate]): List[Coordinate] = {
       if (mines.length eq difficulty.numOfMines) mines
@@ -40,22 +40,10 @@ object MineLogic {
     context: GameContext,
     coord: Coordinate,
     difficulty: Difficulty
-  ): Int = {
-    val x = coord.x
-    val y = coord.y
-    val targets = Seq(
-      Coordinate(x - 1, y - 1),
-      Coordinate(x - 1, y),
-      Coordinate(x - 1, y + 1),
-      Coordinate(x, y - 1),
-      Coordinate(x, y),
-      Coordinate(x, y + 1),
-      Coordinate(x + 1, y - 1),
-      Coordinate(x + 1, y),
-      Coordinate(x + 1, y + 1)
-    )
-
-    targets.map(context.isMine).count(x => x)
-  }
+  ): Int =
+    Util
+      .get3x3(coord, difficulty)
+      .map(context.isMine)
+      .count(x => x)
 
 }
