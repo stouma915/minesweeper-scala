@@ -20,8 +20,8 @@ object Util {
   }
 
   def get3x3(
-    coord: Coordinate,
-    difficulty: Difficulty
+      coord: Coordinate,
+      difficulty: Difficulty
   ): List[Coordinate] = {
     val x = coord.x
     val y = coord.y

@@ -83,12 +83,14 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
           }
           _ <- IO {
             (1 to 8).foreach { i =>
-              MineCountContainer.updateVisibility(
-                s"mineCount_${i}_${coord.x}_${coord.y}",
-                context.isOpened(coord) &&
-                !context.isMine(coord) &&
-                (i eq mineCount)
-              ).unsafeRunAndForget()
+              MineCountContainer
+                .updateVisibility(
+                  s"mineCount_${i}_${coord.x}_${coord.y}",
+                  context.isOpened(coord) &&
+                    !context.isMine(coord) &&
+                    (i eq mineCount)
+                )
+                .unsafeRunAndForget()
             }
           }
         } yield ()

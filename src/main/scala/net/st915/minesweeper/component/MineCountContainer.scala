@@ -9,8 +9,8 @@ import scala.util.chaining.*
 object MineCountContainer {
 
   def updateVisibility(
-    id: String,
-    visibility: Boolean
+      id: String,
+      visibility: Boolean
   )(implicit doc: Document): IO[Unit] = IO {
     doc
       .getElementByIdWithType[HTMLDivElement](id)
