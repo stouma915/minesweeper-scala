@@ -8,7 +8,6 @@ class SyncWriteDocument[F[_]: Sync] extends WriteDocument[F] {
 
   override def write(element: Element)(implicit
       document: HTMLDocument
-  ): F[Unit] =
-    Sync[F].delay(document.body.appendChild(element))
+  ): F[Unit] = Sync[F].delay(document.body.appendChild(element))
 
 }
