@@ -1,22 +1,21 @@
 package net.st915.minesweeper.component
 
-import cats.effect.IO
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.*
+import org.scalajs.dom.{HTMLDocument, Element}
 
 import scala.util.chaining.*
 
 object InformationText {
 
-  def make(implicit doc: Document): IO[Element] = IO {
-    doc
+  def make(implicit document: HTMLDocument): Element =
+    document
       .createElement("div")
+      .tap(_.classList.add("informationTextContainer"))
       .tap { div =>
-        doc
+        document
           .createElement("h1")
-          .tap(_.appendChild("Currently Under Development.".textNode))
+          .tap(_.textContent = "Currently Under Development.")
           .tap(div.appendChild)
       }
-  }
 
 }
