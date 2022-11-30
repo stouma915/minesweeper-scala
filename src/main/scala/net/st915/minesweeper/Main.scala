@@ -14,9 +14,9 @@ import org.scalajs.dom.*
 
   val render = renderer.Service.wired[IO]
 
-  val program = List(
-    render
-  ).sequence
+  val program = for {
+    _ <- render
+  } yield ()
 
   program.start.unsafeRunAndForget()
 
