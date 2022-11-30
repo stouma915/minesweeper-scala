@@ -100,13 +100,17 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
   def updateDocument(context: GameContext): IO[Unit] = {
     implicit val _context: GameContext = context
 
+    val programs = List(
+      updateFlagPlaceButtonText,
+      updateCellClasses,
+      updateFlagDisplay,
+      updateFlagPlaceholderDisplay,
+      updateMineDisplay,
+      updateMineCount
+    )
+
     for {
-      _ <- updateFlagPlaceButtonText
-      _ <- updateCellClasses
-      _ <- updateFlagDisplay
-      _ <- updateFlagPlaceholderDisplay
-      _ <- updateMineDisplay
-      _ <- updateMineCount
+      _ <- programs.parSequence
     } yield ()
   }
 
