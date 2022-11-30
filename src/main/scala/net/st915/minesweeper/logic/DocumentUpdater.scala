@@ -26,7 +26,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     )
 
   def updateCellClasses(implicit context: GameContext): IO[Unit] =
-    Util.forAllCoords(
+    Util.forAllCoordsPar(
       difficulty,
       coord =>
         Cell.updateCellClassName(
@@ -39,7 +39,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     )
 
   def updateFlagDisplay(implicit context: GameContext): IO[Unit] =
-    Util.forAllCoords(
+    Util.forAllCoordsPar(
       difficulty,
       coord =>
         IconContainer.updateVisibility(
@@ -49,7 +49,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     )
 
   def updateFlagPlaceholderDisplay(implicit context: GameContext): IO[Unit] =
-    Util.forAllCoords(
+    Util.forAllCoordsPar(
       difficulty,
       coord =>
         IconContainer.updateVisibility(
@@ -62,7 +62,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     )
 
   def updateMineDisplay(implicit context: GameContext): IO[Unit] =
-    Util.forAllCoords(
+    Util.forAllCoordsPar(
       difficulty,
       coord =>
         IconContainer.updateVisibility(
@@ -72,7 +72,7 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     )
 
   def updateMineCount(implicit context: GameContext): IO[Unit] =
-    Util.forAllCoords(
+    Util.forAllCoordsPar(
       difficulty,
       coord =>
         {
