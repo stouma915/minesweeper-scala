@@ -10,6 +10,8 @@ import scala.util.chaining.*
 
 object Cell {
 
+  import cats.syntax.parallel.*
+
   def updateCellClassName(coord: Coordinate, newClassName: String)(implicit
       doc: Document
   ): IO[Unit] = IO {
@@ -42,6 +44,17 @@ object Cell {
         s"mineContainer_${coord.x}_${coord.y}",
         mineIcon
       )
+      mineCountContainers <- {
+        (1 to 8)
+          .toList
+          .map { i =>
+            MineCountContainer.make(
+              s"mineCount_${i}_${coord.x}_${coord.y}",
+              i
+            )
+          }
+          .parSequence
+      }
       component <- IO {
         doc
           .createElementWithType[HTMLDivElement]("div")
@@ -58,19 +71,15 @@ object Cell {
           .tap(_.appendChild(flagContainer))
           .tap(_.appendChild(flagPlaceholderContainer))
           .tap(_.appendChild(mineContainer))
-          .tap { cell =>
-            (1 to 8).foreach { i =>
-              val program = for {
-                mineCountContainer <- MineCountContainer.make(
-                  s"mineCount_${i}_${coord.x}_${coord.y}",
-                  i
-                )
-                _ <- IO(cell.appendChild(mineCountContainer))
-              } yield ()
-
-              program.unsafeRunAndForget()
+      }
+      _ <- {
+        mineCountContainers
+          .map { container =>
+            IO {
+              component.appendChild(container)
             }
           }
+          .parSequence
       }
     } yield component
 
