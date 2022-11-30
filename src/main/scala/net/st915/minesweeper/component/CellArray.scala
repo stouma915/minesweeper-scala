@@ -10,35 +10,63 @@ import scala.util.chaining.*
 
 object CellArray {
 
+  import cats.implicits.*
+
   def make(
       difficulty: Difficulty,
       onCellClick: Coordinate => IO[Unit],
       onCellRightClick: Coordinate => IO[Unit]
   )(implicit doc: Document, runtime: IORuntime): IO[Element] =
-    IO {
-      doc
-        .createElement("div")
-        .tap(_.classList.add("cellArray"))
-        .tap { div =>
-          (0 until difficulty.height).foreach { y =>
-            doc
-              .createElement("div")
-              .tap(_.classList.add("line"))
-              .tap { lineDiv =>
-                (0 until difficulty.width).foreach { x =>
-                  val coord = Coordinate(x, y)
-
-                  val program = for {
-                    cell <- Cell.make(coord, onCellClick, onCellRightClick)
-                    _ <- IO(lineDiv.appendChild(cell))
-                  } yield ()
-
-                  program.unsafeRunAndForget()
-                }
+    for {
+      lines <- {
+        (0 until difficulty.height)
+          .toList
+          .map { y =>
+            for {
+              cells <- {
+                (0 until difficulty.width)
+                  .toList
+                  .map { x =>
+                    Cell.make(
+                      Coordinate(x, y),
+                      onCellClick,
+                      onCellRightClick
+                    )
+                  }
+                  .sequence
               }
-              .tap(div.appendChild)
+              line <- IO {
+                doc
+                  .createElement("div")
+                  .tap(_.classList.add("line"))
+              }
+              _ <- {
+                cells
+                  .map { cell =>
+                    IO {
+                      line.appendChild(cell)
+                    }
+                  }
+                  .sequence
+              }
+            } yield line
           }
-        }
-    }
+          .sequence
+      }
+      component <- IO {
+        doc
+          .createElement("div")
+          .tap(_.classList.add("cellArray"))
+      }
+      _ <- {
+        lines
+          .map { line =>
+            IO {
+              component.appendChild(line)
+            }
+          }
+          .sequence
+      }
+    } yield component
 
 }
