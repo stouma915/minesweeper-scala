@@ -26,16 +26,12 @@ object DifficultySelector {
               .createElementWithType[HTMLLinkElement]("a")
               .tap(_.appendChild(diff.displayName.textNode))
               .tap(_.appendChild(document.makeBR))
-              .tap(_.href = "#")
-              .tap(_.onclick = e => {
-                e.preventDefault()
-
+              .tap(_.href = {
                 val currentURL = new URL(window.location.href)
                 val param =
                   if (diff eq Difficulties.Default) "" else s"?d=${diff.id}"
-                val newURL = s"${currentURL.origin}${currentURL.pathname}$param"
 
-                window.location.href = newURL
+                s"${currentURL.origin}${currentURL.pathname}$param"
               })
           }
           .map { link =>
