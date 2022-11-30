@@ -1,6 +1,6 @@
 package net.st915.minesweeper.renderer.repo
 
-import org.scalajs.dom.{HTMLDocument, Element}
+import org.scalajs.dom.{Element, HTMLDocument}
 
 object WriteDocument {
 
