@@ -8,7 +8,7 @@ object Util {
 
   def forAllCoords(
       difficulty: Difficulty,
-      program: Coordinate => IO[Unit]
+      program: Coordinate => IO[_]
   )(implicit runtime: IORuntime): IO[Unit] = IO {
     (0 until difficulty.width).foreach { x =>
       (0 until difficulty.height).foreach { y =>

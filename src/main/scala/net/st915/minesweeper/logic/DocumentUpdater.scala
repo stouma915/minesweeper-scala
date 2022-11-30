@@ -14,6 +14,8 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     runtime: IORuntime
 ) {
 
+  import cats.syntax.parallel.*
+
   def updateFlagPlaceButtonText(implicit context: GameContext): IO[Unit] =
     Button.updateText(
       Constants.FlagPlaceButtonId,
@@ -73,27 +75,26 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
     Util.forAllCoords(
       difficulty,
       coord =>
-        for {
-          mineCount <- IO {
-            MineLogic.calcMineCount(
-              context,
-              coord,
-              difficulty
-            )
-          }
-          _ <- IO {
-            (1 to 8).foreach { i =>
+        {
+          val mineCount = MineLogic.calcMineCount(
+            context,
+            coord,
+            difficulty
+          )
+
+          val cond =
+            context.isOpened(coord) && !context.isMine(coord)
+
+          (1 to 8)
+            .map { i =>
               MineCountContainer
                 .updateVisibility(
                   s"mineCount_${i}_${coord.x}_${coord.y}",
-                  context.isOpened(coord) &&
-                    !context.isMine(coord) &&
-                    (i eq mineCount)
+                  cond && (i eq mineCount)
                 )
-                .unsafeRunAndForget()
             }
-          }
-        } yield ()
+            .toList
+        }.parSequence
     )
 
   def updateDocument(context: GameContext): IO[Unit] = {
