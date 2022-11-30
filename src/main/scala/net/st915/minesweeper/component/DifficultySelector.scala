@@ -2,7 +2,7 @@ package net.st915.minesweeper.component
 
 import net.st915.minesweeper.Difficulties
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.*
+import org.scalajs.dom.{Element, HTMLDocument, HTMLLinkElement, URL, Window}
 
 import scala.util.chaining.*
 
