@@ -15,11 +15,9 @@ object Util {
   ): List[IO[A]] =
     (0 until difficulty.width)
       .map { x =>
-        (0 until difficulty.height)
-          .map { y =>
-            program(Coordinate(x, y))
-          }
-          .toList
+        (0 until difficulty.height).map { y =>
+          program(Coordinate(x, y))
+        }.toList
       }
       .toList
       .flatten

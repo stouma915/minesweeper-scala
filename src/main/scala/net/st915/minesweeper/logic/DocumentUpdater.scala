@@ -85,15 +85,13 @@ case class DocumentUpdater(difficulty: Difficulty)(implicit
           val cond =
             context.isOpened(coord) && !context.isMine(coord)
 
-          (1 to 8)
-            .map { i =>
-              MineCountContainer
-                .updateVisibility(
-                  s"mineCount_${i}_${coord.x}_${coord.y}",
-                  cond && (i eq mineCount)
-                )
-            }
-            .toList
+          (1 to 8).map { i =>
+            MineCountContainer
+              .updateVisibility(
+                s"mineCount_${i}_${coord.x}_${coord.y}",
+                cond && (i eq mineCount)
+              )
+          }.toList
         }.parSequence
     )
 

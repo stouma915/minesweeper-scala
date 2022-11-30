@@ -45,15 +45,12 @@ object Cell {
         mineIcon
       )
       mineCountContainers <- {
-        (1 to 8)
-          .toList
-          .map { i =>
-            MineCountContainer.make(
-              s"mineCount_${i}_${coord.x}_${coord.y}",
-              i
-            )
-          }
-          .parSequence
+        (1 to 8).toList.map { i =>
+          MineCountContainer.make(
+            s"mineCount_${i}_${coord.x}_${coord.y}",
+            i
+          )
+        }.parSequence
       }
       component <- IO {
         doc
@@ -73,13 +70,11 @@ object Cell {
           .tap(_.appendChild(mineContainer))
       }
       _ <- {
-        mineCountContainers
-          .map { container =>
-            IO {
-              component.appendChild(container)
-            }
+        mineCountContainers.map { container =>
+          IO {
+            component.appendChild(container)
           }
-          .parSequence
+        }.parSequence
       }
     } yield component
 

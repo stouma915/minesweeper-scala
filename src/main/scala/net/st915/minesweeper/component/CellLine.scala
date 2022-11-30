@@ -12,23 +12,20 @@ object CellLine {
   import cats.implicits.*
 
   def make(
-    y: Int,
-    difficulty: Difficulty,
-    onCellClick: Coordinate => IO[Unit],
-    onCellRightClick: Coordinate => IO[Unit]
+      y: Int,
+      difficulty: Difficulty,
+      onCellClick: Coordinate => IO[Unit],
+      onCellRightClick: Coordinate => IO[Unit]
   )(implicit doc: Document, runtime: IORuntime): IO[Element] =
     for {
       cells <- {
-        (0 until difficulty.width)
-          .toList
-          .map { x =>
-            Cell.make(
-              Coordinate(x, y),
-              onCellClick,
-              onCellRightClick
-            )
-          }
-          .sequence
+        (0 until difficulty.width).toList.map { x =>
+          Cell.make(
+            Coordinate(x, y),
+            onCellClick,
+            onCellRightClick
+          )
+        }.sequence
       }
       component <- IO {
         doc
@@ -36,13 +33,11 @@ object CellLine {
           .tap(_.classList.add("line"))
       }
       _ <- {
-        cells
-          .map { cell =>
-            IO {
-              component.appendChild(cell)
-            }
+        cells.map { cell =>
+          IO {
+            component.appendChild(cell)
           }
-          .sequence
+        }.sequence
       }
     } yield component
 

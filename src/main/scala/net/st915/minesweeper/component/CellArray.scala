@@ -19,17 +19,14 @@ object CellArray {
   )(implicit doc: Document, runtime: IORuntime): IO[Element] =
     for {
       lines <- {
-        (0 until difficulty.height)
-          .toList
-          .map { y =>
-            CellLine.make(
-              y,
-              difficulty,
-              onCellClick,
-              onCellRightClick
-            )
-          }
-          .sequence
+        (0 until difficulty.height).toList.map { y =>
+          CellLine.make(
+            y,
+            difficulty,
+            onCellClick,
+            onCellRightClick
+          )
+        }.sequence
       }
       component <- IO {
         doc
@@ -37,13 +34,11 @@ object CellArray {
           .tap(_.classList.add("cellArray"))
       }
       _ <- {
-        lines
-          .map { line =>
-            IO {
-              component.appendChild(line)
-            }
+        lines.map { line =>
+          IO {
+            component.appendChild(line)
           }
-          .sequence
+        }.sequence
       }
     } yield component
 
