@@ -1,7 +1,7 @@
 package net.st915.minesweeper.component
 
 import net.st915.minesweeper.implicits.*
-import org.scalajs.dom.{HTMLDocument, Element}
+import org.scalajs.dom.{Element, HTMLDocument}
 
 import scala.util.chaining.*
 

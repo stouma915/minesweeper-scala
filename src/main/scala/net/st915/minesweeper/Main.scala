@@ -10,6 +10,7 @@ import org.scalajs.dom.*
   import cats.syntax.traverse.*
 
   implicit val _document: HTMLDocument = document
+  implicit val _window: Window = window
 
   val render = renderer.Service.wired[IO]
 
