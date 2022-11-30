@@ -34,6 +34,10 @@ import org.scalajs.dom.*
     _ <- IO(renderingScreen.remove())
     _ <- appendToBody(gameScreen)
     _ <- appendToBody(diffSelect)
+  } yield ()
+
+  val startMainLoop = for {
+    difficulty <- getDifficulty
     gameLogic <- IO(GameLogic(difficulty))
     docUpdater <- IO(DocumentUpdater(difficulty))
     _ <- MainLoop(gameLogic, docUpdater).startMainLoop
@@ -43,6 +47,7 @@ import org.scalajs.dom.*
     infoText <- InformationText.make
     _ <- appendToBody(infoText)
     _ <- renderGame
+    _ <- startMainLoop
     aboutPage <- AboutPage.make
     _ <- appendToBody(aboutPage)
   } yield ()
