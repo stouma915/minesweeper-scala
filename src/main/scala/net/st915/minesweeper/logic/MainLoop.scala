@@ -24,27 +24,25 @@ case class MainLoop(gameLogic: GameLogic, docUpdater: DocumentUpdater)(implicit
   } yield ()
 
   def eventLoop(context: GameContext): IO[Unit] =
-    if (!context.gameEnded) {
-      for {
-        maybeEvent <- EventQueue.nextEvent
-        _ <- maybeEvent match {
-          case Some(event) =>
-            for {
-              _ <- {
-                implicit val _context: GameContext = context
+    for {
+      maybeEvent <- EventQueue.nextEvent
+      _ <- maybeEvent match {
+        case Some(event) =>
+          for {
+            _ <- {
+              implicit val _context: GameContext = context
 
-                event match {
-                  case e: ButtonClickEvent    => gameLogic.buttonClicked(e)
-                  case e: CellClickEvent      => gameLogic.cellClicked(e)
-                  case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
-                  case _                      => IO.unit
-                }
+              event match {
+                case e: ButtonClickEvent    => gameLogic.buttonClicked(e)
+                case e: CellClickEvent      => gameLogic.cellClicked(e)
+                case e: CellRightClickEvent => gameLogic.cellRightClicked(e)
+                case _                      => IO.unit
               }
-              _ <- docUpdater.updateDocument(context)
-            } yield ()
-          case None => IO.unit
-        }
-      } yield ()
-    } else IO.unit
+            }
+            _ <- docUpdater.updateDocument(context)
+          } yield ()
+        case None => IO.unit
+      }
+    } yield ()
 
 }
