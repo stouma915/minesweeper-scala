@@ -1,7 +1,7 @@
 package net.st915.minesweeper
 
 import cats.effect.IO
-import net.st915.minesweeper.renderer
+import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 
 @main def main(): Unit = {
@@ -12,10 +12,10 @@ import org.scalajs.dom.*
   implicit val _document: HTMLDocument = document
   implicit val _window: Window = window
 
-  val render = renderer.Service.wired[IO]
+  val renderUI = RenderUI.wired[IO]
 
   val program = for {
-    _ <- render
+    _ <- renderUI
   } yield ()
 
   program.start.unsafeRunAndForget()
