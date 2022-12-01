@@ -2,6 +2,7 @@ package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
+import net.st915.minesweeper.event.{ButtonClickEvent, EventQueue}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
 import net.st915.minesweeper.{Coordinate, Difficulty}
@@ -27,18 +28,14 @@ class SyncGameScreen[
       toggleFlagPlaceModeButton <- Button[F].create(
         "Enter Flag Place Mode",
         "toggleFlagPlaceMode",
-        IO {
-          println("clicked: toggle flag place mode button")
-        }
+        EventQueue.queue[IO](ButtonClickEvent("toggleFlagPlaceMode"))
       )
       _ <- AppendElement[F].append(gameScreen, toggleFlagPlaceModeButton)
       _ <- AppendBR[F].append(gameScreen)
       restartButton <- Button[F].create(
         "Restart",
         "restart",
-        IO {
-          println("clicked: restart button")
-        }
+        EventQueue.queue[IO](ButtonClickEvent("restart"))
       )
       _ <- AppendElement[F].append(gameScreen, restartButton)
       _ <- AppendBR[F].append(gameScreen)
