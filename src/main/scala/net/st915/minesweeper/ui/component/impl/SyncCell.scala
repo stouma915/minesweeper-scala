@@ -1,0 +1,57 @@
+package net.st915.minesweeper.ui.component.impl
+
+import cats.effect.{IO, Sync}
+import cats.effect.unsafe.IORuntime
+import net.st915.minesweeper.{Consts, Coordinate}
+import net.st915.minesweeper.ui.application.*
+import net.st915.minesweeper.ui.component.application.*
+import org.scalajs.dom.*
+
+class SyncCell[F[
+    _
+]: Sync: AppendElement: CreateElement: UpdateElementID: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon]
+    extends Cell[F] {
+
+  import cats.syntax.flatMap.*
+  import cats.syntax.functor.*
+  import cats.syntax.traverse.*
+
+  override def create(
+      coord: Coordinate,
+      onClick: Coordinate => IO[Unit],
+      onRightClick: Coordinate => IO[Unit]
+  )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement] =
+    for {
+      cell <- CreateElement[F].create[HTMLDivElement]("div")
+      _ <- UpdateHTMLClass[F].update(cell, Consts.NotOpenedCellClass)
+      _ <- UpdateElementID[F].update(cell, s"cell_${coord.x}_${coord.y}")
+      // TODO: Add click event
+      flagIcon <- FlagIcon[F].create
+      flagIconContainer <- IconContainer[F].create(
+        s"flag_${coord.x}_${coord.y}",
+        flagIcon
+      )
+      _ <- AppendElement[F].append(cell, flagIconContainer)
+      flagPlaceholderIcon <- FlagPlaceholderIcon[F].create
+      flagPlaceholderIconContainer <- IconContainer[F].create(
+        s"flagPlaceholder_${coord.x}_${coord.y}",
+        flagPlaceholderIcon
+      )
+      _ <- AppendElement[F].append(cell, flagPlaceholderIconContainer)
+      mineIcon <- MineIcon[F].create
+      mineIconContainer <- IconContainer[F].create(
+        s"mine_${coord.x}_${coord.y}",
+        mineIcon
+      )
+      _ <- AppendElement[F].append(cell, mineIconContainer)
+      mineCountContainers <-
+        (1 to 8).toList.map { i =>
+          MineCountContainer[F].create(s"${i}_${coord.x}_${coord.y}", i)
+        }.sequence
+      _ <-
+        mineCountContainers.map { mineCountContainer =>
+          AppendElement[F].append(cell, mineCountContainer)
+        }.sequence
+    } yield cell
+
+}
