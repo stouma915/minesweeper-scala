@@ -35,6 +35,7 @@ object RenderUI {
     implicit val _updateHyperlink: UpdateHyperlink[F] = SyncUpdateHyperlink[F]
 
     implicit val _aboutPage: AboutPage[F] = SyncAboutPage[F]
+    implicit val _button: Button[F] = SyncButton[F]
     implicit val _iconContainer: IconContainer[F] = SyncIconContainer[F]
     implicit val _mineCountContainer: MineCountContainer[F] = SyncMineCountContainer[F]
     implicit val _flagIcon: FlagIcon[F] = SyncFlagIcon[F]
