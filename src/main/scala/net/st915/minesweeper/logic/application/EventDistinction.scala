@@ -11,6 +11,6 @@ object EventDistinction {
 
 trait EventDistinction[F[_]] {
 
-  def perform(maybeEvent: Option[Event], gameState: GameState): F[GameState]
+  def perform(event: Event, gameState: GameState): F[GameState]
 
 }

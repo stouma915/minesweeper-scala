@@ -32,8 +32,14 @@ object EventLoop {
     Loop[F].perform {
       for {
         maybeEvent <- GetEventFromQueue[F].get
-        newState <- EventDistinction[F].perform(maybeEvent, gameState)
-        _ <- Sync[F].delay(this.gameState = newState)
+        _ <-
+          maybeEvent match
+            case Some(event) =>
+              for {
+                newState <- EventDistinction[F].perform(event, gameState)
+                _ <- Sync[F].delay(this.gameState = newState)
+              } yield ()
+            case None => Sync[F].unit
       } yield ()
     }
 
