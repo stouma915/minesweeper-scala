@@ -22,7 +22,7 @@ class SyncButton[
     for {
       button <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(button, "btn")
-      innerText <- CreateElement[F].create[HTMLSpanElement]("div")
+      innerText <- CreateElement[F].create[HTMLSpanElement]("span")
       _ <- AppendTextNode[F].append(innerText, text)
       _ <- UpdateHTMLClass[F].update(innerText, "btnText")
       _ <- UpdateElementID[F].update(innerText, s"btn_$id")
