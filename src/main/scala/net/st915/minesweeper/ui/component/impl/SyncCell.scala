@@ -9,7 +9,7 @@ import org.scalajs.dom.*
 
 class SyncCell[F[
     _
-]: Sync: AppendElement: CreateElement: UpdateElementID: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon]
+]: Sync: AppendElement: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon]
     extends Cell[F] {
 
   import cats.syntax.flatMap.*
@@ -17,15 +17,28 @@ class SyncCell[F[
   import cats.syntax.traverse.*
 
   override def create(
-      coord: Coordinate,
-      onClick: Coordinate => IO[Unit],
-      onRightClick: Coordinate => IO[Unit]
+      coord: Coordinate
   )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement] =
     for {
       cell <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(cell, Consts.NotOpenedCellClass)
       _ <- UpdateElementID[F].update(cell, s"cell_${coord.x}_${coord.y}")
-      // TODO: Add click event
+      _ <-
+        UpdateElementClickEvent[F].update(
+          cell,
+          IO {
+            // TODO
+            println(s"clicked: $coord")
+          }
+        )
+      _ <-
+        UpdateElementRightClickEvent[F].update(
+          cell,
+          IO {
+            // TODO
+            println(s"right clicked: $coord")
+          }
+        )
       flagIcon <- FlagIcon[F].create
       flagIconContainer <- IconContainer[F].create(
         s"flag_${coord.x}_${coord.y}",

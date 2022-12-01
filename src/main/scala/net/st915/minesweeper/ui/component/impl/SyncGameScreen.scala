@@ -21,11 +21,7 @@ class SyncGameScreen[F[
     for {
       gameScreen <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(gameScreen, "gameScreen")
-      cellArray <- CellArray[F].create(
-        difficulty,
-        _ => IO.unit,
-        _ => IO.unit
-      )
+      cellArray <- CellArray[F].create(difficulty)
       _ <- AppendElement[F].append(gameScreen, cellArray)
       _ <- AppendBR[F].append(gameScreen)
     } yield gameScreen

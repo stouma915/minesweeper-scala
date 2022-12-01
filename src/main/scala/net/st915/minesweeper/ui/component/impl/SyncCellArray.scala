@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.component.impl
 
-import cats.effect.{IO, Sync}
+import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.{Coordinate, Difficulty}
 import net.st915.minesweeper.ui.application.*
@@ -17,9 +17,7 @@ class SyncCellArray[F[
   import cats.syntax.traverse.*
 
   override def create(
-      difficulty: Difficulty,
-      onCellClick: Coordinate => IO[Unit],
-      onCellRightClick: Coordinate => IO[Unit]
+      difficulty: Difficulty
   )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement] =
     for {
       cellArray <- CreateElement[F].create[HTMLDivElement]("div")
@@ -28,9 +26,7 @@ class SyncCellArray[F[
         (0 until difficulty.height).toList.map { y =>
           CellLine[F].create(
             y,
-            difficulty,
-            onCellClick,
-            onCellRightClick
+            difficulty
           )
         }.sequence
       _ <-
