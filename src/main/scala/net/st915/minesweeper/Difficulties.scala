@@ -3,28 +3,28 @@ package net.st915.minesweeper
 object Difficulties {
 
   final val Easy = Difficulty(
-    "e",
+    "easy",
     "Easy",
     9,
     9,
     10
   )
   final val Normal = Difficulty(
-    "n",
+    "normal",
     "Normal",
     16,
     16,
     40
   )
   final val Hard = Difficulty(
-    "h",
+    "hard",
     "Hard",
     30,
     16,
     99
   )
   final val Impossible = Difficulty(
-    "i",
+    "impossible",
     "Impossible",
     9,
     9,
