@@ -22,6 +22,7 @@ object RenderUI {
     implicit val _appendTextNode: AppendTextNode[F] = SyncAppendTextNode[F]
     implicit val _createElement: CreateElement[F] = SyncCreateElement[F]
     implicit val _appendBR: AppendBR[F] = SyncAppendBR[F]
+    implicit val _createDifficultyLink: CreateDifficultyLink[F] = SyncCreateDifficultyLink[F]
     implicit val _updateHTMLClass: UpdateHTMLClass[F] = SyncUpdateHTMLClass[F]
     implicit val _updateHyperlink: UpdateHyperlink[F] = SyncUpdateHyperlink[F]
 

@@ -8,7 +8,7 @@ import org.scalajs.dom.*
 
 class SyncDifficultySelector[F[
     _
-]: Sync: AppendBR: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass: UpdateHyperlink]
+]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDifficultyLink: CreateElement: UpdateHTMLClass: UpdateHyperlink]
     extends DifficultySelector[F] {
 
   import cats.syntax.flatMap.*
@@ -34,15 +34,8 @@ class SyncDifficultySelector[F[
           link <- CreateElement[F].create[HTMLLinkElement]("a")
           _ <- AppendTextNode[F].append(link, diff.displayName)
           _ <- AppendBR[F].append(link)
-          _ <- UpdateHyperlink[F].update(
-            link, {
-              val currentURL = new URL(window.location.href)
-              val param =
-                if (diff eq Difficulties.Default) "" else s"?d=${diff.id}"
-
-              s"${currentURL.origin}${currentURL.pathname}$param"
-            }
-          )
+          hyperlink <- CreateDifficultyLink[F].create(diff)
+          _ <- UpdateHyperlink[F].update(link, hyperlink)
         } yield link
       }.sequence
       _ <- links
