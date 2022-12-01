@@ -17,6 +17,7 @@ object EventLoop {
 
   def wired[F[_]: Sync](implicit window: Window, runtime: IORuntime): F[Unit] = {
     // format: off
+    implicit val _handleButtonClickEvent: HandleButtonClickEvent[F] = SyncHandleButtonClickEvent[F]
     implicit val _eventDistinction: EventDistinction[F] = SyncEventDistinction[F]
     implicit val _getEventFromQueue: GetEventFromQueue[F] = SyncGetEventFromQueue[F]
     implicit val _loop: Loop[F] = SyncLoop[F]
@@ -31,6 +32,7 @@ object EventLoop {
   ): F[Unit] =
     Loop[F].perform {
       for {
+        _ <- Sync[F].delay(println(this.gameState))
         maybeEvent <- GetEventFromQueue[F].get
         _ <-
           maybeEvent match

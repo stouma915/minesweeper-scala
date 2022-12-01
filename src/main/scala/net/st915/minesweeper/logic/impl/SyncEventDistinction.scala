@@ -3,17 +3,16 @@ package net.st915.minesweeper.logic.impl
 import cats.effect.Sync
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.event.*
-import net.st915.minesweeper.logic.application.EventDistinction
+import net.st915.minesweeper.logic.application.*
 
-class SyncEventDistinction[F[_]: Sync] extends EventDistinction[F] {
+class SyncEventDistinction[F[_]: Sync: HandleButtonClickEvent] extends EventDistinction[F] {
 
-  override def perform(event: Event, gameState: GameState): F[GameState] =
+  override def perform(event: Event, gameState: GameState): F[GameState] = {
+    implicit val _gameState: GameState = gameState
+
     event match
-      case ButtonClickEvent(buttonId) =>
-        Sync[F].pure {
-          println(s"Button Clicked: $buttonId")
-          gameState
-        }
-      case _ => Sync[F].pure(gameState)
+      case e: ButtonClickEvent => HandleButtonClickEvent[F].handle(e)
+      case _                   => Sync[F].pure(gameState)
+  }
 
 }
