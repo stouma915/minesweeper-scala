@@ -6,11 +6,11 @@ object EventQueue {
 
   private var eventQueue = List[Event]()
 
-  def queue[F[_]: Sync](event: Event): F[Unit] = Sync[F].pure {
+  def queue[F[_]: Sync](event: Event): F[Unit] = Sync[F].delay {
     eventQueue = eventQueue.appended(event)
   }
 
-  def nextEvent[F[_]: Sync]: F[Option[Event]] = Sync[F].pure {
+  def nextEvent[F[_]: Sync]: F[Option[Event]] = Sync[F].delay {
     eventQueue.headOption match {
       case Some(x) =>
         eventQueue = eventQueue.drop(1)

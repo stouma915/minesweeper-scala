@@ -3,6 +3,7 @@ package net.st915.minesweeper
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.beforeui.GetDifficulty
+import net.st915.minesweeper.logic.EventLoop
 import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 
@@ -15,6 +16,7 @@ import org.scalajs.dom.*
   val program = for {
     diff <- GetDifficulty.wired[IO]
     _ <- RenderUI.wired[IO](diff)
+    _ <- EventLoop.wired[IO]
   } yield ()
 
   program.start.unsafeRunAndForget()
