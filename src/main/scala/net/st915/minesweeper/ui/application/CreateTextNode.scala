@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.application
 
-import org.scalajs.dom.{HTMLDocument, Text}
+import org.scalajs.dom.*
 
 object CreateTextNode {
 

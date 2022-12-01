@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.impl
 
 import cats.effect.Sync
 import net.st915.minesweeper.ui.application.{AppendTextNode, CreateTextNode}
-import org.scalajs.dom.{HTMLDocument, HTMLElement}
+import org.scalajs.dom.*
 
 class SyncAppendTextNode[F[_]: Sync: CreateTextNode] extends AppendTextNode[F] {
 

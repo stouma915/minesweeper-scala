@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.impl
 
 import cats.effect.Sync
 import net.st915.minesweeper.ui.application.UpdateHyperlink
-import org.scalajs.dom.HTMLLinkElement
+import org.scalajs.dom.*
 
 class SyncUpdateHyperlink[F[_]: Sync] extends UpdateHyperlink[F] {
 

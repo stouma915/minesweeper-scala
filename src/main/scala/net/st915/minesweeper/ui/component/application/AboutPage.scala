@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.component.application
 
-import org.scalajs.dom.{HTMLDivElement, HTMLDocument}
+import org.scalajs.dom.*
 
 object AboutPage {
 

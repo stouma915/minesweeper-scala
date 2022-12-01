@@ -6,7 +6,7 @@ import net.st915.minesweeper.ui.application.{
   AppendElement,
   CreateElement
 }
-import org.scalajs.dom.{HTMLBRElement, HTMLDocument, HTMLElement}
+import org.scalajs.dom.*
 
 class SyncAppendBR[F[_]: Sync: AppendElement: CreateElement]
     extends AppendBR[F] {

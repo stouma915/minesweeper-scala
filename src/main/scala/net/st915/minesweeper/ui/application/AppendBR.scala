@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.application
 
-import org.scalajs.dom.{HTMLElement, HTMLDocument}
+import org.scalajs.dom.*
 
 object AppendBR {
 

@@ -1,14 +1,9 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.ui.application.{
-  AppendElement,
-  AppendTextNode,
-  CreateElement,
-  UpdateHTMLClass
-}
+import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.InformationText
-import org.scalajs.dom.{HTMLDivElement, HTMLDocument, HTMLElement}
+import org.scalajs.dom.*
 
 class SyncInformationText[F[
     _

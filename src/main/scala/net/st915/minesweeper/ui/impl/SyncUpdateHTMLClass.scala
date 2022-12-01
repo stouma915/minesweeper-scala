@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.impl
 
 import cats.effect.Sync
 import net.st915.minesweeper.ui.application.UpdateHTMLClass
-import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.*
 
 class SyncUpdateHTMLClass[F[_]: Sync] extends UpdateHTMLClass[F] {
 

@@ -3,12 +3,7 @@ package net.st915.minesweeper.ui.component.impl
 import cats.effect.Sync
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.AboutPage
-import org.scalajs.dom.{
-  HTMLDivElement,
-  HTMLDocument,
-  HTMLElement,
-  HTMLLinkElement
-}
+import org.scalajs.dom.*
 
 class SyncAboutPage[F[
     _
