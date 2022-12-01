@@ -4,8 +4,7 @@ import net.st915.minesweeper.Difficulty
 
 object ConvertOptionToDifficulty {
 
-  def apply[F[_]: ConvertOptionToDifficulty]: ConvertOptionToDifficulty[F] =
-    implicitly
+  def apply[F[_]: ConvertOptionToDifficulty]: ConvertOptionToDifficulty[F] = implicitly
 
 }
 

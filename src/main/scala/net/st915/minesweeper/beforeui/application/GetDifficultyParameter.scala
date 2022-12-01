@@ -4,8 +4,7 @@ import org.scalajs.dom.*
 
 object GetDifficultyParameter {
 
-  def apply[F[_]: GetDifficultyParameter]: GetDifficultyParameter[F] =
-    implicitly
+  def apply[F[_]: GetDifficultyParameter]: GetDifficultyParameter[F] = implicitly
 
 }
 

@@ -10,9 +10,7 @@ object IconContainer {
 
 trait IconContainer[F[_]] {
 
-  def create[A <: HTMLElement](
-      id: String,
-      icon: A
-  )(implicit document: HTMLDocument): F[HTMLDivElement]
+  def create[A <: HTMLElement](id: String, icon: A)(implicit
+  document: HTMLDocument): F[HTMLDivElement]
 
 }

@@ -12,9 +12,9 @@ object CellLine {
 
 trait CellLine[F[_]] {
 
-  def create(
-      y: Int,
-      difficulty: Difficulty
-  )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement]
+  def create(y: Int, difficulty: Difficulty)(
+    implicit document: HTMLDocument,
+    runtime: IORuntime
+  ): F[HTMLDivElement]
 
 }

@@ -12,8 +12,9 @@ object Cell {
 
 trait Cell[F[_]] {
 
-  def create(
-      coord: Coordinate
-  )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement]
+  def create(coord: Coordinate)(
+    implicit document: HTMLDocument,
+    runtime: IORuntime
+  ): F[HTMLDivElement]
 
 }

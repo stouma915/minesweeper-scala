@@ -1,8 +1,8 @@
 package net.st915.minesweeper.ui.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Difficulties, Difficulty}
 import net.st915.minesweeper.ui.application.CreateDifficultyLink
+import net.st915.minesweeper.{Difficulties, Difficulty}
 import org.scalajs.dom.*
 
 class SyncCreateDifficultyLink[F[_]: Sync] extends CreateDifficultyLink[F] {

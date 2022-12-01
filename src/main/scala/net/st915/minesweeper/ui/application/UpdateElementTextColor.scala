@@ -4,8 +4,7 @@ import org.scalajs.dom.*
 
 object UpdateElementTextColor {
 
-  def apply[F[_]: UpdateElementTextColor]: UpdateElementTextColor[F] =
-    implicitly
+  def apply[F[_]: UpdateElementTextColor]: UpdateElementTextColor[F] = implicitly
 
 }
 

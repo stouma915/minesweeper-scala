@@ -5,10 +5,11 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.AboutPage
 import org.scalajs.dom.*
 
-class SyncAboutPage[F[
+class SyncAboutPage[
+  F[
     _
-]: Sync: AppendBR: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass: UpdateHyperlink]
-    extends AboutPage[F] {
+  ]: Sync: AppendBR: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass: UpdateHyperlink
+] extends AboutPage[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*

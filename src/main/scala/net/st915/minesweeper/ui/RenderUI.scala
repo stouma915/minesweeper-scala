@@ -14,10 +14,10 @@ object RenderUI {
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](difficulty: Difficulty)(implicit
-      document: HTMLDocument,
-      window: Window,
-      runtime: IORuntime
+  def wired[F[_]: Sync](difficulty: Difficulty)(
+    implicit document: HTMLDocument,
+    window: Window,
+    runtime: IORuntime
   ): F[Unit] = {
     // format: off
     implicit val _appendElement: AppendElement[F] = SyncAppendElement[F]
@@ -51,14 +51,12 @@ object RenderUI {
     RenderUI(difficulty)
   }
 
-  def apply[F[
-      _
-  ]: Sync: AppendElement: AboutPage: DifficultySelector: GameScreen: InformationText](
-      difficulty: Difficulty
-  )(implicit
-      document: HTMLDocument,
-      window: Window,
-      runtime: IORuntime
+  def apply[
+    F[_]: Sync: AppendElement: AboutPage: DifficultySelector: GameScreen: InformationText
+  ](difficulty: Difficulty)(
+    implicit document: HTMLDocument,
+    window: Window,
+    runtime: IORuntime
   ): F[Unit] =
     for {
       informationText <- InformationText[F].create

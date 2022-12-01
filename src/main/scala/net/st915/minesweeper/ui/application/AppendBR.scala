@@ -10,8 +10,6 @@ object AppendBR {
 
 trait AppendBR[F[_]] {
 
-  def append[A <: HTMLElement](
-      parent: A
-  )(implicit document: HTMLDocument): F[Unit]
+  def append[A <: HTMLElement](parent: A)(implicit document: HTMLDocument): F[Unit]
 
 }

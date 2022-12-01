@@ -6,16 +6,15 @@ import org.scalajs.dom.*
 
 object UpdateElementRightClickEvent {
 
-  def apply[F[_]: UpdateElementRightClickEvent]
-      : UpdateElementRightClickEvent[F] = implicitly
+  def apply[F[_]: UpdateElementRightClickEvent]: UpdateElementRightClickEvent[F] = implicitly
 
 }
 
 trait UpdateElementRightClickEvent[F[_]] {
 
   def update[A <: HTMLElement](
-      element: A,
-      onRightClick: IO[_]
+    element: A,
+    onRightClick: IO[_]
   )(implicit runtime: IORuntime): F[Unit]
 
 }

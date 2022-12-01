@@ -20,9 +20,8 @@ object GetDifficulty {
     GetDifficulty()
   }
 
-  def apply[F[_]: Sync: ConvertOptionToDifficulty: GetDifficultyParameter]()(
-      implicit window: Window
-  ): F[Difficulty] =
+  def apply[F[_]: Sync: ConvertOptionToDifficulty: GetDifficultyParameter]()(implicit
+  window: Window): F[Difficulty] =
     for {
       diffParam <- GetDifficultyParameter[F].get
       diff <- ConvertOptionToDifficulty[F].convert(diffParam)

@@ -10,9 +10,6 @@ object MineCountContainer {
 
 trait MineCountContainer[F[_]] {
 
-  def create(
-      id: String,
-      num: Int
-  )(implicit document: HTMLDocument): F[HTMLDivElement]
+  def create(id: String, num: Int)(implicit document: HTMLDocument): F[HTMLDivElement]
 
 }

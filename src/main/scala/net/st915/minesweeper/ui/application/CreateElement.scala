@@ -10,8 +10,6 @@ object CreateElement {
 
 trait CreateElement[F[_]] {
 
-  def create[A <: HTMLElement](
-      tagName: String
-  )(implicit document: HTMLDocument): F[A]
+  def create[A <: HTMLElement](tagName: String)(implicit document: HTMLDocument): F[A]
 
 }

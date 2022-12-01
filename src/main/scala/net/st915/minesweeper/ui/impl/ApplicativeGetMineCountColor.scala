@@ -3,8 +3,7 @@ package net.st915.minesweeper.ui.impl
 import cats.Applicative
 import net.st915.minesweeper.ui.application.GetMineCountColor
 
-class ApplicativeGetMineCountColor[F[_]: Applicative]
-    extends GetMineCountColor[F] {
+class ApplicativeGetMineCountColor[F[_]: Applicative] extends GetMineCountColor[F] {
 
   override def get(num: Int): F[String] =
     Applicative[F].pure {

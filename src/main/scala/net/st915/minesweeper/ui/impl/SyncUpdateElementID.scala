@@ -6,10 +6,7 @@ import org.scalajs.dom.*
 
 class SyncUpdateElementID[F[_]: Sync] extends UpdateElementID[F] {
 
-  override def update[A <: HTMLElement](
-      element: A,
-      elementID: String
-  ): F[Unit] =
+  override def update[A <: HTMLElement](element: A, elementID: String): F[Unit] =
     if (element.id != elementID)
       Sync[F].blocking(element.id = elementID)
     else

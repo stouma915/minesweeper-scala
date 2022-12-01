@@ -5,10 +5,9 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.InformationText
 import org.scalajs.dom.*
 
-class SyncInformationText[F[
-    _
-]: Sync: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass]
-    extends InformationText[F] {
+class SyncInformationText[
+  F[_]: Sync: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass
+] extends InformationText[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*

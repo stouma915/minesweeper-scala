@@ -1,11 +1,10 @@
 package net.st915.minesweeper.beforeui.impl
 
 import cats.Applicative
-import net.st915.minesweeper.{Difficulties, Difficulty}
 import net.st915.minesweeper.beforeui.application.ConvertOptionToDifficulty
+import net.st915.minesweeper.{Difficulties, Difficulty}
 
-class ApplicativeConvertOptionToDifficulty[F[_]: Applicative]
-    extends ConvertOptionToDifficulty[F] {
+class ApplicativeConvertOptionToDifficulty[F[_]: Applicative] extends ConvertOptionToDifficulty[F] {
 
   override def convert(option: Option[String]): F[Difficulty] =
     Applicative[F].pure {

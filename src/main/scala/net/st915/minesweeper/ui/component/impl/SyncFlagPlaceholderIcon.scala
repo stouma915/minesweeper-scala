@@ -5,10 +5,9 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.FlagPlaceholderIcon
 import org.scalajs.dom.*
 
-class SyncFlagPlaceholderIcon[F[
-    _
-]: Sync: AppendElement: CreateElement: UpdateHTMLClass]
-    extends FlagPlaceholderIcon[F] {
+class SyncFlagPlaceholderIcon[
+  F[_]: Sync: AppendElement: CreateElement: UpdateHTMLClass
+] extends FlagPlaceholderIcon[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*

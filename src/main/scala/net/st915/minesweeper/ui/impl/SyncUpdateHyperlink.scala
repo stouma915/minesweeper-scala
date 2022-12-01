@@ -6,10 +6,7 @@ import org.scalajs.dom.*
 
 class SyncUpdateHyperlink[F[_]: Sync] extends UpdateHyperlink[F] {
 
-  override def update(
-      element: HTMLLinkElement,
-      hyperlink: String
-  ): F[Unit] =
+  override def update(element: HTMLLinkElement, hyperlink: String): F[Unit] =
     if (element.href != hyperlink)
       Sync[F].blocking(element.href = hyperlink)
     else

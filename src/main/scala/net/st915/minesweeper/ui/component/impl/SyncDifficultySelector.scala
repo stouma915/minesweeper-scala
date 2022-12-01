@@ -6,19 +6,15 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.DifficultySelector
 import org.scalajs.dom.*
 
-class SyncDifficultySelector[F[
-    _
-]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDifficultyLink: CreateElement: UpdateHTMLClass: UpdateHyperlink]
-    extends DifficultySelector[F] {
+class SyncDifficultySelector[
+  F[_]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDifficultyLink: CreateElement: UpdateHTMLClass: UpdateHyperlink
+] extends DifficultySelector[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
   import cats.syntax.traverse.*
 
-  override def create(implicit
-      document: HTMLDocument,
-      window: Window
-  ): F[HTMLDivElement] =
+  override def create(implicit document: HTMLDocument, window: Window): F[HTMLDivElement] =
     for {
       containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(

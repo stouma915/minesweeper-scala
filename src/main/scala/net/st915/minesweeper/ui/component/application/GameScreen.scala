@@ -12,8 +12,9 @@ object GameScreen {
 
 trait GameScreen[F[_]] {
 
-  def create(
-      difficulty: Difficulty
-  )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement]
+  def create(difficulty: Difficulty)(
+    implicit document: HTMLDocument,
+    runtime: IORuntime
+  ): F[HTMLDivElement]
 
 }

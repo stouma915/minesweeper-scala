@@ -1,24 +1,24 @@
 package net.st915.minesweeper.ui.component.impl
 
-import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.{Consts, Coordinate}
+import cats.effect.{IO, Sync}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
+import net.st915.minesweeper.{Consts, Coordinate}
 import org.scalajs.dom.*
 
-class SyncCell[F[
-    _
-]: Sync: AppendElement: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon]
-    extends Cell[F] {
+class SyncCell[
+  F[_]: Sync: AppendElement: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon
+] extends Cell[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
   import cats.syntax.traverse.*
 
-  override def create(
-      coord: Coordinate
-  )(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement] =
+  override def create(coord: Coordinate)(
+    implicit document: HTMLDocument,
+    runtime: IORuntime
+  ): F[HTMLDivElement] =
     for {
       cell <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(cell, Consts.NotOpenedCellClass)

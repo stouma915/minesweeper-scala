@@ -5,18 +5,16 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.MineCountContainer
 import org.scalajs.dom.*
 
-class SyncMineCountContainer[F[
+class SyncMineCountContainer[
+  F[
     _
-]: Sync: AppendTextNode: CreateElement: GetMineCountColor: UpdateElementID: UpdateElementTextColor: UpdateHTMLClass]
-    extends MineCountContainer[F] {
+  ]: Sync: AppendTextNode: CreateElement: GetMineCountColor: UpdateElementID: UpdateElementTextColor: UpdateHTMLClass
+] extends MineCountContainer[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  override def create(
-      id: String,
-      num: Int
-  )(implicit document: HTMLDocument): F[HTMLDivElement] =
+  override def create(id: String, num: Int)(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
       mineCountContainer <- CreateElement[F].create[HTMLDivElement]("div")
       _ <- UpdateHTMLClass[F].update(mineCountContainer, "mineCountContainer")

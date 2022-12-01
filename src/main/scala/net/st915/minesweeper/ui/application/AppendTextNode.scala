@@ -10,9 +10,6 @@ object AppendTextNode {
 
 trait AppendTextNode[F[_]] {
 
-  def append[A <: HTMLElement](
-      parent: A,
-      child: String
-  )(implicit document: HTMLDocument): F[Unit]
+  def append[A <: HTMLElement](parent: A, child: String)(implicit document: HTMLDocument): F[Unit]
 
 }

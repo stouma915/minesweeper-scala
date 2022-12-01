@@ -5,8 +5,9 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.MineIcon
 import org.scalajs.dom.*
 
-class SyncMineIcon[F[_]: Sync: AppendElement: CreateElement: UpdateHTMLClass]
-    extends MineIcon[F] {
+class SyncMineIcon[
+  F[_]: Sync: AppendElement: CreateElement: UpdateHTMLClass
+] extends MineIcon[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
