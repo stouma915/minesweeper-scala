@@ -32,7 +32,6 @@ object EventLoop {
   ): F[Unit] =
     Loop[F].perform {
       for {
-        _ <- Sync[F].delay(println(this.gameState))
         maybeEvent <- GetEventFromQueue[F].get
         _ <-
           maybeEvent match
