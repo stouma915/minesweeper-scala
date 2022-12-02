@@ -3,10 +3,10 @@ package net.st915.minesweeper.ui.component.impl
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts.CSSClass
-import net.st915.minesweeper.event.{ButtonClickEvent, EventQueue}
+import net.st915.minesweeper.event.ButtonClickEvent
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
-import net.st915.minesweeper.{Coordinate, Difficulty}
+import net.st915.minesweeper.{Coordinate, Difficulty, EventQueue}
 import org.scalajs.dom.*
 
 class SyncGameScreen[

@@ -1,9 +1,9 @@
-package net.st915.minesweeper.logic.impl
+package net.st915.minesweeper.logic.eventloop.impl
 
-import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
+import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts
-import net.st915.minesweeper.logic.application.Loop
+import net.st915.minesweeper.logic.eventloop.application.Loop
 import org.scalajs.dom.*
 
 class SyncLoop[F[_]: Sync] extends Loop[F] {

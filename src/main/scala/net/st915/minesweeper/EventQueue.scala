@@ -1,6 +1,7 @@
-package net.st915.minesweeper.event
+package net.st915.minesweeper
 
 import cats.effect.Sync
+import net.st915.minesweeper.event.Event
 
 object EventQueue {
 

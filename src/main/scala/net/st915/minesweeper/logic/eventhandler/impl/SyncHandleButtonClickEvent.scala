@@ -1,10 +1,10 @@
-package net.st915.minesweeper.logic.impl
+package net.st915.minesweeper.logic.eventhandler.impl
 
 import cats.effect.Sync
 import net.st915.minesweeper.Consts.ElementID
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.event.ButtonClickEvent
-import net.st915.minesweeper.logic.application.HandleButtonClickEvent
+import net.st915.minesweeper.logic.eventhandler.application.HandleButtonClickEvent
 
 class SyncHandleButtonClickEvent[F[_]: Sync] extends HandleButtonClickEvent[F] {
 

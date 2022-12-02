@@ -3,7 +3,8 @@ package net.st915.minesweeper.ui.component.impl
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts.CSSClass
-import net.st915.minesweeper.Coordinate
+import net.st915.minesweeper.event.{CellClickEvent, CellRightClickEvent}
+import net.st915.minesweeper.{Coordinate, EventQueue}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
 import net.st915.minesweeper.ui.util.application.IDFactory
@@ -26,22 +27,14 @@ class SyncCell[
       _ <- UpdateHTMLClass[F].update(cell, CSSClass.NotOpenedCell)
       cellID <- IDFactory[F].cell(coord)
       _ <- UpdateElementID[F].update(cell, cellID)
-      _ <-
-        UpdateElementClickEvent[F].update(
-          cell,
-          IO {
-            // TODO
-            println(s"clicked: $coord")
-          }
-        )
-      _ <-
-        UpdateElementRightClickEvent[F].update(
-          cell,
-          IO {
-            // TODO
-            println(s"right clicked: $coord")
-          }
-        )
+      _ <- UpdateElementClickEvent[F].update(
+        cell,
+        EventQueue.queue[IO](CellClickEvent(coord))
+      )
+      _ <- UpdateElementRightClickEvent[F].update(
+        cell,
+        EventQueue.queue[IO](CellRightClickEvent(coord))
+      )
       flagIcon <- FlagIcon[F].create
       flagIconContainerID <- IDFactory[F].iconContainer(CSSClass.FlagIcon, coord)
       flagIconContainer <- IconContainer[F].create(flagIconContainerID, flagIcon)

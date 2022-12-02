@@ -3,7 +3,7 @@ package net.st915.minesweeper
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.beforeui.GetDifficulty
-import net.st915.minesweeper.logic.EventLoop
+import net.st915.minesweeper.logic.eventloop.EventLoop
 import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 

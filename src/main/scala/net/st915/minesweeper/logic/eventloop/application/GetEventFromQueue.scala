@@ -1,4 +1,4 @@
-package net.st915.minesweeper.logic.application
+package net.st915.minesweeper.logic.eventloop.application
 
 import net.st915.minesweeper.event.Event
 
