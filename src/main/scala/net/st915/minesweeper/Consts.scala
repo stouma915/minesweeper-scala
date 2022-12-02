@@ -71,6 +71,7 @@ object Consts {
 
     final val RestartButton = "Restart"
     final val EnterFlagPlaceMode = "Enter Flag Place Mode"
+    final val ExitFlagPlaceMode = "Exit Flag Place Mode"
 
     final val Period = "."
 
