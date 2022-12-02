@@ -1,9 +1,8 @@
 package net.st915.minesweeper.ui.impl
 
 import cats.Applicative
-import net.st915.minesweeper.Consts
 import net.st915.minesweeper.ui.application.CreateDifficultyLink
-import net.st915.minesweeper.{Difficulties, Difficulty}
+import net.st915.minesweeper.{Consts, Difficulties, Difficulty}
 import org.scalajs.dom.*
 
 class ApplicativeCreateDifficultyLink[F[_]: Applicative] extends CreateDifficultyLink[F] {

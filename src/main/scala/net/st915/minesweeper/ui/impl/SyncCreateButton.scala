@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.impl
 
-import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
+import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.ui.application.*
 import org.scalajs.dom.*
