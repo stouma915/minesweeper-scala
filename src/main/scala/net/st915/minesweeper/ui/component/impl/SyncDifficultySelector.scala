@@ -8,7 +8,7 @@ import net.st915.minesweeper.ui.component.application.DifficultySelector
 import org.scalajs.dom.*
 
 class SyncDifficultySelector[
-  F[_]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDifficultyLink: CreateElement: UpdateHTMLClass: UpdateHyperlink
+  F[_]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDifficultyLink: CreateDiv: CreateLink: CreateSpan: UpdateHTMLClass: UpdateHyperlink
 ] extends DifficultySelector[F] {
 
   import cats.syntax.flatMap.*
@@ -17,15 +17,15 @@ class SyncDifficultySelector[
 
   override def create(implicit document: HTMLDocument, window: Window): F[HTMLDivElement] =
     for {
-      containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
+      containerDiv <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.DifficultySelector)
-      span <- CreateElement[F].create[HTMLElement]("span")
+      span <- CreateSpan[F].create
       _ <- AppendTextNode[F].append(span, "Difficulties:")
       _ <- AppendBR[F].append(span)
       _ <- AppendElement[F].append(containerDiv, span)
       links <- Difficulties.All.map { diff =>
         for {
-          link <- CreateElement[F].create[HTMLLinkElement]("a")
+          link <- CreateLink[F].create
           _ <- AppendTextNode[F].append(link, diff.displayName)
           _ <- AppendBR[F].append(link)
           hyperlink <- CreateDifficultyLink[F].create(diff)

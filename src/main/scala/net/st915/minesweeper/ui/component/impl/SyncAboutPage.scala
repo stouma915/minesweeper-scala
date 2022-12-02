@@ -9,7 +9,7 @@ import org.scalajs.dom.*
 class SyncAboutPage[
   F[
     _
-  ]: Sync: AppendBR: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass: UpdateHyperlink
+  ]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDiv: CreateLink: CreateP: UpdateHTMLClass: UpdateHyperlink
 ] extends AboutPage[F] {
 
   import cats.syntax.flatMap.*
@@ -17,25 +17,25 @@ class SyncAboutPage[
 
   override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
-      containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
+      containerDiv <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.AboutPage)
-      innerText <- CreateElement[F].create[HTMLElement]("p")
+      innerText <- CreateP[F].create
       _ <- AppendTextNode[F].append(innerText, "This site is licensed under the ")
-      licenseLink <- CreateElement[F].create[HTMLLinkElement]("a")
+      licenseLink <- CreateLink[F].create
       _ <- AppendTextNode[F].append(licenseLink, "MIT License")
       _ <- UpdateHyperlink[F].update(licenseLink, Link.License)
       _ <- AppendElement[F].append(innerText, licenseLink)
       _ <- AppendTextNode[F].append(innerText, ".")
       _ <- AppendBR[F].append(innerText)
       _ <- AppendTextNode[F].append(innerText, "This site is open source. ")
-      repositoryLink <- CreateElement[F].create[HTMLLinkElement]("a")
+      repositoryLink <- CreateLink[F].create
       _ <- AppendTextNode[F].append(repositoryLink, "Improve this site")
       _ <- UpdateHyperlink[F].update(repositoryLink, Link.Repository)
       _ <- AppendElement[F].append(innerText, repositoryLink)
       _ <- AppendTextNode[F].append(innerText, ".")
       _ <- AppendBR[F].append(innerText)
       _ <- AppendTextNode[F].append(innerText, "Powered by ")
-      gitHubPagesLink <- CreateElement[F].create[HTMLLinkElement]("a")
+      gitHubPagesLink <- CreateLink[F].create
       _ <- AppendTextNode[F].append(gitHubPagesLink, "GitHub Pages")
       _ <- UpdateHyperlink[F].update(gitHubPagesLink, Link.GitHubPages)
       _ <- AppendElement[F].append(innerText, gitHubPagesLink)

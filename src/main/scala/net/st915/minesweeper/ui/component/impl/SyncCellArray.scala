@@ -9,7 +9,7 @@ import net.st915.minesweeper.{Coordinate, Difficulty}
 import org.scalajs.dom.*
 
 class SyncCellArray[
-  F[_]: Sync: AppendElement: CreateElement: UpdateHTMLClass: CellLine
+  F[_]: Sync: AppendElement: CreateDiv: UpdateHTMLClass: CellLine
 ] extends CellArray[F] {
 
   import cats.syntax.flatMap.*
@@ -21,7 +21,7 @@ class SyncCellArray[
     runtime: IORuntime
   ): F[HTMLDivElement] =
     for {
-      cellArray <- CreateElement[F].create[HTMLDivElement]("div")
+      cellArray <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(cellArray, CSSClass.CellArray)
       lines <-
         (0 until difficulty.height).toList.map { y =>

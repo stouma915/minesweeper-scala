@@ -7,7 +7,7 @@ import net.st915.minesweeper.ui.component.application.InformationText
 import org.scalajs.dom.*
 
 class SyncInformationText[
-  F[_]: Sync: AppendElement: AppendTextNode: CreateElement: UpdateHTMLClass
+  F[_]: Sync: AppendElement: AppendTextNode: CreateDiv: CreateH1: UpdateHTMLClass
 ] extends InformationText[F] {
 
   import cats.syntax.flatMap.*
@@ -15,9 +15,9 @@ class SyncInformationText[
 
   override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
-      containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
+      containerDiv <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.InformationText)
-      informationText <- CreateElement[F].create[HTMLElement]("h1")
+      informationText <- CreateH1[F].create
       _ <- AppendTextNode[F].append(informationText, "Currently Under Development.")
       _ <- AppendElement[F].append(containerDiv, informationText)
     } yield containerDiv

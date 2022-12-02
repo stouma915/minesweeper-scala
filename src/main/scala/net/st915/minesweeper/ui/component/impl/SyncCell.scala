@@ -9,7 +9,7 @@ import net.st915.minesweeper.ui.component.application.*
 import org.scalajs.dom.*
 
 class SyncCell[
-  F[_]: Sync: AppendElement: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon
+  F[_]: Sync: AppendElement: CreateDiv: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon
 ] extends Cell[F] {
 
   import cats.syntax.flatMap.*
@@ -21,7 +21,7 @@ class SyncCell[
     runtime: IORuntime
   ): F[HTMLDivElement] =
     for {
-      cell <- CreateElement[F].create[HTMLDivElement]("div")
+      cell <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(cell, CSSClass.NotOpenedCell)
       _ <- UpdateElementID[F].update(cell, s"cell_${coord.x}_${coord.y}")
       _ <-

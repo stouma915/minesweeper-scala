@@ -7,9 +7,7 @@ import net.st915.minesweeper.ui.component.application.MineCountContainer
 import org.scalajs.dom.*
 
 class SyncMineCountContainer[
-  F[
-    _
-  ]: Sync: AppendTextNode: CreateElement: GetMineCountColor: UpdateElementID: UpdateElementTextColor: UpdateHTMLClass
+  F[_]: Sync: AppendTextNode: CreateDiv: GetMineCountColor: UpdateElementID: UpdateElementTextColor: UpdateHTMLClass
 ] extends MineCountContainer[F] {
 
   import cats.syntax.flatMap.*
@@ -17,7 +15,7 @@ class SyncMineCountContainer[
 
   override def create(id: String, num: Int)(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
-      mineCountContainer <- CreateElement[F].create[HTMLDivElement]("div")
+      mineCountContainer <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(mineCountContainer, CSSClass.MineCountContainer)
       _ <- UpdateElementID[F].update(mineCountContainer, s"mineCountContainer_$id")
       _ <- AppendTextNode[F].append(mineCountContainer, num.toString)

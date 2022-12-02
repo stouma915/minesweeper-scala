@@ -10,9 +10,7 @@ import net.st915.minesweeper.{Coordinate, Difficulty}
 import org.scalajs.dom.*
 
 class SyncGameScreen[
-  F[
-    _
-  ]: Sync: AppendBR: AppendElement: CreateElement: UpdateHTMLClass: CellArray: ToggleFlagModeButton: RestartButton
+  F[_]: Sync: AppendBR: AppendElement: CreateDiv: UpdateHTMLClass: CellArray: ToggleFlagModeButton: RestartButton
 ] extends GameScreen[F] {
 
   import cats.syntax.flatMap.*
@@ -23,7 +21,7 @@ class SyncGameScreen[
     runtime: IORuntime
   ): F[HTMLDivElement] =
     for {
-      gameScreen <- CreateElement[F].create[HTMLDivElement]("div")
+      gameScreen <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(gameScreen, CSSClass.GameScreen)
       cellArray <- CellArray[F].create(difficulty)
       _ <- AppendElement[F].append(gameScreen, cellArray)

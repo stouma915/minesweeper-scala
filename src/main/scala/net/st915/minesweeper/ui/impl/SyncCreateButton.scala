@@ -7,9 +7,7 @@ import net.st915.minesweeper.ui.application.*
 import org.scalajs.dom.*
 
 class SyncCreateButton[
-  F[
-    _
-  ]: Sync: AppendElement: AppendTextNode: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass
+  F[_]: Sync: AppendElement: AppendTextNode: CreateDiv: CreateSpan: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass
 ] extends CreateButton[F] {
 
   import cats.syntax.flatMap.*
@@ -20,9 +18,9 @@ class SyncCreateButton[
     runtime: IORuntime
   ): F[HTMLDivElement] =
     for {
-      button <- CreateElement[F].create[HTMLDivElement]("div")
+      button <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(button, CSSClass.Button)
-      innerText <- CreateElement[F].create[HTMLSpanElement]("span")
+      innerText <- CreateSpan[F].create
       _ <- AppendTextNode[F].append(innerText, text)
       _ <- UpdateHTMLClass[F].update(innerText, CSSClass.ButtonInner)
       _ <- UpdateElementID[F].update(innerText, s"btn_$id")

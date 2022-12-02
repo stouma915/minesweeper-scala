@@ -7,7 +7,7 @@ import net.st915.minesweeper.ui.component.application.FlagPlaceholderIcon
 import org.scalajs.dom.*
 
 class SyncFlagPlaceholderIcon[
-  F[_]: Sync: AppendElement: CreateElement: UpdateHTMLClass
+  F[_]: Sync: AppendElement: CreateDiv: UpdateHTMLClass
 ] extends FlagPlaceholderIcon[F] {
 
   import cats.syntax.flatMap.*
@@ -15,15 +15,15 @@ class SyncFlagPlaceholderIcon[
 
   override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
-      icon <- CreateElement[F].create[HTMLDivElement]("div")
+      icon <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(icon, CSSClass.FlagPlaceholderIcon)
-      partTop <- CreateElement[F].create[HTMLDivElement]("div")
+      partTop <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(partTop, CSSClass.FlagPlaceholderPartTop)
       _ <- AppendElement[F].append(icon, partTop)
-      partMiddle <- CreateElement[F].create[HTMLDivElement]("div")
+      partMiddle <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(partMiddle, CSSClass.FlagPlaceholderPartMiddle)
       _ <- AppendElement[F].append(icon, partMiddle)
-      partBottom <- CreateElement[F].create[HTMLDivElement]("div")
+      partBottom <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(partBottom, CSSClass.FlagPlaceholderPartBottom)
       _ <- AppendElement[F].append(icon, partBottom)
     } yield icon
