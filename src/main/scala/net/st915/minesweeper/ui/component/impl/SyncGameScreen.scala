@@ -9,7 +9,9 @@ import net.st915.minesweeper.{Coordinate, Difficulty}
 import org.scalajs.dom.*
 
 class SyncGameScreen[
-  F[_]: Sync: AppendBR: AppendElement: CreateElement: UpdateHTMLClass: Button: CellArray
+  F[
+    _
+  ]: Sync: AppendBR: AppendElement: CreateElement: UpdateHTMLClass: CellArray: ToggleFlagModeButton: RestartButton
 ] extends GameScreen[F] {
 
   import cats.syntax.flatMap.*
@@ -25,18 +27,10 @@ class SyncGameScreen[
       cellArray <- CellArray[F].create(difficulty)
       _ <- AppendElement[F].append(gameScreen, cellArray)
       _ <- AppendBR[F].append(gameScreen)
-      toggleFlagPlaceModeButton <- Button[F].create(
-        "Enter Flag Place Mode",
-        "toggleFlagPlaceMode",
-        EventQueue.queue[IO](ButtonClickEvent("toggleFlagPlaceMode"))
-      )
+      toggleFlagPlaceModeButton <- ToggleFlagModeButton[F].create
       _ <- AppendElement[F].append(gameScreen, toggleFlagPlaceModeButton)
       _ <- AppendBR[F].append(gameScreen)
-      restartButton <- Button[F].create(
-        "Restart",
-        "restart",
-        EventQueue.queue[IO](ButtonClickEvent("restart"))
-      )
+      restartButton <- RestartButton[F].create
       _ <- AppendElement[F].append(gameScreen, restartButton)
       _ <- AppendBR[F].append(gameScreen)
     } yield gameScreen

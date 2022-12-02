@@ -1,21 +1,20 @@
-package net.st915.minesweeper.ui.component.impl
+package net.st915.minesweeper.ui.impl
 
 import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.ui.application.*
-import net.st915.minesweeper.ui.component.application.Button
 import org.scalajs.dom.*
 
-class SyncButton[
+class SyncCreateButton[
   F[
     _
   ]: Sync: AppendElement: AppendTextNode: CreateElement: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass
-] extends Button[F] {
+] extends CreateButton[F] {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  override def create(text: String, id: String, onClick: IO[Unit])(
+  override def create(text: ByteString, id: ByteString, onClick: IO[Unit])(
     implicit document: HTMLDocument,
     runtime: IORuntime
   ): F[HTMLDivElement] =
