@@ -10,7 +10,10 @@ class SyncUpdateTextContent[F[_]: Sync: GetElement] extends UpdateTextContent[F]
 
   override def update(id: String, text: String)(implicit document: HTMLDocument): F[Unit] =
     GetElement[F].get[HTMLElement](id) >>= { element =>
-      Sync[F].blocking(element.textContent = text)
+      if (element.textContent != text)
+        Sync[F].blocking(element.textContent = text)
+      else
+        Sync[F].unit
     }
 
 }
