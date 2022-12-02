@@ -1,6 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
+import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.Difficulties
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.DifficultySelector
@@ -17,10 +18,7 @@ class SyncDifficultySelector[
   override def create(implicit document: HTMLDocument, window: Window): F[HTMLDivElement] =
     for {
       containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(
-        containerDiv,
-        "difficultySelectorContainer"
-      )
+      _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.DifficultySelector)
       span <- CreateElement[F].create[HTMLElement]("span")
       _ <- AppendTextNode[F].append(span, "Difficulties:")
       _ <- AppendBR[F].append(span)

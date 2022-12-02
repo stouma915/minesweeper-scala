@@ -2,6 +2,7 @@ package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
+import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.event.{ButtonClickEvent, EventQueue}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
@@ -23,7 +24,7 @@ class SyncGameScreen[
   ): F[HTMLDivElement] =
     for {
       gameScreen <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(gameScreen, "gameScreen")
+      _ <- UpdateHTMLClass[F].update(gameScreen, CSSClass.GameScreen)
       cellArray <- CellArray[F].create(difficulty)
       _ <- AppendElement[F].append(gameScreen, cellArray)
       _ <- AppendBR[F].append(gameScreen)

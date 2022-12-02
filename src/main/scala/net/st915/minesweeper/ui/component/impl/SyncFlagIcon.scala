@@ -1,6 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
+import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.FlagIcon
 import org.scalajs.dom.*
@@ -15,15 +16,15 @@ class SyncFlagIcon[
   override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
       flagIcon <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(flagIcon, "flag")
+      _ <- UpdateHTMLClass[F].update(flagIcon, CSSClass.FlagIcon)
       flagPartTop <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(flagPartTop, "flagPart flagTop")
+      _ <- UpdateHTMLClass[F].update(flagPartTop, CSSClass.FlagPartTop)
       _ <- AppendElement[F].append(flagIcon, flagPartTop)
       flagPartMiddle <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(flagPartMiddle, "flagPart flagMiddle")
+      _ <- UpdateHTMLClass[F].update(flagPartMiddle, CSSClass.FlagPartMiddle)
       _ <- AppendElement[F].append(flagIcon, flagPartMiddle)
       flagPartBottom <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(flagPartBottom, "flagPart flagBottom")
+      _ <- UpdateHTMLClass[F].update(flagPartBottom, CSSClass.FlagPartBottom)
       _ <- AppendElement[F].append(flagIcon, flagPartBottom)
     } yield flagIcon
 

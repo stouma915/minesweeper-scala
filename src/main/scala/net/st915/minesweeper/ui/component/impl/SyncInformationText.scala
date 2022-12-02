@@ -1,6 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
+import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.InformationText
 import org.scalajs.dom.*
@@ -15,12 +16,9 @@ class SyncInformationText[
   override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
       containerDiv <- CreateElement[F].create[HTMLDivElement]("div")
-      _ <- UpdateHTMLClass[F].update(containerDiv, "informationTextContainer")
+      _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.InformationText)
       informationText <- CreateElement[F].create[HTMLElement]("h1")
-      _ <- AppendTextNode[F].append(
-        informationText,
-        "Currently Under Development."
-      )
+      _ <- AppendTextNode[F].append(informationText, "Currently Under Development.")
       _ <- AppendElement[F].append(containerDiv, informationText)
     } yield containerDiv
 

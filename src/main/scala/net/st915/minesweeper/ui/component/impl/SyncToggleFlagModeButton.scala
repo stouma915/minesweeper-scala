@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
-import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
+import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts
 import net.st915.minesweeper.event.{ButtonClickEvent, EventQueue}
 import net.st915.minesweeper.ui.application.*
