@@ -43,18 +43,8 @@ object Consts {
 
   object ElementID {
 
-    final val CellPrefix = "cell_"
-    final val FlagContainerPrefix = "flag_"
-    final val FlagPlaceholderContainerPrefix = "flagPlaceholder_"
-    final val MineContainerPrefix = "mine_"
-    final val IconContainerPrefix = "iconContainer_"
-    final val MineCountContainerPrefix = "mineCountContainer_"
-    final val ButtonPrefix = "btn_"
-
     final val ToggleFlagModeButtonId = "toggleFlagPlaceMode"
     final val RestartButtonId = "restart"
-
-    final val Underscore = "_"
 
   }
 

@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.Consts.{CSSClass, ElementID}
+import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.IconContainer
 import org.scalajs.dom.*
@@ -18,7 +18,7 @@ class SyncIconContainer[
     for {
       iconContainer <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(iconContainer, CSSClass.IconContainer)
-      _ <- UpdateElementID[F].update(iconContainer, s"${ElementID.IconContainerPrefix}$id")
+      _ <- UpdateElementID[F].update(iconContainer, id)
       _ <- AppendElement[F].append(iconContainer, icon)
     } yield iconContainer
 

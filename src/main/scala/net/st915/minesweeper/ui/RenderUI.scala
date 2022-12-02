@@ -7,6 +7,8 @@ import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
 import net.st915.minesweeper.ui.component.impl.*
 import net.st915.minesweeper.ui.impl.*
+import net.st915.minesweeper.ui.util.application.*
+import net.st915.minesweeper.ui.util.impl.*
 import org.scalajs.dom.*
 
 object RenderUI {
@@ -20,6 +22,8 @@ object RenderUI {
     runtime: IORuntime
   ): F[Unit] = {
     // format: off
+    implicit val _idFactory: IDFactory[F] = ApplicativeIDFactory[F]
+
     implicit val _appendElement: AppendElement[F] = SyncAppendElement[F]
     implicit val _createTextNode: CreateTextNode[F] = SyncCreateTextNode[F]
     implicit val _appendTextNode: AppendTextNode[F] = SyncAppendTextNode[F]
