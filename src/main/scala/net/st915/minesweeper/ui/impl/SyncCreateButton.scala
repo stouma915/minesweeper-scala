@@ -14,7 +14,7 @@ class SyncCreateButton[
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  override def create(text: ByteString, id: ByteString, onClick: IO[Unit])(
+  override def create(text: String, id: String, onClick: IO[Unit])(
     implicit document: HTMLDocument,
     runtime: IORuntime
   ): F[HTMLDivElement] =
