@@ -2,8 +2,8 @@ package net.st915.minesweeper
 
 object Consts {
 
-  final val ToggleFlagModeButtonId = "toggleFlagPlaceMode"
-  final val RestartButtonId = "restart"
+  final val DifficultyParameter = "d"
+  final val EventLoopInterval = 100
 
   object CSSClass {
 
@@ -41,11 +41,48 @@ object Consts {
 
   }
 
+  object ElementID {
+
+    final val CellPrefix = "cell_"
+    final val FlagContainerPrefix = "flag_"
+    final val FlagPlaceholderContainerPrefix = "flagPlaceholder_"
+    final val MineContainerPrefix = "mine_"
+    final val IconContainerPrefix = "iconContainer_"
+    final val MineCountContainerPrefix = "mineCountContainer_"
+    final val ButtonPrefix = "btn_"
+
+    final val ToggleFlagModeButtonId = "toggleFlagPlaceMode"
+    final val RestartButtonId = "restart"
+
+    final val Underscore = "_"
+
+  }
+
   object Link {
 
     final val License = "https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE"
     final val Repository = "https://github.com/stouma915/minesweeper-scala"
     final val GitHubPages = "https://pages.github.com"
+
+  }
+
+  object Text {
+
+    final val ThisSiteIsLicensedUnderThe = "This site is licensed under the "
+    final val MITLicense = "MIT License"
+    final val ThisSiteIsOpenSource = "This site is open source. "
+    final val ImproveThisSite = "Improve this site"
+    final val PoweredBy = "Powered by "
+    final val GitHubPages = "GitHub Pages"
+
+    final val DifficultiesColon = "Difficulties:"
+
+    final val CurrentlyUnderDevelopment = "Currently Under Development."
+
+    final val RestartButton = "Restart"
+    final val EnterFlagPlaceMode = "Enter Flag Place Mode"
+
+    final val Period = "."
 
   }
 

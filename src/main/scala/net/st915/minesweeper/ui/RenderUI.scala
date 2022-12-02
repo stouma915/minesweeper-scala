@@ -26,7 +26,7 @@ object RenderUI {
     implicit val _createElement: CreateElement[F] = SyncCreateElement[F]
     implicit val _createBR: CreateBR[F] = SyncCreateBR[F]
     implicit val _appendBR: AppendBR[F] = SyncAppendBR[F]
-    implicit val _createDifficultyLink: CreateDifficultyLink[F] = SyncCreateDifficultyLink[F]
+    implicit val _createDifficultyLink: CreateDifficultyLink[F] = ApplicativeCreateDifficultyLink[F]
     implicit val _createDiv: CreateDiv[F] = SyncCreateDiv[F]
     implicit val _createH1: CreateH1[F] = SyncCreateH1[F]
     implicit val _createLink: CreateLink[F] = SyncCreateLink[F]

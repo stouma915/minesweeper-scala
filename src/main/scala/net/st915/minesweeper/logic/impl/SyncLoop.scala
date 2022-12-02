@@ -2,6 +2,7 @@ package net.st915.minesweeper.logic.impl
 
 import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
+import net.st915.minesweeper.Consts
 import net.st915.minesweeper.logic.application.Loop
 import org.scalajs.dom.*
 
@@ -16,7 +17,7 @@ class SyncLoop[F[_]: Sync] extends Loop[F] {
           task
             .asInstanceOf[IO[Unit]]
             .unsafeRunAndForget(),
-        100
+        Consts.EventLoopInterval
       )
     }
 

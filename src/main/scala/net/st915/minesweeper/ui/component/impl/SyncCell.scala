@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
-import net.st915.minesweeper.Consts.CSSClass
+import net.st915.minesweeper.Consts.{CSSClass, ElementID}
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.*
@@ -23,7 +23,10 @@ class SyncCell[
     for {
       cell <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(cell, CSSClass.NotOpenedCell)
-      _ <- UpdateElementID[F].update(cell, s"cell_${coord.x}_${coord.y}")
+      _ <- UpdateElementID[F].update(
+        cell,
+        s"${ElementID.CellPrefix}${coord.x}${ElementID.Underscore}${coord.y}"
+      )
       _ <-
         UpdateElementClickEvent[F].update(
           cell,
@@ -42,25 +45,28 @@ class SyncCell[
         )
       flagIcon <- FlagIcon[F].create
       flagIconContainer <- IconContainer[F].create(
-        s"flag_${coord.x}_${coord.y}",
+        s"${ElementID.FlagContainerPrefix}${coord.x}${ElementID.Underscore}${coord.y}",
         flagIcon
       )
       _ <- AppendElement[F].append(cell, flagIconContainer)
       flagPlaceholderIcon <- FlagPlaceholderIcon[F].create
       flagPlaceholderIconContainer <- IconContainer[F].create(
-        s"flagPlaceholder_${coord.x}_${coord.y}",
+        s"${ElementID.FlagPlaceholderContainerPrefix}${coord.x}${ElementID.Underscore}${coord.y}",
         flagPlaceholderIcon
       )
       _ <- AppendElement[F].append(cell, flagPlaceholderIconContainer)
       mineIcon <- MineIcon[F].create
       mineIconContainer <- IconContainer[F].create(
-        s"mine_${coord.x}_${coord.y}",
+        s"${ElementID.MineContainerPrefix}${coord.x}${ElementID.Underscore}${coord.y}",
         mineIcon
       )
       _ <- AppendElement[F].append(cell, mineIconContainer)
       mineCountContainers <-
         (1 to 8).toList.map { i =>
-          MineCountContainer[F].create(s"${i}_${coord.x}_${coord.y}", i)
+          MineCountContainer[F].create(
+            s"$i${ElementID.Underscore}${coord.x}${ElementID.Underscore}${coord.y}",
+            i
+          )
         }.sequence
       _ <-
         mineCountContainers.map { mineCountContainer =>

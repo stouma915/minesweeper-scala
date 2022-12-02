@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.impl
 
 import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.Consts.CSSClass
+import net.st915.minesweeper.Consts.{CSSClass, ElementID}
 import net.st915.minesweeper.ui.application.*
 import org.scalajs.dom.*
 
@@ -23,7 +23,7 @@ class SyncCreateButton[
       innerText <- CreateSpan[F].create
       _ <- AppendTextNode[F].append(innerText, text)
       _ <- UpdateHTMLClass[F].update(innerText, CSSClass.ButtonInner)
-      _ <- UpdateElementID[F].update(innerText, s"btn_$id")
+      _ <- UpdateElementID[F].update(innerText, s"${ElementID.ButtonPrefix}$id")
       _ <- UpdateElementClickEvent[F].update(innerText, onClick)
       _ <- UpdateElementRightClickEvent[F].update(innerText, IO.unit)
       _ <- AppendElement[F].append(button, innerText)

@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.component.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.Consts.CSSClass
+import net.st915.minesweeper.Consts.{CSSClass, Text}
 import net.st915.minesweeper.Difficulties
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.component.application.DifficultySelector
@@ -20,7 +20,7 @@ class SyncDifficultySelector[
       containerDiv <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.DifficultySelector)
       span <- CreateSpan[F].create
-      _ <- AppendTextNode[F].append(span, "Difficulties:")
+      _ <- AppendTextNode[F].append(span, Text.DifficultiesColon)
       _ <- AppendBR[F].append(span)
       _ <- AppendElement[F].append(containerDiv, span)
       links <- Difficulties.All.map { diff =>
