@@ -11,7 +11,10 @@ class ApplicativeCreateDifficultyLink[F[_]: Applicative] extends CreateDifficult
     Applicative[F].pure {
       val currentURL = new URL(window.location.href)
       val param =
-        if (diff eq Difficulties.Default) "" else s"?${Consts.DifficultyParameter}=${diff.id}"
+        if (diff eq Difficulties.Default)
+          ""
+        else
+          s"?${Consts.DifficultyParameter}=${diff.id}"
 
       s"${currentURL.origin}${currentURL.pathname}$param"
     }
