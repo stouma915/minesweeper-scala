@@ -8,7 +8,7 @@ import org.scalajs.dom.*
 
 object EventLoop {
 
-  private[logic] var gameState = GameState.empty
+  private[eventloop] var gameState = GameState.empty
 
   def wired[F[_]: Sync](
     implicit document: HTMLDocument,
