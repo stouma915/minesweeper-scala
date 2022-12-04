@@ -14,12 +14,14 @@ object HandleButtonClickEvent {
     implicit val _resetGameState: ResetGameState[F] = ApplicativeResetGameState[F]
     implicit val _updateFlagPlaceModeProperty: UpdateFlagPlaceModeProperty[F] =
       ApplicativeUpdateFlagPlaceModeProperty[F]
+    implicit val _toggleFlagPlaceModeProperty: ToggleFlagPlaceModeProperty[F] =
+      ApplicativeToggleFlagPlaceModeProperty[F]
 
     HandleButtonClickEvent(event)
   }
 
   def apply[
-    F[_]: Sync: DoNothing: UpdateFlagPlaceModeProperty: ResetGameState
+    F[_]: Sync: DoNothing: ResetGameState: ToggleFlagPlaceModeProperty
   ](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
     event.buttonId match
       case ElementID.ToggleFlagModeButtonId => onToggleFlagPlaceModeClicked
@@ -27,9 +29,9 @@ object HandleButtonClickEvent {
       case _                                => DoNothing[F].perform
 
   def onToggleFlagPlaceModeClicked[
-    F[_]: Sync: UpdateFlagPlaceModeProperty
+    F[_]: Sync: ToggleFlagPlaceModeProperty
   ](implicit gameState: GameState): F[GameState] =
-    UpdateFlagPlaceModeProperty[F].update(!gameState.inFlagPlaceMode)
+    ToggleFlagPlaceModeProperty[F].update
 
   def onRestartClicked[
     F[_]: Sync: ResetGameState
