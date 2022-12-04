@@ -7,7 +7,7 @@ class ApplicativeGetMineCountColor[F[_]: Applicative] extends GetMineCountColor[
 
   override def get(num: Int): F[String] =
     Applicative[F].pure {
-      num match {
+      num match
         case 1 => "#0200f9"
         case 2 => "#008001"
         case 3 => "#fd0100"
@@ -17,7 +17,6 @@ class ApplicativeGetMineCountColor[F[_]: Applicative] extends GetMineCountColor[
         case 7 => "#000000"
         case 8 => "#808080"
         case _ => "transparent"
-      }
     }
 
 }

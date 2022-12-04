@@ -12,12 +12,11 @@ object EventQueue {
   }
 
   def nextEvent[F[_]: Sync]: F[Option[Event]] = Sync[F].delay {
-    eventQueue.headOption match {
+    eventQueue.headOption match
       case Some(x) =>
         eventQueue = eventQueue.drop(1)
         Some(x)
       case None => None
-    }
   }
 
 }

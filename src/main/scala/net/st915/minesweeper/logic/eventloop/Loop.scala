@@ -28,15 +28,15 @@ object Loop {
   document: HTMLDocument): F[Unit] =
     for {
       maybeEvent <- GetEventFromQueue[F].get
-      _ <- maybeEvent match {
-        case Some(event) =>
-          for {
-            newState <- EventDistinction[F].perform(event, EventLoop.gameState)
-            _ <- RefreshUI.wired[F](newState)
-            _ <- Sync[F].delay(EventLoop.gameState = newState)
-          } yield ()
-        case None => Sync[F].unit
-      }
+      _ <-
+        maybeEvent match
+          case Some(event) =>
+            for {
+              newState <- EventDistinction[F].perform(event, EventLoop.gameState)
+              _ <- RefreshUI.wired[F](newState)
+              _ <- Sync[F].delay(EventLoop.gameState = newState)
+            } yield ()
+          case None => Sync[F].unit
     } yield ()
 
   def apply[F[_]: Sync: GetEventFromQueue: EventDistinction]()(
