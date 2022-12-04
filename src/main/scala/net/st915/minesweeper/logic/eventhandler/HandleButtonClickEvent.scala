@@ -10,6 +10,7 @@ import net.st915.minesweeper.logic.eventhandler.impl.*
 object HandleButtonClickEvent {
 
   def wired[F[_]: Sync](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] = {
+    implicit val _doNothing: DoNothing[F] = ApplicativeDoNothing[F]
     implicit val _resetGameState: ResetGameState[F] = ApplicativeResetGameState[F]
     implicit val _updateFlagPlaceModeProperty: UpdateFlagPlaceModeProperty[F] =
       ApplicativeUpdateFlagPlaceModeProperty[F]
@@ -18,12 +19,12 @@ object HandleButtonClickEvent {
   }
 
   def apply[
-    F[_]: Sync: UpdateFlagPlaceModeProperty: ResetGameState
+    F[_]: Sync: DoNothing: UpdateFlagPlaceModeProperty: ResetGameState
   ](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
     event.buttonId match
       case ElementID.ToggleFlagModeButtonId => onToggleFlagPlaceModeClicked
       case ElementID.RestartButtonId        => onRestartClicked
-      case _                                => Sync[F].pure(gameState)
+      case _                                => DoNothing[F].perform
 
   def onToggleFlagPlaceModeClicked[
     F[_]: Sync: UpdateFlagPlaceModeProperty
