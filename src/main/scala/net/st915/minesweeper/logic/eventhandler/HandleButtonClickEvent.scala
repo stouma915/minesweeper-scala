@@ -24,18 +24,11 @@ object HandleButtonClickEvent {
     F[_]: Sync: DoNothing: ResetGameState: ToggleFlagPlaceModeProperty
   ](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
     event.buttonId match
-      case ElementID.ToggleFlagModeButtonId => onToggleFlagPlaceModeClicked
-      case ElementID.RestartButtonId        => onRestartClicked
-      case _                                => DoNothing[F].perform
-
-  def onToggleFlagPlaceModeClicked[
-    F[_]: Sync: ToggleFlagPlaceModeProperty
-  ](implicit gameState: GameState): F[GameState] =
-    ToggleFlagPlaceModeProperty[F].update
-
-  def onRestartClicked[
-    F[_]: Sync: ResetGameState
-  ](implicit gameState: GameState): F[GameState] =
-    ResetGameState[F].perform
+      case ElementID.ToggleFlagModeButtonId =>
+        ToggleFlagPlaceModeProperty[F].update
+      case ElementID.RestartButtonId =>
+        ResetGameState[F].perform
+      case _ =>
+        DoNothing[F].perform
 
 }
