@@ -9,8 +9,8 @@ import org.scalajs.dom.*
 
 @main def main(): Unit = {
 
-  implicit val _document: HTMLDocument = document
-  implicit val _window: Window = window
+  implicit val _document: HTMLDocument = org.scalajs.dom.document
+  implicit val _window: Window = org.scalajs.dom.window
   implicit val _runtime: IORuntime = cats.effect.unsafe.implicits.global
 
   val program = for {
