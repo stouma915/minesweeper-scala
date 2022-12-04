@@ -26,18 +26,16 @@ object Loop {
 
   def routine[F[_]: Sync: GetEventFromQueue: EventDistinction](implicit
   document: HTMLDocument): F[Unit] =
-    for {
-      maybeEvent <- GetEventFromQueue[F].get
-      _ <-
-        maybeEvent match
-          case Some(event) =>
-            for {
-              newState <- EventDistinction[F].perform(event, EventLoop.gameState)
-              _ <- RefreshUI.wired[F](newState)
-              _ <- Sync[F].delay(EventLoop.gameState = newState)
-            } yield ()
-          case None => Sync[F].unit
-    } yield ()
+    GetEventFromQueue[F].get >>= {
+      _ match
+        case Some(event) =>
+          for {
+            newState <- EventDistinction[F].perform(event, EventLoop.gameState)
+            _ <- RefreshUI.wired[F](newState)
+            _ <- Sync[F].delay(EventLoop.gameState = newState)
+          } yield ()
+        case None => Sync[F].unit
+    }
 
   def apply[F[_]: Sync: GetEventFromQueue: EventDistinction]()(
     implicit document: HTMLDocument,
