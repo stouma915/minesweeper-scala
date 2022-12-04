@@ -1,12 +1,13 @@
-package net.st915.minesweeper.logic.eventloop
+package net.st915.minesweeper.logic.eventloop.task
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
-import net.st915.minesweeper.{Consts, GameState}
+import net.st915.minesweeper.Consts
+import net.st915.minesweeper.logic.eventloop.EventLoop
 import net.st915.minesweeper.logic.eventloop.application.*
 import net.st915.minesweeper.logic.eventloop.impl.*
 import net.st915.minesweeper.logic.refreshui.RefreshUI
-import org.scalajs.dom.*
+import org.scalajs.dom.{HTMLDocument, Window}
 
 object Loop {
 
