@@ -1,4 +1,4 @@
-package net.st915.minesweeper.ui.util.application
+package net.st915.minesweeper.util.application
 
 import net.st915.minesweeper.Coordinate
 

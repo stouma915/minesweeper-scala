@@ -1,8 +1,8 @@
-package net.st915.minesweeper.ui.util.impl
+package net.st915.minesweeper.util.impl
 
 import cats.Applicative
 import net.st915.minesweeper.Coordinate
-import net.st915.minesweeper.ui.util.application.IDFactory
+import net.st915.minesweeper.util.application.IDFactory
 
 class ApplicativeIDFactory[F[_]: Applicative] extends IDFactory[F] {
 

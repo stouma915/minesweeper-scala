@@ -6,8 +6,8 @@ import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.event.{CellClickEvent, CellRightClickEvent}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.impl.*
-import net.st915.minesweeper.ui.util.application.IDFactory
-import net.st915.minesweeper.ui.util.impl.ApplicativeIDFactory
+import net.st915.minesweeper.util.application.IDFactory
+import net.st915.minesweeper.util.impl.ApplicativeIDFactory
 import net.st915.minesweeper.{Coordinate, EventQueue}
 import org.scalajs.dom.*
 
