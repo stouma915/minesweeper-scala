@@ -5,7 +5,8 @@ object GameState {
   def empty: GameState = GameState(
     gameStarted = false,
     stopped = false,
-    inFlagPlaceMode = false
+    inFlagPlaceMode = false,
+    openedCoord = List()
   )
 
 }
@@ -13,5 +14,6 @@ object GameState {
 case class GameState(
   gameStarted: Boolean,
   stopped: Boolean,
-  inFlagPlaceMode: Boolean
+  inFlagPlaceMode: Boolean,
+  openedCoord: List[Coordinate]
 )

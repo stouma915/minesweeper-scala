@@ -27,7 +27,8 @@ object Loop {
 
   def routine[F[_]: Sync: GetEventFromQueue: EventDistinction](implicit
   document: HTMLDocument): F[Unit] =
-    GetEventFromQueue[F].get >>= {
+    Sync[F].pure(println(s"Debug: ${EventLoop.gameState}")) >> // TODO: Remove this
+      GetEventFromQueue[F].get >>= {
       _ match
         case Some(event) =>
           for {
