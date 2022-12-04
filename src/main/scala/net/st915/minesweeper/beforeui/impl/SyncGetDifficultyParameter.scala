@@ -7,7 +7,7 @@ import org.scalajs.dom.*
 
 class SyncGetDifficultyParameter[F[_]: Sync] extends GetDifficultyParameter[F] {
 
-  override def get(implicit window: Window): F[Option[ByteString]] =
+  override def get(implicit window: Window): F[Option[String]] =
     Sync[F].pure {
       val params = new URLSearchParams(window.location.search)
 
