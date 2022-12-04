@@ -1,8 +1,7 @@
 package net.st915.minesweeper.ui.component
 
 import cats.effect.Sync
-import net.st915.minesweeper.Consts.{CSSClass, Text}
-import net.st915.minesweeper.Difficulties
+import net.st915.minesweeper.Consts.{CSSClass, Difficulties, Text}
 import net.st915.minesweeper.ui.application.*
 import net.st915.minesweeper.ui.impl.*
 import org.scalajs.dom.*

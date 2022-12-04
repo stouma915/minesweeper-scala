@@ -2,7 +2,8 @@ package net.st915.minesweeper.beforeui.impl
 
 import cats.Applicative
 import net.st915.minesweeper.beforeui.application.ConvertOptionToDifficulty
-import net.st915.minesweeper.{Difficulties, Difficulty}
+import net.st915.minesweeper.Consts.Difficulties
+import net.st915.minesweeper.Difficulty
 
 class ApplicativeConvertOptionToDifficulty[F[_]: Applicative] extends ConvertOptionToDifficulty[F] {
 
