@@ -33,8 +33,11 @@ object Loop {
         case Some(event) =>
           for {
             newState <- EventDistinction[F].perform(event, EventLoop.gameState)
-            _ <- RefreshUI.wired[F](newState)
-            _ <- Sync[F].delay(EventLoop.gameState = newState)
+            _ <-
+              if (EventLoop.gameState != newState)
+                RefreshUI.wired[F](newState) >> Sync[F].delay(EventLoop.gameState = newState)
+              else
+                Sync[F].unit
           } yield ()
         case None => Sync[F].unit
     }
