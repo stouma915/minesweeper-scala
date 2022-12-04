@@ -1,21 +1,35 @@
-package net.st915.minesweeper.ui.component.impl
+package net.st915.minesweeper.ui.component
 
 import cats.effect.Sync
 import net.st915.minesweeper.Consts.{CSSClass, Link, Text}
 import net.st915.minesweeper.ui.application.*
-import net.st915.minesweeper.ui.component.application.AboutPage
+import net.st915.minesweeper.ui.impl.*
 import org.scalajs.dom.*
 
-class SyncAboutPage[
-  F[
-    _
-  ]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDiv: CreateLink: CreateP: UpdateHTMLClass: UpdateHyperlink
-] extends AboutPage[F] {
+object AboutPage {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  override def create(implicit document: HTMLDocument): F[HTMLDivElement] =
+  def wired[F[_]: Sync](implicit document: HTMLDocument): F[HTMLDivElement] = {
+    implicit val _appendElement: AppendElement[F] = SyncAppendElement[F]
+    implicit val _createElement: CreateElement[F] = SyncCreateElement[F]
+    implicit val _createBR: CreateBR[F] = SyncCreateBR[F]
+    implicit val _createDiv: CreateDiv[F] = SyncCreateDiv[F]
+    implicit val _createLink: CreateLink[F] = SyncCreateLink[F]
+    implicit val _createP: CreateP[F] = SyncCreateP[F]
+    implicit val _createTextNode: CreateTextNode[F] = SyncCreateTextNode[F]
+    implicit val _appendTextNode: AppendTextNode[F] = SyncAppendTextNode[F]
+    implicit val _appendBR: AppendBR[F] = SyncAppendBR[F]
+    implicit val _updateHTMLClass: UpdateHTMLClass[F] = SyncUpdateHTMLClass[F]
+    implicit val _updateHyperlink: UpdateHyperlink[F] = SyncUpdateHyperlink[F]
+
+    AboutPage()
+  }
+
+  def apply[
+    F[_]: Sync: AppendBR: AppendElement: AppendTextNode: CreateDiv: CreateLink: CreateP: UpdateHTMLClass: UpdateHyperlink
+  ]()(implicit document: HTMLDocument): F[HTMLDivElement] =
     for {
       containerDiv <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(containerDiv, CSSClass.AboutPage)

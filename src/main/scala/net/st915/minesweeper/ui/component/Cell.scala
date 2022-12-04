@@ -1,27 +1,44 @@
-package net.st915.minesweeper.ui.component.impl
+package net.st915.minesweeper.ui.component
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
 import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.event.{CellClickEvent, CellRightClickEvent}
 import net.st915.minesweeper.ui.application.*
-import net.st915.minesweeper.ui.component.application.*
+import net.st915.minesweeper.ui.impl.*
 import net.st915.minesweeper.ui.util.application.IDFactory
+import net.st915.minesweeper.ui.util.impl.ApplicativeIDFactory
 import net.st915.minesweeper.{Coordinate, EventQueue}
 import org.scalajs.dom.*
 
-class SyncCell[
-  F[_]: Sync: AppendElement: CreateDiv: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: FlagIcon: FlagPlaceholderIcon: IconContainer: MineCountContainer: MineIcon: IDFactory
-] extends Cell[F] {
+object Cell {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
   import cats.syntax.traverse.*
 
-  override def create(coord: Coordinate)(
+  def wired[F[_]: Sync](coord: Coordinate)(
     implicit document: HTMLDocument,
     runtime: IORuntime
-  ): F[HTMLDivElement] =
+  ): F[HTMLDivElement] = {
+    implicit val _appendElement: AppendElement[F] = SyncAppendElement[F]
+    implicit val _createElement: CreateElement[F] = SyncCreateElement[F]
+    implicit val _createDiv: CreateDiv[F] = SyncCreateDiv[F]
+    implicit val _updateElementID: UpdateElementID[F] = SyncUpdateElementID[F]
+    implicit val _updateHTMLClass: UpdateHTMLClass[F] = SyncUpdateHTMLClass[F]
+    implicit val _updateElementClickEvent: UpdateElementClickEvent[F] =
+      SyncUpdateElementClickEvent[F]
+    implicit val _updateElementRightClickEvent: UpdateElementRightClickEvent[F] =
+      SyncUpdateElementRightClickEvent[F]
+
+    implicit val _idFactory: IDFactory[F] = ApplicativeIDFactory[F]
+
+    Cell(coord)
+  }
+
+  def apply[
+    F[_]: Sync: AppendElement: CreateDiv: UpdateElementClickEvent: UpdateElementID: UpdateElementRightClickEvent: UpdateHTMLClass: IDFactory
+  ](coord: Coordinate)(implicit document: HTMLDocument, runtime: IORuntime): F[HTMLDivElement] =
     for {
       cell <- CreateDiv[F].create
       _ <- UpdateHTMLClass[F].update(cell, CSSClass.NotOpenedCell)
@@ -35,29 +52,29 @@ class SyncCell[
         cell,
         EventQueue.queue[IO](CellRightClickEvent(coord))
       )
-      flagIcon <- FlagIcon[F].create
+      flagIcon <- FlagIcon.wired[F]
       flagIconContainerID <- IDFactory[F].iconContainer(CSSClass.FlagIcon, coord)
-      flagIconContainer <- IconContainer[F].create(flagIconContainerID, flagIcon)
+      flagIconContainer <- IconContainer.wired[F, HTMLDivElement](flagIconContainerID, flagIcon)
       _ <- AppendElement[F].append(cell, flagIconContainer)
-      flagPlaceholderIcon <- FlagPlaceholderIcon[F].create
+      flagPlaceholderIcon <- FlagPlaceholderIcon.wired[F]
       flagPlaceholderIconContainerID <- IDFactory[F].iconContainer(
         CSSClass.FlagPlaceholderIcon,
         coord
       )
-      flagPlaceholderIconContainer <- IconContainer[F].create(
+      flagPlaceholderIconContainer <- IconContainer.wired[F, HTMLDivElement](
         flagPlaceholderIconContainerID,
         flagPlaceholderIcon
       )
       _ <- AppendElement[F].append(cell, flagPlaceholderIconContainer)
-      mineIcon <- MineIcon[F].create
+      mineIcon <- MineIcon.wired[F]
       mineIconContainerID <- IDFactory[F].iconContainer(CSSClass.MineIcon, coord)
-      mineIconContainer <- IconContainer[F].create(mineIconContainerID, mineIcon)
+      mineIconContainer <- IconContainer.wired[F, HTMLDivElement](mineIconContainerID, mineIcon)
       _ <- AppendElement[F].append(cell, mineIconContainer)
       mineCountContainers <-
         (1 to 8).toList.map { i =>
           for {
             mineCountContainerId <- IDFactory[F].mineCountContainer(i, coord)
-            mineCountContainer <- MineCountContainer[F].create(mineCountContainerId, i)
+            mineCountContainer <- MineCountContainer.wired[F](mineCountContainerId, i)
           } yield mineCountContainer
         }.sequence
       _ <-
@@ -65,5 +82,4 @@ class SyncCell[
           AppendElement[F].append(cell, mineCountContainer)
         }.sequence
     } yield cell
-
 }
