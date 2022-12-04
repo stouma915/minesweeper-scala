@@ -1,4 +1,4 @@
-package net.st915.minesweeper.beforeui
+package net.st915.minesweeper.beforeui.task
 
 import cats.effect.Sync
 import net.st915.minesweeper.Difficulty
@@ -12,10 +12,9 @@ object GetDifficulty {
   import cats.syntax.functor.*
 
   def wired[F[_]: Sync](implicit window: Window): F[Difficulty] = {
-    // format: off
-    implicit val _convertOptionToDifficulty: ConvertOptionToDifficulty[F] = ApplicativeConvertOptionToDifficulty[F]
     implicit val _getDifficultyParameter: GetDifficultyParameter[F] = SyncGetDifficultyParameter[F]
-    // format: on
+    implicit val _convertOptionToDifficulty: ConvertOptionToDifficulty[F] =
+      ApplicativeConvertOptionToDifficulty[F]
 
     GetDifficulty()
   }
