@@ -8,7 +8,7 @@ class SyncUpdateHTMLClassWithID[F[_]: Sync: GetElement] extends UpdateHTMLClassW
 
   import cats.syntax.flatMap.*
 
-  def update(id: String, htmlClass: String)(implicit document: HTMLDocument): F[Unit] =
+  override def update(id: String, htmlClass: String)(implicit document: HTMLDocument): F[Unit] =
     GetElement[F].get(id) >>= { element =>
       if (element.className != htmlClass)
         Sync[F].blocking(element.className = htmlClass)
