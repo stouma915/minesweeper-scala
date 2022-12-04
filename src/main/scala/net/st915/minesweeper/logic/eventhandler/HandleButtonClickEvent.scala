@@ -4,24 +4,35 @@ import cats.effect.Sync
 import net.st915.minesweeper.Consts.ElementID
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.event.ButtonClickEvent
+import net.st915.minesweeper.logic.eventhandler.application.*
+import net.st915.minesweeper.logic.eventhandler.impl.*
 
 object HandleButtonClickEvent {
 
-  def wired[F[_]: Sync](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
-    HandleButtonClickEvent(event)
+  def wired[F[_]: Sync](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] = {
+    implicit val _resetGameState: ResetGameState[F] = ApplicativeResetGameState[F]
+    implicit val _updateFlagPlaceModeProperty: UpdateFlagPlaceModeProperty[F] =
+      ApplicativeUpdateFlagPlaceModeProperty[F]
 
-  def apply[F[_]: Sync](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
+    HandleButtonClickEvent(event)
+  }
+
+  def apply[
+    F[_]: Sync: UpdateFlagPlaceModeProperty: ResetGameState
+  ](event: ButtonClickEvent)(implicit gameState: GameState): F[GameState] =
     event.buttonId match
       case ElementID.ToggleFlagModeButtonId => onToggleFlagPlaceModeClicked
       case ElementID.RestartButtonId        => onRestartClicked
       case _                                => Sync[F].pure(gameState)
 
-  def onToggleFlagPlaceModeClicked[F[_]: Sync](implicit gameState: GameState): F[GameState] =
-    Sync[F].pure {
-      gameState.copy(inFlagPlaceMode = !gameState.inFlagPlaceMode)
-    }
+  def onToggleFlagPlaceModeClicked[
+    F[_]: Sync: UpdateFlagPlaceModeProperty
+  ](implicit gameState: GameState): F[GameState] =
+    UpdateFlagPlaceModeProperty[F].update(!gameState.inFlagPlaceMode)
 
-  def onRestartClicked[F[_]: Sync](implicit gameState: GameState): F[GameState] =
-    Sync[F].pure(GameState.empty)
+  def onRestartClicked[
+    F[_]: Sync: ResetGameState
+  ](implicit gameState: GameState): F[GameState] =
+    ResetGameState[F].perform
 
 }
