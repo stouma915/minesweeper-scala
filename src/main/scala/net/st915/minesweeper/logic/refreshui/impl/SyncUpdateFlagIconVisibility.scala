@@ -6,7 +6,7 @@ import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.logic.refreshui.application.*
 import org.scalajs.dom.*
 
-class SyncUpdateFlagIconVisiblity[F[_]: Sync: UpdateIconContainerVisibility]
+class SyncUpdateFlagIconVisibility[F[_]: Sync: UpdateIconContainerVisibility]
     extends UpdateFlagIconVisibility[F] {
 
   import cats.syntax.flatMap.*

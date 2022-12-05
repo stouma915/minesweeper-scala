@@ -21,6 +21,7 @@ object RefreshUI {
     for {
       _ <- UpdateButtonText.wired[F]
       _ <- UpdateCellClass.wired[F](difficulty)
+      _ <- UpdateIconVisibility.wired[F](difficulty)
     } yield ()
   }
 
