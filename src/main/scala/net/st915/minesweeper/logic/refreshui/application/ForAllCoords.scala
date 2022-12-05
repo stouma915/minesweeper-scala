@@ -11,7 +11,7 @@ object ForAllCoords {
 
 trait ForAllCoords[F[_]] {
 
-  def perform(difficulty: Difficulty, program: Coordinate => F[Unit])(implicit
+  def perform(difficulty: Difficulty)(program: Coordinate => F[Unit])(implicit
   document: HTMLDocument): F[List[Unit]]
 
 }

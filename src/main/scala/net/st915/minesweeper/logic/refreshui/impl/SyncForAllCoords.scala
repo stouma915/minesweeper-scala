@@ -9,7 +9,7 @@ class SyncForAllCoords[F[_]: Sync] extends ForAllCoords[F] {
 
   import cats.syntax.traverse.*
 
-  override def perform(difficulty: Difficulty, program: Coordinate => F[Unit])(implicit
+  override def perform(difficulty: Difficulty)(program: Coordinate => F[Unit])(implicit
   document: HTMLDocument): F[List[Unit]] =
     (0 until difficulty.width).toList.flatMap { x =>
       (0 until difficulty.height).toList.map { y => program(Coordinate(x, y)) }
