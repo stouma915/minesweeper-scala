@@ -16,7 +16,7 @@ import org.scalajs.dom.*
   val program = for {
     context <- BeforeUI.wired[IO]
     _ <- RenderUI.wired[IO](context.difficulty)
-    _ <- EventLoop.wired[IO]
+    _ <- EventLoop.wired[IO](context.difficulty)
   } yield ()
 
   program.start.unsafeRunAndForget()

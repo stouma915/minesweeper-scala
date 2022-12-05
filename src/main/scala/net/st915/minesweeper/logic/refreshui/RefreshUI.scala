@@ -1,19 +1,27 @@
 package net.st915.minesweeper.logic.refreshui
 
 import cats.effect.Sync
-import net.st915.minesweeper.GameState
+import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.logic.refreshui.task.*
 import org.scalajs.dom.*
 
 object RefreshUI {
 
-  def wired[F[_]: Sync](gameState: GameState)(implicit document: HTMLDocument): F[Unit] =
-    RefreshUI(gameState)
+  import cats.syntax.flatMap.*
+  import cats.syntax.functor.*
 
-  def apply[F[_]: Sync](gameState: GameState)(implicit document: HTMLDocument): F[Unit] = {
+  def wired[F[_]: Sync](difficulty: Difficulty, gameState: GameState)(implicit
+  document: HTMLDocument): F[Unit] =
+    RefreshUI(difficulty, gameState)
+
+  def apply[F[_]: Sync](difficulty: Difficulty, gameState: GameState)(implicit
+  document: HTMLDocument): F[Unit] = {
     implicit val _gameState: GameState = gameState
 
-    UpdateButtonText.wired[F]
+    for {
+      _ <- UpdateButtonText.wired[F]
+      _ <- UpdateCellClass.wired[F](difficulty)
+    } yield ()
   }
 
 }

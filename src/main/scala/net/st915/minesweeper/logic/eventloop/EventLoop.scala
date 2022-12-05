@@ -2,7 +2,7 @@ package net.st915.minesweeper.logic.eventloop
 
 import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.GameState
+import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.logic.eventloop.task.Loop
 import org.scalajs.dom.*
 
@@ -10,16 +10,16 @@ object EventLoop {
 
   private[eventloop] var gameState = GameState.empty
 
-  def wired[F[_]: Sync](
+  def wired[F[_]: Sync](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     window: Window,
     runtime: IORuntime
-  ): F[Unit] = EventLoop()
+  ): F[Unit] = EventLoop(difficulty)
 
-  def apply[F[_]: Sync]()(
+  def apply[F[_]: Sync](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     window: Window,
     runtime: IORuntime
-  ): F[Unit] = Loop.wired[F]
+  ): F[Unit] = Loop.wired[F](difficulty)
 
 }
