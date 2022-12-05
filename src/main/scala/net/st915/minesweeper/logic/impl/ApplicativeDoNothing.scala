@@ -1,8 +1,8 @@
-package net.st915.minesweeper.logic.eventhandler.impl
+package net.st915.minesweeper.logic.impl
 
 import cats.Applicative
 import net.st915.minesweeper.GameState
-import net.st915.minesweeper.logic.eventhandler.application.DoNothing
+import net.st915.minesweeper.logic.application.DoNothing
 
 class ApplicativeDoNothing[F[_]: Applicative] extends DoNothing[F] {
 

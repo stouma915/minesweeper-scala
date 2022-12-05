@@ -1,7 +1,7 @@
-package net.st915.minesweeper.logic.eventhandler.impl
+package net.st915.minesweeper.logic.impl
 
 import cats.Applicative
-import net.st915.minesweeper.logic.eventhandler.application.AddOpenedCoord
+import net.st915.minesweeper.logic.application.AddOpenedCoord
 import net.st915.minesweeper.{Coordinate, GameState}
 
 class ApplicativeAddOpenedCoord[F[_]: Applicative] extends AddOpenedCoord[F] {

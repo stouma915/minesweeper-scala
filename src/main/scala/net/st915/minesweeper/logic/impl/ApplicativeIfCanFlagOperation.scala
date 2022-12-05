@@ -1,8 +1,7 @@
-package net.st915.minesweeper.logic.eventhandler.impl
+package net.st915.minesweeper.logic.impl
 
 import cats.Applicative
 import net.st915.minesweeper.logic.application.*
-import net.st915.minesweeper.logic.eventhandler.application.*
 import net.st915.minesweeper.{Coordinate, GameState}
 
 class ApplicativeIfCanFlagOperation[F[_]: Applicative: IfCanOperation: IfOpened: DoNothing]

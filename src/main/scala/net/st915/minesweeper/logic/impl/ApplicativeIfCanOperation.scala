@@ -1,9 +1,8 @@
-package net.st915.minesweeper.logic.eventhandler.impl
+package net.st915.minesweeper.logic.impl
 
 import cats.Applicative
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.logic.application.*
-import net.st915.minesweeper.logic.eventhandler.application.*
 
 class ApplicativeIfCanOperation[
   F[_]: Applicative: IfGameStarted: IfGameStopped: DoNothing
