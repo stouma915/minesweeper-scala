@@ -17,31 +17,29 @@ object UpdateCellClass {
     implicit document: HTMLDocument,
     gameState: GameState
   ): F[List[Unit]] = {
+    implicit val _idFactory: IDFactory[F] = ApplicativeIDFactory[F]
+
     implicit val _forAllCoords: ForAllCoords[F] = SyncForAllCoords[F]
     implicit val _getElement: GetElement[F] = SyncGetElement[F]
     implicit val _updateHTMLClassWithID: UpdateHTMLClassWithID[F] = SyncUpdateHTMLClassWithID[F]
-
-    implicit val _idFactory: IDFactory[F] = ApplicativeIDFactory[F]
+    implicit val _updateCellOpening: UpdateCellOpening[F] = SyncUpdateCellOpening[F]
+    implicit val _closeCell: CloseCell[F] = SyncCloseCell[F]
+    implicit val _openCell: OpenCell[F] = SyncOpenCell[F]
 
     UpdateCellClass(difficulty)
   }
 
-  def apply[F[_]: Sync: ForAllCoords: UpdateHTMLClassWithID: IDFactory](difficulty: Difficulty)(
+  def apply[F[_]: Sync: ForAllCoords: OpenCell: CloseCell](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     gameState: GameState
   ): F[List[Unit]] =
     ForAllCoords[F].perform(
       difficulty,
       coord =>
-        IDFactory[F].cell(coord) >>= { id =>
-          UpdateHTMLClassWithID[F].update(
-            id,
-            if (gameState.openedCoord.contains(coord))
-              CSSClass.OpenedCell
-            else
-              CSSClass.NotOpenedCell
-          )
-        }
+        if (gameState.openedCoord.contains(coord))
+          OpenCell[F].perform(coord)
+        else
+          CloseCell[F].perform(coord)
     )
 
 }
