@@ -3,7 +3,7 @@ package net.st915.minesweeper
 object GameState {
 
   def empty: GameState = GameState(
-    gameStarted = true, // TODO: should be 'false'
+    gameStarted = false,
     stopped = false,
     inFlagPlaceMode = false,
     openedCoords = List(),

@@ -32,7 +32,7 @@ object Loop {
       _ match
         case Some(event) =>
           for {
-            newState <- EventDistinction[F].perform(event, EventLoop.gameState)
+            newState <- EventDistinction[F].perform(event, EventLoop.gameState, difficulty)
             _ <-
               if (EventLoop.gameState != newState)
                 RefreshUI.wired[F](difficulty, newState) >>
