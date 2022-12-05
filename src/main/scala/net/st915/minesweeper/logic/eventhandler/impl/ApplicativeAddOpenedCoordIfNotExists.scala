@@ -8,7 +8,7 @@ class ApplicativeAddOpenedCoordIfNotExists[F[_]: Applicative: AddOpenedCoord: Do
     extends AddOpenedCoordIfNotExists[F] {
 
   override def add(coord: Coordinate)(implicit gameState: GameState): F[GameState] =
-    if (gameState.openedCoord.contains(coord))
+    if (gameState.openedCoords.contains(coord))
       DoNothing[F].perform
     else
       AddOpenedCoord[F].add(coord)

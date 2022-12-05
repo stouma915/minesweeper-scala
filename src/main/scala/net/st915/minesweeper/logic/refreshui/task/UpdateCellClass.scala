@@ -36,7 +36,7 @@ object UpdateCellClass {
     ForAllCoords[F].perform(
       difficulty,
       coord =>
-        if (gameState.openedCoord.contains(coord))
+        if (gameState.openedCoords.contains(coord))
           OpenCell[F].perform(coord)
         else
           CloseCell[F].perform(coord)

@@ -6,7 +6,7 @@ object GameState {
     gameStarted = false,
     stopped = false,
     inFlagPlaceMode = false,
-    openedCoord = List()
+    openedCoords = List()
   )
 
 }
@@ -15,5 +15,5 @@ case class GameState(
   gameStarted: Boolean,
   stopped: Boolean,
   inFlagPlaceMode: Boolean,
-  openedCoord: List[Coordinate]
+  openedCoords: List[Coordinate]
 )

@@ -7,6 +7,6 @@ import net.st915.minesweeper.{Coordinate, GameState}
 class ApplicativeAddOpenedCoord[F[_]: Applicative] extends AddOpenedCoord[F] {
 
   override def add(coord: Coordinate)(implicit gameState: GameState): F[GameState] =
-    Applicative[F].pure(gameState.copy(openedCoord = gameState.openedCoord.appended(coord)))
+    Applicative[F].pure(gameState.copy(openedCoords = gameState.openedCoords.appended(coord)))
 
 }
