@@ -2,8 +2,8 @@ package net.st915.minesweeper.logic.refreshui.task
 
 import cats.effect.Sync
 import net.st915.minesweeper.Consts.CSSClass
-import net.st915.minesweeper.logic.application.IfOpened
-import net.st915.minesweeper.logic.impl.ApplicativeIfOpened
+import net.st915.minesweeper.logic.application.*
+import net.st915.minesweeper.logic.impl.*
 import net.st915.minesweeper.logic.refreshui.application.*
 import net.st915.minesweeper.logic.refreshui.impl.*
 import net.st915.minesweeper.ui.application.*

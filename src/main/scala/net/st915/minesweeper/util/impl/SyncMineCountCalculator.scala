@@ -2,10 +2,11 @@ package net.st915.minesweeper.util.impl
 
 import cats.effect.Sync
 import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
-import net.st915.minesweeper.logic.application.IfMine
+import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.util.application.*
+import org.scalajs.dom.*
 
-class SyncMineCountCalculator[F[_]: Sync: Get3x3: IfMine]
+class SyncMineCountCalculator[F[_]: Sync: Get3x3: IfMine: ForAllCoords]
     extends MineCountCalculator[F] {
 
   import cats.syntax.flatMap.*
@@ -24,5 +25,15 @@ class SyncMineCountCalculator[F[_]: Sync: Get3x3: IfMine]
         }
       }.sequence
     } yield mines.count(x => x)
+
+  override def calculateAll(difficulty: Difficulty)(
+    implicit gameState: GameState,
+    document: HTMLDocument
+  ): F[Map[Coordinate, Int]] =
+    for {
+      list <- ForAllCoords[F].perform(difficulty) { coord =>
+        calculate(coord, difficulty) >>= { count => Sync[F].pure(coord -> count) }
+      }
+    } yield list.toMap
 
 }

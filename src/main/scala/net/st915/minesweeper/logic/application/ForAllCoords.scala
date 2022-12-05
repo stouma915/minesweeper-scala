@@ -1,4 +1,4 @@
-package net.st915.minesweeper.logic.refreshui.application
+package net.st915.minesweeper.logic.application
 
 import net.st915.minesweeper.{Coordinate, Difficulty}
 import org.scalajs.dom.*
@@ -11,7 +11,7 @@ object ForAllCoords {
 
 trait ForAllCoords[F[_]] {
 
-  def perform(difficulty: Difficulty)(program: Coordinate => F[Unit])(implicit
-  document: HTMLDocument): F[List[Unit]]
+  def perform[A](difficulty: Difficulty)(program: Coordinate => F[A])(implicit
+  document: HTMLDocument): F[List[A]]
 
 }
