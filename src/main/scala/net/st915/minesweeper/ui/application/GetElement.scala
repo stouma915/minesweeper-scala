@@ -1,4 +1,4 @@
-package net.st915.minesweeper.logic.refreshui.application
+package net.st915.minesweeper.ui.application
 
 import org.scalajs.dom.*
 

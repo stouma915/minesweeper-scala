@@ -1,7 +1,7 @@
-package net.st915.minesweeper.logic.refreshui.impl
+package net.st915.minesweeper.ui.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.logic.refreshui.application.GetElement
+import net.st915.minesweeper.ui.application.GetElement
 import org.scalajs.dom.*
 
 class SyncGetElement[F[_]: Sync] extends GetElement[F] {

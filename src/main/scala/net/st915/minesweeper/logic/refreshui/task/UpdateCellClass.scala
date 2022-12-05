@@ -4,6 +4,8 @@ import cats.effect.Sync
 import net.st915.minesweeper.Consts.CSSClass
 import net.st915.minesweeper.logic.refreshui.application.*
 import net.st915.minesweeper.logic.refreshui.impl.*
+import net.st915.minesweeper.ui.application.*
+import net.st915.minesweeper.ui.impl.*
 import net.st915.minesweeper.util.application.IDFactory
 import net.st915.minesweeper.util.impl.ApplicativeIDFactory
 import net.st915.minesweeper.{Difficulty, GameState}
@@ -21,6 +23,7 @@ object UpdateCellClass {
 
     implicit val _forAllCoords: ForAllCoords[F] = SyncForAllCoords[F]
     implicit val _getElement: GetElement[F] = SyncGetElement[F]
+    implicit val _updateHTMLClass: UpdateHTMLClass[F] = SyncUpdateHTMLClass[F]
     implicit val _updateHTMLClassWithID: UpdateHTMLClassWithID[F] = SyncUpdateHTMLClassWithID[F]
     implicit val _updateCellOpening: UpdateCellOpening[F] = SyncUpdateCellOpening[F]
     implicit val _closeCell: CloseCell[F] = SyncCloseCell[F]

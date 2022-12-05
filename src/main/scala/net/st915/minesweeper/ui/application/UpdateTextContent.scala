@@ -1,4 +1,4 @@
-package net.st915.minesweeper.logic.refreshui.application
+package net.st915.minesweeper.ui.application
 
 import org.scalajs.dom.*
 
@@ -10,6 +10,6 @@ object UpdateTextContent {
 
 trait UpdateTextContent[F[_]] {
 
-  def update(id: String, text: String)(implicit document: HTMLDocument): F[Unit]
+  def update[A <: HTMLElement](element: A, text: String)(implicit document: HTMLDocument): F[Unit]
 
 }
