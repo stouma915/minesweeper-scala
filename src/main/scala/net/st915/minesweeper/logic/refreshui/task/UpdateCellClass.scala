@@ -2,11 +2,11 @@ package net.st915.minesweeper.logic.refreshui.task
 
 import cats.effect.Sync
 import net.st915.minesweeper.Consts.CSSClass
-import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.logic.refreshui.application.*
 import net.st915.minesweeper.logic.refreshui.impl.*
 import net.st915.minesweeper.util.application.IDFactory
 import net.st915.minesweeper.util.impl.ApplicativeIDFactory
+import net.st915.minesweeper.{Difficulty, GameState}
 import org.scalajs.dom.*
 
 object UpdateCellClass {

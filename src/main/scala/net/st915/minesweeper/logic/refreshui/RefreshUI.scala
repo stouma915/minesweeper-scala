@@ -1,8 +1,8 @@
 package net.st915.minesweeper.logic.refreshui
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.logic.refreshui.task.*
+import net.st915.minesweeper.{Difficulty, GameState}
 import org.scalajs.dom.*
 
 object RefreshUI {

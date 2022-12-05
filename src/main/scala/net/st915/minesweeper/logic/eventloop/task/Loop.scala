@@ -2,11 +2,11 @@ package net.st915.minesweeper.logic.eventloop.task
 
 import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
-import net.st915.minesweeper.{Consts, Difficulty}
 import net.st915.minesweeper.logic.eventloop.EventLoop
 import net.st915.minesweeper.logic.eventloop.application.*
 import net.st915.minesweeper.logic.eventloop.impl.*
 import net.st915.minesweeper.logic.refreshui.RefreshUI
+import net.st915.minesweeper.{Consts, Difficulty}
 import org.scalajs.dom.{HTMLDocument, Window}
 
 object Loop {
@@ -35,8 +35,8 @@ object Loop {
             newState <- EventDistinction[F].perform(event, EventLoop.gameState)
             _ <-
               if (EventLoop.gameState != newState)
-                RefreshUI.wired[F](difficulty, newState) >> Sync[F].delay(EventLoop.gameState =
-                  newState)
+                RefreshUI.wired[F](difficulty, newState) >>
+                  Sync[F].delay(EventLoop.gameState = newState)
               else
                 Sync[F].unit
           } yield ()
