@@ -1,7 +1,7 @@
 package net.st915.minesweeper.logic.eventhandler.impl
 
 import cats.Applicative
-import net.st915.minesweeper.logic.application.IfOpened
+import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.logic.eventhandler.application.*
 import net.st915.minesweeper.{Coordinate, GameState}
 

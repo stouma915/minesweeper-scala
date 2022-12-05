@@ -1,4 +1,4 @@
-package net.st915.minesweeper.logic.eventhandler.application
+package net.st915.minesweeper.logic.application
 
 import net.st915.minesweeper.{Coordinate, GameState}
 
@@ -10,7 +10,7 @@ object IfNotOpenedAndNotFlagged {
 
 trait IfNotOpenedAndNotFlagged[F[_]] {
 
-  def perform(coord: Coordinate)(program: => F[GameState])(implicit
-  gameState: GameState): F[GameState]
+  def perform[A](coord: Coordinate)(ifTrue: => F[A])(ifFalse: => F[A])(implicit
+  gameState: GameState): F[A]
 
 }

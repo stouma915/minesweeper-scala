@@ -14,6 +14,9 @@ import org.scalajs.dom.*
 
 object UpdateIconVisibility {
 
+  import cats.syntax.flatMap.*
+  import cats.syntax.functor.*
+
   def wired[F[_]: Sync](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     gameState: GameState
@@ -23,6 +26,8 @@ object UpdateIconVisibility {
     implicit val _ifOpened: IfOpened[F] = ApplicativeIfOpened[F]
     implicit val _ifFlagged: IfFlagged[F] = ApplicativeIfFlagged[F]
     implicit val _ifInFlagPlaceMode: IfInFlagPlaceMode[F] = ApplicativeIfInFlagPlaceMode[F]
+    implicit val _ifNotOpenedAndNotFlagged: IfNotOpenedAndNotFlagged[F] =
+      ApplicativeIfNotOpenedAndNotFlagged[F]
 
     implicit val _forAllCoords: ForAllCoords[F] = SyncForAllCoords[F]
     implicit val _getElement: GetElement[F] = SyncGetElement[F]
@@ -51,17 +56,30 @@ object UpdateIconVisibility {
   }
 
   def apply[
-    F[_]: Sync: ForAllCoords: IfInFlagPlaceMode: IfOpened: IfFlagged: ShowFlagIcon: ShowFlagPlaceholderIcon: ShowMineIcon: HideFlagIcon: HideFlagPlaceholderIcon: HideMineIcon
+    F[_]: Sync: ForAllCoords: IfInFlagPlaceMode: IfNotOpenedAndNotFlagged: IfOpened: IfFlagged: ShowFlagIcon: ShowFlagPlaceholderIcon: ShowMineIcon: HideFlagIcon: HideFlagPlaceholderIcon: HideMineIcon
   ](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     gameState: GameState
   ): F[List[Unit]] =
     ForAllCoords[F].perform(difficulty) { coord =>
-      IfInFlagPlaceMode[F].perform {
-        ShowFlagPlaceholderIcon[F].perform(coord)
-      } {
-        HideFlagPlaceholderIcon[F].perform(coord)
-      }
+      for {
+        _ <-
+          IfInFlagPlaceMode[F].perform {
+            IfNotOpenedAndNotFlagged[F].perform(coord) {
+              ShowFlagPlaceholderIcon[F].perform(coord)
+            } {
+              HideFlagPlaceholderIcon[F].perform(coord)
+            }
+          } {
+            HideFlagPlaceholderIcon[F].perform(coord)
+          }
+        _ <-
+          IfFlagged[F].perform(coord) {
+            ShowFlagIcon[F].perform(coord)
+          } {
+            HideFlagIcon[F].perform(coord)
+          }
+      } yield ()
     }
 
 }

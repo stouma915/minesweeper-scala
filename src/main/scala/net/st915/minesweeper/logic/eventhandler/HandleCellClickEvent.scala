@@ -33,6 +33,8 @@ object HandleCellClickEvent {
     IfCanOpenOperation[F].perform {
       IfNotOpenedAndNotFlagged[F].perform(coord) {
         AddOpenedCoord[F].add(coord)
+      } {
+        DoNothing[F].perform
       }
     } {
       // TODO: Write start game logic here
