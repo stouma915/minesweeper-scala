@@ -25,6 +25,7 @@ object UpdateIconVisibility {
 
     implicit val _ifOpened: IfOpened[F] = ApplicativeIfOpened[F]
     implicit val _ifFlagged: IfFlagged[F] = ApplicativeIfFlagged[F]
+    implicit val _ifMine: IfMine[F] = ApplicativeIfMine[F]
     implicit val _ifInFlagPlaceMode: IfInFlagPlaceMode[F] = ApplicativeIfInFlagPlaceMode[F]
     implicit val _ifNotOpenedAndNotFlagged: IfNotOpenedAndNotFlagged[F] =
       ApplicativeIfNotOpenedAndNotFlagged[F]
@@ -56,7 +57,9 @@ object UpdateIconVisibility {
   }
 
   def apply[
-    F[_]: Sync: ForAllCoords: IfInFlagPlaceMode: IfNotOpenedAndNotFlagged: IfOpened: IfFlagged: ShowFlagIcon: ShowFlagPlaceholderIcon: ShowMineIcon: HideFlagIcon: HideFlagPlaceholderIcon: HideMineIcon
+    F[
+      _
+    ]: Sync: ForAllCoords: IfInFlagPlaceMode: IfNotOpenedAndNotFlagged: IfOpened: IfFlagged: IfMine: ShowFlagIcon: ShowFlagPlaceholderIcon: ShowMineIcon: HideFlagIcon: HideFlagPlaceholderIcon: HideMineIcon
   ](difficulty: Difficulty)(
     implicit document: HTMLDocument,
     gameState: GameState
@@ -78,6 +81,16 @@ object UpdateIconVisibility {
             ShowFlagIcon[F].perform(coord)
           } {
             HideFlagIcon[F].perform(coord)
+          }
+        _ <-
+          IfMine[F].perform(coord) {
+            IfOpened[F].perform(coord) {
+              ShowMineIcon[F].perform(coord)
+            } {
+              HideMineIcon[F].perform(coord)
+            }
+          } {
+            HideMineIcon[F].perform(coord)
           }
       } yield ()
     }

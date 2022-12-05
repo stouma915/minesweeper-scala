@@ -7,7 +7,8 @@ object GameState {
     stopped = false,
     inFlagPlaceMode = false,
     openedCoords = List(),
-    flaggedCoords = List()
+    flaggedCoords = List(),
+    mines = List()
   )
 
 }
@@ -17,5 +18,6 @@ case class GameState(
   stopped: Boolean,
   inFlagPlaceMode: Boolean,
   openedCoords: List[Coordinate],
-  flaggedCoords: List[Coordinate]
+  flaggedCoords: List[Coordinate],
+  mines: List[Coordinate]
 )
