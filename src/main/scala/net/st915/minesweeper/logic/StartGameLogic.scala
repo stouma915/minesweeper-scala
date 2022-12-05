@@ -4,8 +4,8 @@ import cats.effect.Sync
 import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
 import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.logic.impl.*
-import net.st915.minesweeper.util.application.MineGenerator
-import net.st915.minesweeper.util.impl.SyncMineGenerator
+import net.st915.minesweeper.util.application.*
+import net.st915.minesweeper.util.impl.*
 
 object StartGameLogic {
 
@@ -13,6 +13,7 @@ object StartGameLogic {
 
   def wired[F[_]: Sync](startPoint: Coordinate, difficulty: Difficulty)(implicit
   gameState: GameState): F[GameState] = {
+    implicit val _get3x3: Get3x3[F] = ApplicativeGet3x3[F]
     implicit val _mineGenerator: MineGenerator[F] = SyncMineGenerator[F]
 
     implicit val _updateMines: UpdateMines[F] = ApplicativeUpdateMines[F]
