@@ -66,7 +66,13 @@ object UpdateIconVisibility {
   ): F[List[Unit]] =
     ForAllCoords[F].perform(difficulty) { coord =>
       for {
-        _ <-
+        _ <- // flag icon
+          IfFlagged[F].perform(coord) {
+            ShowFlagIcon[F].perform(coord)
+          } {
+            HideFlagIcon[F].perform(coord)
+          }
+        _ <- // flag placeholder icon
           IfInFlagPlaceMode[F].perform {
             IfNotOpenedAndNotFlagged[F].perform(coord) {
               ShowFlagPlaceholderIcon[F].perform(coord)
@@ -76,13 +82,7 @@ object UpdateIconVisibility {
           } {
             HideFlagPlaceholderIcon[F].perform(coord)
           }
-        _ <-
-          IfFlagged[F].perform(coord) {
-            ShowFlagIcon[F].perform(coord)
-          } {
-            HideFlagIcon[F].perform(coord)
-          }
-        _ <-
+        _ <- // mine icon
           IfMine[F].perform(coord) {
             IfOpened[F].perform(coord) {
               ShowMineIcon[F].perform(coord)
