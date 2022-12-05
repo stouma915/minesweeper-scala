@@ -8,6 +8,10 @@ import net.st915.minesweeper.logic.impl.*
 object ToggleFlagPlaceModeLogic {
 
   def wired[F[_]: Sync](implicit gameState: GameState): F[GameState] = {
+    implicit val _doNothing: DoNothing[F] = ApplicativeDoNothing[F]
+    implicit val _ifGameStarted: IfGameStarted[F] = ApplicativeIfGameStarted[F]
+    implicit val _ifGameStopped: IfGameStopped[F] = ApplicativeIfGameStopped[F]
+    implicit val _ifCanOperation: IfCanOperation[F] = ApplicativeIfCanOperation[F]
     implicit val _updateFlagPlaceModeProperty: UpdateFlagPlaceModeProperty[F] =
       ApplicativeUpdateFlagPlaceModeProperty[F]
     implicit val _toggleFlagPlaceModeProperty: ToggleFlagPlaceModeProperty[F] =
@@ -16,8 +20,13 @@ object ToggleFlagPlaceModeLogic {
     ToggleFlagPlaceModeLogic()
   }
 
-  def apply[F[_]: Sync: ToggleFlagPlaceModeProperty]()(implicit
-  gameState: GameState): F[GameState] =
-    ToggleFlagPlaceModeProperty[F].update
+  def apply[
+    F[_]: Sync: IfCanOperation: ToggleFlagPlaceModeProperty: DoNothing
+  ]()(implicit gameState: GameState): F[GameState] =
+    IfCanOperation[F].perform {
+      ToggleFlagPlaceModeProperty[F].update
+    } {
+      DoNothing[F].perform
+    }
 
 }
