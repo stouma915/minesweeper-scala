@@ -2,13 +2,13 @@ package net.st915.minesweeper.logic.eventhandler.application
 
 import net.st915.minesweeper.{Coordinate, GameState}
 
-object AddOpenedCoordIfNotExists {
+object AddFlaggedCoord {
 
-  def apply[F[_]: AddOpenedCoordIfNotExists]: AddOpenedCoordIfNotExists[F] = implicitly
+  def apply[F[_]: AddFlaggedCoord]: AddFlaggedCoord[F] = implicitly
 
 }
 
-trait AddOpenedCoordIfNotExists[F[_]] {
+trait AddFlaggedCoord[F[_]] {
 
   def add(coord: Coordinate)(implicit gameState: GameState): F[GameState]
 

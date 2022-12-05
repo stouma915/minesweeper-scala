@@ -3,10 +3,11 @@ package net.st915.minesweeper
 object GameState {
 
   def empty: GameState = GameState(
-    gameStarted = false,
+    gameStarted = true, // TODO: should be 'false'
     stopped = false,
     inFlagPlaceMode = false,
-    openedCoords = List()
+    openedCoords = List(),
+    flaggedCoords = List()
   )
 
 }
@@ -15,5 +16,6 @@ case class GameState(
   gameStarted: Boolean,
   stopped: Boolean,
   inFlagPlaceMode: Boolean,
-  openedCoords: List[Coordinate]
+  openedCoords: List[Coordinate],
+  flaggedCoords: List[Coordinate]
 )
