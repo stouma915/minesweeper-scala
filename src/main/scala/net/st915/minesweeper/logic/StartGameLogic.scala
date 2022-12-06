@@ -13,6 +13,9 @@ object StartGameLogic {
 
   def wired[F[_]: Sync](startPoint: Coordinate, difficulty: Difficulty)(implicit
   gameState: GameState): F[GameState] = {
+    implicit val _ifMine: IfMine[F] = ApplicativeIfMine[F]
+    implicit val _forAllCoords: ForAllCoords[F] = SyncForAllCoords[F]
+
     implicit val _get3x3: Get3x3[F] = ApplicativeGet3x3[F]
     implicit val _mineGenerator: MineGenerator[F] = SyncMineGenerator[F]
 
@@ -27,7 +30,6 @@ object StartGameLogic {
     F[_]: Sync: UpdateMines: UpdateGameStartedProperty: MineGenerator
   ](startPoint: Coordinate, difficulty: Difficulty)(implicit gameState: GameState): F[GameState] =
     MineGenerator[F].perform(startPoint, difficulty) >>=
-      UpdateMines[F].update >>=
-      UpdateGameStartedProperty[F].update
+      UpdateMines[F].update
 
 }

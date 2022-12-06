@@ -26,14 +26,10 @@ class SyncMineCountCalculator[F[_]: Sync: Get3x3: IfMine: ForAllCoords]
       }.sequence
     } yield mines.count(x => x)
 
-  override def calculateAll(difficulty: Difficulty)(
-    implicit gameState: GameState,
-    document: HTMLDocument
-  ): F[Map[Coordinate, Int]] =
-    for {
-      list <- ForAllCoords[F].perform(difficulty) { coord =>
-        calculate(coord, difficulty) >>= { count => Sync[F].pure(coord -> count) }
-      }
-    } yield list.toMap
+  override def calculateAll(difficulty: Difficulty)(implicit
+  gameState: GameState): F[List[(Coordinate, Int)]] =
+    ForAllCoords[F].perform(difficulty) { coord =>
+      calculate(coord, difficulty) >>= { count => Sync[F].pure(coord -> count) }
+    }
 
 }
