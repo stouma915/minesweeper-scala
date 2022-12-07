@@ -36,4 +36,4 @@ object MineIcon {
 
 }
 
-class MineIcon extends CellIcon
+class MineIcon

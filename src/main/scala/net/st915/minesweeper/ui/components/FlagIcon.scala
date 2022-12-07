@@ -36,4 +36,4 @@ object FlagIcon {
 
 }
 
-class FlagIcon extends CellIcon
+class FlagIcon
