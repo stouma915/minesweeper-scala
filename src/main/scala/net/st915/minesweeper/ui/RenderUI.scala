@@ -4,8 +4,8 @@ import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.*
-import net.st915.minesweeper.ui.components.typeclasses.CanAppendElement
-import net.st915.minesweeper.ui.components.instances.SyncCanAppendElement
+import net.st915.minesweeper.ui.components.typeclasses.*
+import net.st915.minesweeper.ui.components.instances.*
 import org.scalajs.dom.*
 
 object RenderUI {
@@ -18,6 +18,7 @@ object RenderUI {
     Window,
     IORuntime
   ): F[Unit] = {
+    given CanAppendBR[F] = SyncCanAppendBR[F]
     given CanAppendElement[F] = SyncCanAppendElement[F]
 
     val body = summon[HTMLDocument].body
@@ -25,6 +26,13 @@ object RenderUI {
     for {
       informationText <- InformationText.wired[F]
       _ <- CanAppendElement[F].perform(body, informationText)
+
+      _ <- CanAppendBR[F].perform(body)
+
+      diffSelector <- DifficultySelector.wired[F]
+      _ <- CanAppendElement[F].perform(body, diffSelector)
+
+      _ <- CanAppendBR[F].perform(body)
 
       aboutPage <- AboutPage.wired[F]
       _ <- CanAppendElement[F].perform(body, aboutPage)
