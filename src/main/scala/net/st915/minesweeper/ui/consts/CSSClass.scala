@@ -36,8 +36,8 @@ object CSSClass {
 
 }
 
-case class CSSClass(classNames: String*) {
+case class CSSClass(classNames: String*) extends UIConstant(classNames) {
 
-  def toStr: String = classNames.mkString(" ")
+  override def asStr: String = classNames.mkString(" ")
 
 }

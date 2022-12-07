@@ -8,4 +8,8 @@ object Link {
 
 }
 
-case class Link(url: String)
+case class Link(url: String) extends UIConstant(url) {
+
+  override def asStr: String = url
+
+}

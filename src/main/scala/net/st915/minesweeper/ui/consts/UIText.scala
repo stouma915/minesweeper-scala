@@ -21,4 +21,8 @@ object UIText {
 
 }
 
-case class UIText(content: String)
+case class UIText(content: String) extends UIConstant(content) {
+
+  override def asStr: String = content
+
+}
