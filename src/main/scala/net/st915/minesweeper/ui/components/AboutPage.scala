@@ -23,43 +23,43 @@ object AboutPage {
 
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClass.AboutPage)
+      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.AboutPage)
 
       licensePrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(licensePrefix, UIText.ThisSiteIsLicensedUnderThe)
+      _ <- CanUpdateTextContent[F].perform(licensePrefix, UITexts.ThisSiteIsLicensedUnderThe)
       _ <- CanAppendElement[F].perform(containerDiv, licensePrefix)
       licenseLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(licenseLink, UIText.MITLicense)
-      _ <- CanUpdateHyperlink[F].perform(licenseLink, Link.License)
+      _ <- CanUpdateTextContent[F].perform(licenseLink, UITexts.MITLicense)
+      _ <- CanUpdateHyperlink[F].perform(licenseLink, Links.License)
       _ <- CanAppendElement[F].perform(containerDiv, licenseLink)
       licenseSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(licenseSuffix, UIText.Period)
+      _ <- CanUpdateTextContent[F].perform(licenseSuffix, UITexts.Period)
       _ <- CanAppendElement[F].perform(containerDiv, licenseSuffix)
 
       _ <- CanAppendBR[F].perform(containerDiv)
 
       repoPrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(repoPrefix, UIText.ThisSiteIsOpenSource)
+      _ <- CanUpdateTextContent[F].perform(repoPrefix, UITexts.ThisSiteIsOpenSource)
       _ <- CanAppendElement[F].perform(containerDiv, repoPrefix)
       repoLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(repoLink, UIText.ImproveThisSite)
-      _ <- CanUpdateHyperlink[F].perform(repoLink, Link.Repository)
+      _ <- CanUpdateTextContent[F].perform(repoLink, UITexts.ImproveThisSite)
+      _ <- CanUpdateHyperlink[F].perform(repoLink, Links.Repository)
       _ <- CanAppendElement[F].perform(containerDiv, repoLink)
       repoSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(repoSuffix, UIText.Period)
+      _ <- CanUpdateTextContent[F].perform(repoSuffix, UITexts.Period)
       _ <- CanAppendElement[F].perform(containerDiv, repoSuffix)
 
       _ <- CanAppendBR[F].perform(containerDiv)
 
       pagesPrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesPrefix, UIText.PoweredBy)
+      _ <- CanUpdateTextContent[F].perform(pagesPrefix, UITexts.PoweredBy)
       _ <- CanAppendElement[F].perform(containerDiv, pagesPrefix)
       pagesLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesLink, UIText.GitHubPages)
-      _ <- CanUpdateHyperlink[F].perform(pagesLink, Link.GitHubPages)
+      _ <- CanUpdateTextContent[F].perform(pagesLink, UITexts.GitHubPages)
+      _ <- CanUpdateHyperlink[F].perform(pagesLink, Links.GitHubPages)
       _ <- CanAppendElement[F].perform(containerDiv, pagesLink)
       pagesSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesSuffix, UIText.Period)
+      _ <- CanUpdateTextContent[F].perform(pagesSuffix, UITexts.Period)
       _ <- CanAppendElement[F].perform(containerDiv, pagesSuffix)
     } yield containerDiv
   }

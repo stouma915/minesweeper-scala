@@ -3,7 +3,7 @@ package net.st915.minesweeper.util.instances
 import cats.Monad
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.ui.components.FlagPlaceholderIcon
-import net.st915.minesweeper.ui.consts.ID
+import net.st915.minesweeper.util.ID
 import net.st915.minesweeper.util.typeclasses.CanCreateIconContainerID
 
 class MonadCanCreateIconContainerIDFlagPlaceholder[F[_]: Monad]

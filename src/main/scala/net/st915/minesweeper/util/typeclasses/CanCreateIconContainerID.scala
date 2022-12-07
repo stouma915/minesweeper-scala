@@ -1,7 +1,7 @@
 package net.st915.minesweeper.util.typeclasses
 
 import net.st915.minesweeper.Coordinate
-import net.st915.minesweeper.ui.consts.ID
+import net.st915.minesweeper.util.ID
 
 object CanCreateIconContainerID {
 

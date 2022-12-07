@@ -1,6 +1,8 @@
 package net.st915.minesweeper.ui.consts
 
-object UIText {
+import net.st915.minesweeper.util.UIText
+
+object UITexts {
 
   final val ThisSiteIsLicensedUnderThe = UIText("This site is licensed under the ")
   final val MITLicense = UIText("MIT License")
@@ -18,11 +20,5 @@ object UIText {
   final val ExitFlagPlaceMode = UIText("Exit Flag Place Mode")
 
   final val Period = UIText(".")
-
-}
-
-case class UIText(content: String) extends UIConstant(content) {
-
-  override def asStr: String = content
 
 }

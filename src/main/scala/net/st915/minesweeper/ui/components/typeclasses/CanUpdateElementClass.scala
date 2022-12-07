@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.components.typeclasses
 
-import net.st915.minesweeper.ui.consts.CSSClass
+import net.st915.minesweeper.util.CSSClass
 import org.scalajs.dom.*
 
 object CanUpdateElementClass {

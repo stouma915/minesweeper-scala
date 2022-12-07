@@ -3,7 +3,7 @@ package net.st915.minesweeper.ui.components.instances
 import cats.effect.Sync
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.ui.components.FlagPlaceholderIcon
-import net.st915.minesweeper.ui.consts.CSSClass
+import net.st915.minesweeper.ui.consts.CSSClasses
 import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
 import net.st915.minesweeper.util.typeclasses.CanCreateIconContainerID
@@ -26,7 +26,7 @@ class SyncCanCreateIconContainerFlagPlaceholder[F[_]: Sync]
 
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClass.IconContainer)
+      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.IconContainer)
 
       containerID <- CanCreateIconContainerID[F, FlagPlaceholderIcon].create(coord)
       _ <- CanUpdateElementID[F].perform(containerDiv, containerID)

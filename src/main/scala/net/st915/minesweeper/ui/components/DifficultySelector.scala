@@ -20,10 +20,10 @@ object DifficultySelector {
 
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClass.DifficultySelector)
+      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.DifficultySelector)
 
       selectorText <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(selectorText, UIText.DifficultiesColon)
+      _ <- CanUpdateTextContent[F].perform(selectorText, UITexts.DifficultiesColon)
       _ <- CanAppendElement[F].perform(containerDiv, selectorText)
 
       diffLinks <- DifficultyLinks.wired[F]

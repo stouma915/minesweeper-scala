@@ -1,6 +1,8 @@
 package net.st915.minesweeper.ui.consts
 
-object CSSClass {
+import net.st915.minesweeper.util.CSSClass
+
+object CSSClasses {
 
   final val AboutPage = CSSClass("aboutPage")
   final val DifficultySelector = CSSClass("difficultySelector")
@@ -33,11 +35,5 @@ object CSSClass {
 
   final val IconContainer = CSSClass("iconContainer")
   final val MineCountContainer = CSSClass("mineCountContainer")
-
-}
-
-case class CSSClass(classNames: String*) extends UIConstant(classNames) {
-
-  override def asStr: String = classNames.mkString(" ")
 
 }

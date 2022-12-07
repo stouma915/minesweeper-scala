@@ -1,6 +1,6 @@
 package net.st915.minesweeper.ui.components.typeclasses
 
-import net.st915.minesweeper.ui.consts.Link
+import net.st915.minesweeper.util.Link
 import org.scalajs.dom.*
 
 object CanUpdateHyperlink {

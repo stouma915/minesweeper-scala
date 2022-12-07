@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.components.instances
 
 import cats.effect.Sync
 import net.st915.minesweeper.ui.components.typeclasses.CanUpdateElementID
-import net.st915.minesweeper.ui.consts.ID
+import net.st915.minesweeper.util.ID
 import org.scalajs.dom.HTMLElement
 
 class SyncCanUpdateElementID[F[_]: Sync] extends CanUpdateElementID[F] {

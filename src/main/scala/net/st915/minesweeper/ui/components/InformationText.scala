@@ -3,7 +3,7 @@ package net.st915.minesweeper.ui.components
 import cats.effect.Sync
 import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.consts.{CSSClass, UIText}
+import net.st915.minesweeper.ui.consts.*
 import net.st915.minesweeper.util.HTMLH1Element
 import org.scalajs.dom.*
 
@@ -21,10 +21,10 @@ object InformationText {
 
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClass.InformationText)
+      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.InformationText)
 
       innerText <- CanCreateElement[F, HTMLH1Element].create
-      _ <- CanUpdateTextContent[F].perform(innerText, UIText.CurrentlyUnderDevelopment)
+      _ <- CanUpdateTextContent[F].perform(innerText, UITexts.CurrentlyUnderDevelopment)
       _ <- CanAppendElement[F].perform(containerDiv, innerText)
     } yield containerDiv
   }
