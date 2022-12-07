@@ -3,7 +3,7 @@ package net.st915.minesweeper.ui
 import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.RunContext
-import net.st915.minesweeper.ui.components.InformationText
+import net.st915.minesweeper.ui.components.*
 import net.st915.minesweeper.ui.components.typeclasses.CanAppendElement
 import net.st915.minesweeper.ui.components.instances.SyncCanAppendElement
 import org.scalajs.dom.*
@@ -25,6 +25,9 @@ object RenderUI {
     for {
       informationText <- InformationText.wired[F]
       _ <- CanAppendElement[F].perform(body, informationText)
+
+      aboutPage <- AboutPage.wired[F]
+      _ <- CanAppendElement[F].perform(body, aboutPage)
     } yield ()
   }
 
