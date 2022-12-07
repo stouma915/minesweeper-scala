@@ -10,7 +10,6 @@ object IfGameStopped {
 
 trait IfGameStopped[F[_]] {
 
-  def perform[A](ifStopped: => F[A])(ifNotStopped: => F[A])(implicit
-  gameState: GameState): F[A]
+  def perform[A](ifStopped: => F[A])(ifNotStopped: => F[A])(implicit gameState: GameState): F[A]
 
 }
