@@ -22,6 +22,7 @@ object InformationText {
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
       _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClass.InformationText)
+
       innerText <- CanCreateElement[F, HTMLH1Element].create
       _ <- CanUpdateTextContent[F].perform(innerText, UIText.CurrentlyUnderDevelopment)
       _ <- CanAppendElement[F].perform(containerDiv, innerText)
