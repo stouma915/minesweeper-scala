@@ -1,8 +1,8 @@
 package net.st915.minesweeper.util.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, Difficulty}
 import net.st915.minesweeper.util.application.*
+import net.st915.minesweeper.{Coordinate, Difficulty}
 
 import scala.annotation.tailrec
 import scala.util.Random

@@ -1,9 +1,9 @@
 package net.st915.minesweeper.logic
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, GameState}
 import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.logic.impl.*
+import net.st915.minesweeper.{Coordinate, GameState}
 
 object OpenCellLogic {
 

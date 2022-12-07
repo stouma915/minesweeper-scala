@@ -1,11 +1,11 @@
 package net.st915.minesweeper.logic.eventhandler
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.event.CellClickEvent
 import net.st915.minesweeper.logic.*
 import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.logic.impl.*
+import net.st915.minesweeper.{Difficulty, GameState}
 
 object HandleCellClickEvent {
 

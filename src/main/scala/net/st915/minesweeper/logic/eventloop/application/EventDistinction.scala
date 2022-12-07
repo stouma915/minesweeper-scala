@@ -1,7 +1,7 @@
 package net.st915.minesweeper.logic.eventloop.application
 
-import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.event.Event
+import net.st915.minesweeper.{Difficulty, GameState}
 
 object EventDistinction {
 

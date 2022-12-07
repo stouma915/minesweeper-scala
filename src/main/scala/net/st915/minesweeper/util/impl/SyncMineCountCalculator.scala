@@ -1,9 +1,9 @@
 package net.st915.minesweeper.util.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
 import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.util.application.*
+import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
 import org.scalajs.dom.*
 
 class SyncMineCountCalculator[F[_]: Sync: Get3x3: IfMine: ForAllCoords]

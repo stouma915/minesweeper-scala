@@ -1,8 +1,8 @@
 package net.st915.minesweeper.ui.components
 
 import cats.effect.Sync
-import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
+import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.consts.*
 import net.st915.minesweeper.util.HTMLH1Element
 import org.scalajs.dom.*

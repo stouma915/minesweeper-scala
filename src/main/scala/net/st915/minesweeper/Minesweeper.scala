@@ -4,7 +4,7 @@ import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.beforeui.BeforeUI
 import net.st915.minesweeper.logic.eventloop.EventLoop
-import net.st915.minesweeper.ui.{RenderUI, LegacyRenderUI}
+import net.st915.minesweeper.ui.{LegacyRenderUI, RenderUI}
 import org.scalajs.dom.*
 
 @main def main(): Unit = {

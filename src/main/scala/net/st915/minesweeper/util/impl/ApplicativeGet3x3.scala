@@ -1,8 +1,8 @@
 package net.st915.minesweeper.util.impl
 
 import cats.Applicative
-import net.st915.minesweeper.{Coordinate, Difficulty}
 import net.st915.minesweeper.util.application.Get3x3
+import net.st915.minesweeper.{Coordinate, Difficulty}
 
 class ApplicativeGet3x3[F[_]: Applicative] extends Get3x3[F] {
 

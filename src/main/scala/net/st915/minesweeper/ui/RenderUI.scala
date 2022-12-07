@@ -4,8 +4,8 @@ import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.*
-import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
+import net.st915.minesweeper.ui.components.typeclasses.*
 import org.scalajs.dom.*
 
 object RenderUI {

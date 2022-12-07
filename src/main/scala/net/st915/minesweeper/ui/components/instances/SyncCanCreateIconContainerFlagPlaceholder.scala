@@ -3,11 +3,11 @@ package net.st915.minesweeper.ui.components.instances
 import cats.effect.Sync
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.ui.components.FlagPlaceholderIcon
-import net.st915.minesweeper.ui.consts.CSSClasses
-import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.util.typeclasses.CanCreateIconContainerID
+import net.st915.minesweeper.ui.components.typeclasses.*
+import net.st915.minesweeper.ui.consts.CSSClasses
 import net.st915.minesweeper.util.instances.MonadCanCreateIconContainerIDFlagPlaceholder
+import net.st915.minesweeper.util.typeclasses.CanCreateIconContainerID
 import org.scalajs.dom.*
 
 class SyncCanCreateIconContainerFlagPlaceholder[F[_]: Sync]

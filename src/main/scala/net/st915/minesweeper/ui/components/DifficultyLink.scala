@@ -2,11 +2,11 @@ package net.st915.minesweeper.ui.components
 
 import cats.effect.Sync
 import net.st915.minesweeper.Difficulty
-import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
+import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.util.UIText
-import net.st915.minesweeper.util.typeclasses.CanCreateDifficultyLink
 import net.st915.minesweeper.util.instances.MonadCanCreateDifficultyLink
+import net.st915.minesweeper.util.typeclasses.CanCreateDifficultyLink
 import org.scalajs.dom.*
 
 object DifficultyLink {

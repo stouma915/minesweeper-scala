@@ -1,8 +1,8 @@
 package net.st915.minesweeper.ui.components.instances
 
 import cats.effect.Sync
-import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.components.instances.*
+import net.st915.minesweeper.ui.components.typeclasses.*
 import org.scalajs.dom.*
 
 class SyncCanAppendBR[F[_]: Sync] extends CanAppendBR[F] {

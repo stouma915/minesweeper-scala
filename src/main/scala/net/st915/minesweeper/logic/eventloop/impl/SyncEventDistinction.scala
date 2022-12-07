@@ -1,10 +1,10 @@
 package net.st915.minesweeper.logic.eventloop.impl
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Difficulty, GameState}
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.logic.eventhandler.*
 import net.st915.minesweeper.logic.eventloop.application.EventDistinction
+import net.st915.minesweeper.{Difficulty, GameState}
 
 class SyncEventDistinction[F[_]: Sync] extends EventDistinction[F] {
 

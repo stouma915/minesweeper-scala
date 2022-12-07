@@ -1,11 +1,11 @@
 package net.st915.minesweeper.logic
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
 import net.st915.minesweeper.logic.application.*
 import net.st915.minesweeper.logic.impl.*
 import net.st915.minesweeper.util.application.*
 import net.st915.minesweeper.util.impl.*
+import net.st915.minesweeper.{Coordinate, Difficulty, GameState}
 
 object StartGameLogic {
 
