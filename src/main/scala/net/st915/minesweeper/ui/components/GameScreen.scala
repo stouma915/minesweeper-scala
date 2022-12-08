@@ -16,7 +16,6 @@ object GameScreen {
   def wired[F[_]: Sync](diff: Difficulty)(using HTMLDocument, IORuntime): F[HTMLDivElement] = {
     given CanAppendBR[F] = SyncCanAppendBR[F]
     given CanAppendElement[F] = SyncCanAppendElement[F]
-    given CanCreateButton[F] = SyncCanCreateButton[F]
     given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
     given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
 
@@ -29,18 +28,12 @@ object GameScreen {
 
       _ <- CanAppendBR[F].perform(containerDiv)
 
-      flagButton <- CanCreateButton[F].create(
-        IDs.ToggleFlagModeButtonId,
-        UITexts.EnterFlagPlaceMode
-      )
+      flagButton <- ToggleFlagModeButton.wired[F]
       _ <- CanAppendElement[F].perform(containerDiv, flagButton)
 
       _ <- CanAppendBR[F].perform(containerDiv)
 
-      restartButton <- CanCreateButton[F].create(
-        IDs.RestartButtonId,
-        UITexts.RestartButton
-      )
+      restartButton <- RestartButton.wired[F]
       _ <- CanAppendElement[F].perform(containerDiv, restartButton)
     } yield containerDiv
   }
