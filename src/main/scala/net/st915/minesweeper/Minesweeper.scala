@@ -8,9 +8,9 @@ import org.scalajs.dom.*
 
 @main def main(): Unit = {
 
-  implicit val _document: HTMLDocument = org.scalajs.dom.document
-  implicit val _window: Window = org.scalajs.dom.window
-  implicit val _runtime: IORuntime = cats.effect.unsafe.implicits.global
+  given HTMLDocument = org.scalajs.dom.document
+  given Window = org.scalajs.dom.window
+  given IORuntime = cats.effect.unsafe.implicits.global
 
   val program = for {
     runContext <- BeforeUI.wired[IO]
