@@ -2,8 +2,8 @@ package net.st915.minesweeper.beforeui.tasks
 
 import cats.effect.Sync
 import net.st915.minesweeper.Difficulty
-import net.st915.minesweeper.beforeui.tasks.typeclasses.*
 import net.st915.minesweeper.beforeui.tasks.instances.*
+import net.st915.minesweeper.beforeui.tasks.typeclasses.*
 import org.scalajs.dom.*
 
 object GetDifficulty {
