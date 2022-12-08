@@ -1,2 +1,2 @@
 # minesweeper-scala
-Minesweeper made with Scala.js + cats-effect
+Functional Minesweeper made with Scala.js + cats-effect
