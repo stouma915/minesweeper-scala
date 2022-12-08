@@ -7,11 +7,11 @@ object EventQueue {
 
   private var eventQueue = List[Event]()
 
-  def queue[F[_]: Sync](event: Event): F[Unit] = Sync[F].delay {
+  def queue[F[_]: Sync](event: Event): F[Unit] = Sync[F].blocking {
     eventQueue = eventQueue.appended(event)
   }
 
-  def nextEvent[F[_]: Sync]: F[Option[Event]] = Sync[F].delay {
+  def nextEvent[F[_]: Sync]: F[Option[Event]] = Sync[F].blocking {
     eventQueue.headOption match
       case Some(x) =>
         eventQueue = eventQueue.drop(1)
