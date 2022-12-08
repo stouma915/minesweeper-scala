@@ -11,6 +11,7 @@ lazy val root = project
     name := "minesweeper-scala",
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
+      ("org.akka-js" %%% "akkajsactortyped" % "2.2.6.14").cross(CrossVersion.for3Use2_13),
       "org.typelevel" %%% "cats-effect" % "3.4.1",
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     )
