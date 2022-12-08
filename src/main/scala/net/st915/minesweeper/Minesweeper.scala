@@ -3,8 +3,7 @@ package net.st915.minesweeper
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.beforeui.BeforeUI
-import net.st915.minesweeper.logic.eventloop.EventLoop
-import net.st915.minesweeper.ui.{LegacyRenderUI, RenderUI}
+import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 
 @main def main(): Unit = {
@@ -15,9 +14,7 @@ import org.scalajs.dom.*
 
   val program = for {
     runContext <- BeforeUI.wired[IO]
-    _ <- LegacyRenderUI.wired[IO](runContext.difficulty)
-    //_ <- RenderUI.wired[IO](runContext)
-    _ <- EventLoop.wired[IO](runContext.difficulty)
+    _ <- RenderUI.wired[IO](runContext)
   } yield ()
 
   program.start.unsafeRunAndForget()

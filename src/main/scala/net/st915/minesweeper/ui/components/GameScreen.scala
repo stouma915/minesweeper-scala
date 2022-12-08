@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.unsafe.IORuntime
 import cats.effect.Sync
+import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.Difficulty
 import net.st915.minesweeper.ui.components.instances.*
 import net.st915.minesweeper.ui.components.typeclasses.*
