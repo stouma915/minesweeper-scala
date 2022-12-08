@@ -11,7 +11,7 @@ class SyncCanUpdateRightClickEvent[F[_]: Sync] extends CanUpdateRightClickEvent[
     Sync[F].blocking {
       element.oncontextmenu = e => {
         e.preventDefault()
-        
+
         program
           .asInstanceOf[IO[Unit]]
           .unsafeRunAndForget()

@@ -25,14 +25,10 @@ object CellArray {
 
       lines <- (0 until diff.height)
         .toList
-        .map { y =>
-          CellLine.wired[F](y, diff)
-        }
+        .map { y => CellLine.wired[F](y, diff) }
         .sequence
       _ <- lines
-        .map { line =>
-          CanAppendElement[F].perform(containerDiv, line)
-        }
+        .map { line => CanAppendElement[F].perform(containerDiv, line) }
         .sequence
     } yield containerDiv
   }

@@ -7,5 +7,5 @@ object Links {
   final val License = Link("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE")
   final val Repository = Link("https://github.com/stouma915/minesweeper-scala")
   final val GitHubPages = Link("https://pages.github.com")
-  
+
 }

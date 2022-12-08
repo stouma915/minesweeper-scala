@@ -12,5 +12,5 @@ class MonadCanCreateElementBR[F[_]: Monad] extends CanCreateElement[F, HTMLBREle
         .createElement("br")
         .asInstanceOf[HTMLBRElement]
     }
-  
+
 }

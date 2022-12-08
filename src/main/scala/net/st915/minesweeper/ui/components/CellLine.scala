@@ -14,7 +14,9 @@ object CellLine {
   import cats.syntax.functor.*
   import cats.syntax.traverse.*
 
-  def wired[F[_]: Sync](y: Int, diff: Difficulty)(using HTMLDocument, IORuntime): F[HTMLDivElement] = {
+  def wired[F[_]: Sync](y: Int,
+                        diff: Difficulty
+  )(using HTMLDocument, IORuntime): F[HTMLDivElement] = {
     given CanAppendElement[F] = SyncCanAppendElement[F]
     given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
     given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
@@ -23,16 +25,12 @@ object CellLine {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
       _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.CellLine)
 
-      cells <-(0 until diff.width)
+      cells <- (0 until diff.width)
         .toList
-        .map { x =>
-          Cell.wired[F](Coordinate(x, y))
-        }
+        .map { x => Cell.wired[F](Coordinate(x, y)) }
         .sequence
       _ <- cells
-        .map { cell =>
-          CanAppendElement[F].perform(containerDiv, cell)
-        }
+        .map { cell => CanAppendElement[F].perform(containerDiv, cell) }
         .sequence
     } yield containerDiv
   }
