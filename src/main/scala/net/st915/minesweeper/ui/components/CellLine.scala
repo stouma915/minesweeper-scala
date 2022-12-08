@@ -1,11 +1,11 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.unsafe.IORuntime
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, Difficulty}
+import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.ui.components.instances.*
 import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.consts.CSSClasses
+import net.st915.minesweeper.{Coordinate, Difficulty}
 import org.scalajs.dom.*
 
 object CellLine {

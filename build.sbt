@@ -2,6 +2,8 @@ ThisBuild / version := "1.0.0"
 ThisBuild / description := "Minesweeper made with Scala.js + cats-effect"
 ThisBuild / scalaVersion := "3.2.1"
 
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
+
 lazy val root = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin)
@@ -13,3 +15,10 @@ lazy val root = project
       "org.scala-js" %%% "scalajs-dom" % "2.1.0"
     )
   )
+
+inThisBuild(
+  List(
+    scalaVersion := "3.2.1",
+    semanticdbEnabled := true
+  )
+)

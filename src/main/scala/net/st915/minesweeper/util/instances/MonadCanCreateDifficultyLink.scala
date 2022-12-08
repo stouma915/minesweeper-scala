@@ -1,9 +1,9 @@
 package net.st915.minesweeper.util.instances
 
 import cats.Monad
-import net.st915.minesweeper.{Consts, Difficulty}
 import net.st915.minesweeper.util.Link
 import net.st915.minesweeper.util.typeclasses.CanCreateDifficultyLink
+import net.st915.minesweeper.{Consts, Difficulty}
 import org.scalajs.dom.*
 
 class MonadCanCreateDifficultyLink[F[_]: Monad] extends CanCreateDifficultyLink[F] {
