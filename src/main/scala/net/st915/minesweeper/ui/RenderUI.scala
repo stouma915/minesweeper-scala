@@ -29,6 +29,11 @@ object RenderUI {
 
       _ <- CanAppendBR[F].perform(body)
 
+      gameScreen <- GameScreen.wired[F](runContext.difficulty)
+      _ <- CanAppendElement[F].perform(body, gameScreen)
+
+      _ <- CanAppendBR[F].perform(body)
+
       diffSelector <- DifficultySelector.wired[F]
       _ <- CanAppendElement[F].perform(body, diffSelector)
 
