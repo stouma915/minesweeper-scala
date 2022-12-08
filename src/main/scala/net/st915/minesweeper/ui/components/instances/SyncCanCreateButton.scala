@@ -35,7 +35,7 @@ class SyncCanCreateButton[F[_]: Sync] extends CanCreateButton[F] {
       _ <- CanUpdateElementID[F].perform(innerText, id)
       _ <- CanUpdateClickEvent[F].perform(
         innerText,
-        EventQueue.queue[F](ButtonClickEvent(id.asStr))
+        EventQueue.queue[F](ButtonClickEvent(id))
       )
       _ <- CanUpdateRightClickEvent[F].perform(
         innerText,
