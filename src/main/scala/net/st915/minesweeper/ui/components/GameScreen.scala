@@ -2,7 +2,7 @@ package net.st915.minesweeper.ui.components
 
 import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.Difficulty
+import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.instances.*
 import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.consts.*
@@ -13,7 +13,10 @@ object GameScreen {
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](diff: Difficulty)(using HTMLDocument, IORuntime): F[HTMLDivElement] = {
+  def wired[F[_]: Sync](runContext: RunContext)(
+    using HTMLDocument,
+    IORuntime
+  ): F[HTMLDivElement] = {
     given CanAppendBR[F] = SyncCanAppendBR[F]
     given CanAppendElement[F] = SyncCanAppendElement[F]
     given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
@@ -23,7 +26,7 @@ object GameScreen {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
       _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.GameScreen)
 
-      cellArray <- CellArray.wired[F](diff)
+      cellArray <- CellArray.wired[F](runContext.difficulty)
       _ <- CanAppendElement[F].perform(containerDiv, cellArray)
 
       _ <- CanAppendBR[F].perform(containerDiv)

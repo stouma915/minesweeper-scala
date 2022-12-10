@@ -29,7 +29,7 @@ object RenderUI {
 
       _ <- CanAppendBR[F].perform(body)
 
-      gameScreen <- GameScreen.wired[F](runContext.difficulty)
+      gameScreen <- GameScreen.wired[F](runContext)
       _ <- CanAppendElement[F].perform(body, gameScreen)
 
       _ <- CanAppendBR[F].perform(body)
