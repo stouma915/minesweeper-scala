@@ -11,7 +11,17 @@ object ToggleFlagPlaceMode {
 
   import net.st915.minesweeper.syntax.ifSyntax.*
 
-  def wired[F[_]: Sync](using GameState): F[GameState] =
-    Sync[F].pure(summon[GameState])
+  def wired[F[_]: Sync](using GameState): F[GameState] = {
+    given CanEnterFlagPlaceMode[F] = MonadCanEnterFlagPlaceMode[F]
+    given CanExitFlagPlaceMode[F] = MonadCanExitFlagPlaceMode[F]
+
+    given IfInFlagPlaceMode[F] = MonadIfInFlagPlaceMode[F]
+
+    IfInFlagPlaceMode[F].perform then_ {
+      CanExitFlagPlaceMode[F].perform
+    } else_ {
+      CanEnterFlagPlaceMode[F].perform
+    }
+  }
 
 }
