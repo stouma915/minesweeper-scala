@@ -21,6 +21,7 @@ object Routine {
     given GameState = gameState
 
     for {
+      _ <- Sync[F].pure(println(gameState)) // TODO: Remove this
       maybeEvent <- CanFetchEventFromQueue[F].fetch
       newState <-
         maybeEvent match

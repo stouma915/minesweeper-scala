@@ -9,19 +9,25 @@ import net.st915.minesweeper.logic.typeclasses.*
 import net.st915.minesweeper.util.instances.MonadDoNothing
 import net.st915.minesweeper.util.typeclasses.DoNothing
 
-object OpenCell {
+object ToggleFlagged {
 
   import net.st915.minesweeper.syntax.ifSyntax.*
 
   def wired[F[_]: Sync](coord: Coordinate)(using GameState): F[GameState] = {
-    given CanAddOpened[F] = MonadCanAddOpened[F]
+    given CanAddFlagged[F] = MonadCanAddFlagged[F]
+    given CanRemoveFlagged[F] = MonadCanRemoveFlagged[F]
 
-    given IfNotOpenedAndNotFlagged[F] = MonadIfNotOpenedAndNotFlagged[F]
+    given IfNotFlagged[F] = MonadIfNotFlagged[F]
+    given IfNotOpened[F] = MonadIfNotOpened[F]
 
     given DoNothing[F] = MonadDoNothing[F]
 
-    IfNotOpenedAndNotFlagged[F].perform(coord) then_ {
-      CanAddOpened[F].perform(coord)
+    IfNotOpened[F].perform(coord) then_ {
+      IfNotFlagged[F].perform(coord) then_ {
+        CanAddFlagged[F].perform(coord)
+      } else_ {
+        CanRemoveFlagged[F].perform(coord)
+      }
     } else_ {
       DoNothing[F].perform
     }
