@@ -1,13 +1,13 @@
 package net.st915.minesweeper.logic.gamelogics
 
 import cats.effect.Sync
-import net.st915.minesweeper.{Coordinate, GameState}
 import net.st915.minesweeper.logic.gamelogics.instances.*
 import net.st915.minesweeper.logic.gamelogics.typeclasses.*
 import net.st915.minesweeper.logic.instances.*
 import net.st915.minesweeper.logic.typeclasses.*
 import net.st915.minesweeper.util.instances.MonadDoNothing
 import net.st915.minesweeper.util.typeclasses.DoNothing
+import net.st915.minesweeper.{Coordinate, GameState}
 
 object OpenCell {
 

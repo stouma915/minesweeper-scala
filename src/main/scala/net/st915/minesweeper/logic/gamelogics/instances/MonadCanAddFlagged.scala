@@ -1,8 +1,8 @@
 package net.st915.minesweeper.logic.gamelogics.instances
 
 import cats.Monad
-import net.st915.minesweeper.{Coordinate, GameState}
 import net.st915.minesweeper.logic.gamelogics.typeclasses.CanAddFlagged
+import net.st915.minesweeper.{Coordinate, GameState}
 
 class MonadCanAddFlagged[F[_]: Monad] extends CanAddFlagged[F] {
 
