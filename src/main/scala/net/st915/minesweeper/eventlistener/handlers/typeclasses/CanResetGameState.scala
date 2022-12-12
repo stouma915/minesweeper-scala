@@ -1,4 +1,4 @@
-package net.st915.minesweeper.eventlistener.tasks.typeclasses
+package net.st915.minesweeper.eventlistener.handlers.typeclasses
 
 import net.st915.minesweeper.GameState
 
