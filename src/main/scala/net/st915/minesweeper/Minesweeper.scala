@@ -3,6 +3,7 @@ package net.st915.minesweeper
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.beforeui.BeforeUI
+import net.st915.minesweeper.eventloop.EventLoop
 import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 
@@ -15,6 +16,7 @@ import org.scalajs.dom.*
   val program = for {
     runContext <- BeforeUI.wired[IO]
     _ <- RenderUI.wired[IO](runContext)
+    _ <- EventLoop.wired[IO](GameState.empty)
   } yield ()
 
   program.start.unsafeRunAndForget()

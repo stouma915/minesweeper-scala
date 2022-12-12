@@ -1,9 +1,11 @@
 package net.st915.minesweeper
 
+import scala.concurrent.duration.*
+
 object Consts {
 
   final val DifficultyParameter = "d"
-  final val EventLoopInterval = 100
+  final val EventLoopInterval = 100.milliseconds
 
   object Difficulties {
 
