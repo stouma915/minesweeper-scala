@@ -7,8 +7,6 @@ import net.st915.minesweeper.logic.gamelogics.ToggleFlagged
 
 object CellRightClickEventListener {
 
-  import cats.syntax.flatMap.*
-
   def wired[F[_]: Sync](event: CellRightClickEvent)(using GameState): F[GameState] =
     ToggleFlagged.wired[F](event.coord)
 
