@@ -11,7 +11,7 @@ class MonadIfInFlagPlaceMode[F[_]: Monad] extends IfInFlagPlaceMode[F] {
   override def perform(using GameState): HigherKindIf[F, GameState] = {
     given IsInFlagPlaceMode[F] = MonadIsInFlagPlaceMode[F]
 
-    HigherKindIf()(IsInFlagPlaceMode[F].check)
+    HigherKindIf.begin(IsInFlagPlaceMode[F].check)
   }
 
 }

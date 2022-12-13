@@ -11,7 +11,7 @@ class MonadIfOpened[F[_]: Monad] extends IfOpened[F] {
   override def perform(coord: Coordinate)(using GameState): HigherKindIf[F, GameState] = {
     given IsOpened[F] = MonadIsOpened[F]
 
-    HigherKindIf()(IsOpened[F].check(coord))
+    HigherKindIf.begin(IsOpened[F].check(coord))
   }
 
 }

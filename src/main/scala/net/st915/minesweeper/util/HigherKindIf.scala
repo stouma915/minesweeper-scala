@@ -2,6 +2,13 @@ package net.st915.minesweeper.util
 
 import cats.Monad
 
+object HigherKindIf {
+
+  def begin[F[_]: Monad, A](cond: => F[Boolean]): HigherKindIf[F, A] =
+    HigherKindIf()(cond)
+
+}
+
 case class HigherKindIf[F[_]: Monad, A]()(cond: => F[Boolean]) {
 
   case class HigherKindIfApplied[F[_]: Monad, A]()(cond: => F[Boolean], ifTrue: => F[A]) {
