@@ -8,12 +8,10 @@ class MonadCanGetDifficultyFromOption[F[_]: Monad] extends CanGetDifficultyFromO
 
   override def get(opt: Option[String]): F[Difficulty] =
     Monad[F].pure {
-      opt match
-        case Some(str) =>
-          Difficulty.All
-            .find(_.id eq str)
-            .getOrElse(Difficulty.Default)
-        case None => Difficulty.Default
+      opt
+        .map { str => Difficulty.All.find(_.id eq str) }
+        .flatten
+        .getOrElse(Difficulty.Default)
     }
 
 }
