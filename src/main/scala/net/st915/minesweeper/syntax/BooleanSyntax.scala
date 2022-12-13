@@ -8,20 +8,14 @@ trait BooleanSyntax {
 
     import cats.syntax.flatMap.*
 
-    def not: F[Boolean] = fBool >>= { a =>
-      Monad[F].pure(!a)
-    }
+    def not: F[Boolean] = fBool >>= { a => Monad[F].pure(!a) }
 
     def and(another: F[Boolean]): F[Boolean] = fBool >>= { a =>
-      another >>= { b =>
-        Monad[F].pure(a && b)
-      }
+      another >>= { b => Monad[F].pure(a && b) }
     }
 
     def or(another: F[Boolean]): F[Boolean] = fBool >>= { a =>
-      another >>= { b =>
-        Monad[F].pure(a || b)
-      }
+      another >>= { b => Monad[F].pure(a || b) }
     }
 
   }

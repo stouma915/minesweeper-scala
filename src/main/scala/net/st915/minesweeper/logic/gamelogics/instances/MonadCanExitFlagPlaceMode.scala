@@ -1,8 +1,8 @@
 package net.st915.minesweeper.logic.gamelogics.instances
 
 import cats.Monad
-import net.st915.minesweeper.logic.gamelogics.typeclasses.CanExitFlagPlaceMode
 import net.st915.minesweeper.GameState
+import net.st915.minesweeper.logic.gamelogics.typeclasses.CanExitFlagPlaceMode
 
 class MonadCanExitFlagPlaceMode[F[_]: Monad] extends CanExitFlagPlaceMode[F] {
 
