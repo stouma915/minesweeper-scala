@@ -1,7 +1,7 @@
 package net.st915.minesweeper.logic.typeclasses
 
 import net.st915.minesweeper.GameState
-import net.st915.minesweeper.util.HigherKindIf
+import net.st915.util.HigherKindIf
 
 object IfInFlagPlaceMode {
 

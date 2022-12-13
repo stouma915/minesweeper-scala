@@ -4,7 +4,7 @@ import cats.Monad
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.logic.instances.*
 import net.st915.minesweeper.logic.typeclasses.*
-import net.st915.minesweeper.util.HigherKindIf
+import net.st915.util.HigherKindIf
 
 class MonadIfInFlagPlaceMode[F[_]: Monad] extends IfInFlagPlaceMode[F] {
 
