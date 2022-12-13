@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.components
 
 import cats.effect.Sync
-import net.st915.minesweeper.Consts.Difficulties
+import net.st915.minesweeper.Difficulty
 import net.st915.minesweeper.ui.components.instances.*
 import net.st915.minesweeper.ui.components.typeclasses.*
 import net.st915.minesweeper.ui.consts.*
@@ -20,7 +20,7 @@ object DifficultyLinks {
 
     for {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      diffLinks <- Difficulties.All.map(DifficultyLink.wired[F]).sequence
+      diffLinks <- Difficulty.All.map(DifficultyLink.wired[F]).sequence
       _ <- diffLinks
         .map { diffLink =>
           CanAppendElement[F].perform(containerDiv, diffLink) >>
