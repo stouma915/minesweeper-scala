@@ -4,6 +4,8 @@ import cats.Monad
 
 trait BooleanSyntax {
 
+  def not[F[_]: Monad](fBool: F[Boolean]): F[Boolean] = fBool.not
+
   implicit class FBooleanOps[F[_]: Monad](fBool: F[Boolean]) {
 
     import cats.syntax.flatMap.*

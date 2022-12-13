@@ -13,7 +13,7 @@ class MonadIfNotFlagged[F[_]: Monad] extends IfNotFlagged[F] {
   override def perform(coord: Coordinate)(using GameState): HigherKindIf[F, GameState] = {
     given IsFlagged[F] = MonadIsFlagged[F]
 
-    HigherKindIf.begin(IsFlagged[F].check(coord).not)
+    HigherKindIf.begin(not(IsFlagged[F].check(coord)))
   }
 
 }

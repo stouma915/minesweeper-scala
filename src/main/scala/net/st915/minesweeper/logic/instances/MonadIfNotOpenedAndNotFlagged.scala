@@ -15,8 +15,8 @@ class MonadIfNotOpenedAndNotFlagged[F[_]: Monad] extends IfNotOpenedAndNotFlagge
     given IsOpened[F] = MonadIsOpened[F]
 
     HigherKindIf.begin(
-      IsOpened[F].check(coord).not and
-        IsFlagged[F].check(coord).not
+      not(IsOpened[F].check(coord)) and
+        not(IsFlagged[F].check(coord))
     )
   }
 
