@@ -9,16 +9,24 @@ trait BooleanSyntax {
   implicit class FBooleanOps[F[_]: Monad](fBool: F[Boolean]) {
 
     import cats.syntax.flatMap.*
+    import cats.syntax.functor.*
 
-    def not: F[Boolean] = fBool >>= { a => Monad[F].pure(!a) }
+    def not: F[Boolean] =
+      for {
+        a <- fBool
+      } yield !a
 
-    def and(another: F[Boolean]): F[Boolean] = fBool >>= { a =>
-      another >>= { b => Monad[F].pure(a && b) }
-    }
+    def and(another: F[Boolean]): F[Boolean] =
+      for {
+        a <- fBool
+        b <- another
+      } yield a && b
 
-    def or(another: F[Boolean]): F[Boolean] = fBool >>= { a =>
-      another >>= { b => Monad[F].pure(a || b) }
-    }
+    def or(another: F[Boolean]): F[Boolean] =
+      for {
+        a <- fBool
+        b <- another
+      } yield a || b
 
   }
 
