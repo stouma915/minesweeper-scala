@@ -8,7 +8,7 @@ import net.st915.minesweeper.ui.RenderUI
 import org.scalajs.dom.*
 
 object Minesweeper extends IOApp {
-  
+
   given HTMLDocument = org.scalajs.dom.document
   given Window = org.scalajs.dom.window
   given IORuntime = cats.effect.unsafe.implicits.global
