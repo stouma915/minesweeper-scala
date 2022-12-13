@@ -9,11 +9,12 @@ import net.st915.minesweeper.{Coordinate, GameState}
 class MonadIfNotOpened[F[_]: Monad] extends IfNotOpened[F] {
 
   import net.st915.minesweeper.syntax.booleanSyntax.*
+  import net.st915.minesweeper.syntax.haskellLikeSyntax.*
 
   override def perform(coord: Coordinate)(using GameState): HigherKindIf[F, GameState] = {
     given IsOpened[F] = MonadIsOpened[F]
 
-    HigherKindIf.begin(not(IsOpened[F].check(coord)))
+    HigherKindIf.begin(not[F] $ IsOpened[F].check(coord))
   }
 
 }
