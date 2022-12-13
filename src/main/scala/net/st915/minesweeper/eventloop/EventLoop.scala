@@ -1,10 +1,10 @@
 package net.st915.minesweeper.eventloop
 
 import cats.effect.Async
+import net.st915.minesweeper.GameState
 import net.st915.minesweeper.eventloop.tasks.*
 import net.st915.minesweeper.eventloop.tasks.instances.*
 import net.st915.minesweeper.eventloop.tasks.typeclasses.*
-import net.st915.minesweeper.GameState
 import org.scalajs.dom.*
 
 import scala.concurrent.duration.*
