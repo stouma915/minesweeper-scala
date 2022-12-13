@@ -4,7 +4,12 @@ ThisBuild / scalaVersion := "3.2.1"
 
 ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
 
-ThisBuild / scalacOptions += "-deprecation"
+ThisBuild / scalacOptions ++= Seq(
+  "-Werror",
+  "-deprecation",
+  "-feature",
+  "-unchecked"
+)
 
 lazy val root = project
   .in(file("."))
