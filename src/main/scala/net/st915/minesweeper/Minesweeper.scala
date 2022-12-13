@@ -14,10 +14,12 @@ object Minesweeper extends IOApp {
   given IORuntime = cats.effect.unsafe.implicits.global
 
   def run(args: List[String]): IO[ExitCode] = {
+    val initialGameState = GameState.empty
+
     val program = for {
-      runContext <- BeforeUI.wired[IO]
-      _ <- RenderUI.wired[IO](runContext)
-      _ <- EventLoop.wired[IO](GameState.empty)
+      given RunContext <- BeforeUI.wired[IO]
+      _ <- RenderUI.wired[IO]
+      _ <- EventLoop.wired[IO](initialGameState)
     } yield ()
 
     program.start >> IO(ExitCode.Success)

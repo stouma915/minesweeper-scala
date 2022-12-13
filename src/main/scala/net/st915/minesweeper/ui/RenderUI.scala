@@ -13,11 +13,7 @@ object RenderUI {
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](runContext: RunContext)(
-    using HTMLDocument,
-    Window,
-    IORuntime
-  ): F[Unit] = {
+  def wired[F[_]: Sync](using HTMLDocument, Window, IORuntime, RunContext): F[Unit] = {
     given CanAppendBR[F] = SyncCanAppendBR[F]
     given CanAppendElement[F] = SyncCanAppendElement[F]
 
@@ -29,7 +25,7 @@ object RenderUI {
 
       _ <- CanAppendBR[F].perform(body)
 
-      gameScreen <- GameScreen.wired[F](runContext)
+      gameScreen <- GameScreen.wired[F]
       _ <- CanAppendElement[F].perform(body, gameScreen)
 
       _ <- CanAppendBR[F].perform(body)

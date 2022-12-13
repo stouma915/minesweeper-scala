@@ -13,10 +13,7 @@ object GameScreen {
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](runContext: RunContext)(
-    using HTMLDocument,
-    IORuntime
-  ): F[HTMLDivElement] = {
+  def wired[F[_]: Sync](using HTMLDocument, IORuntime, RunContext): F[HTMLDivElement] = {
     given CanAppendBR[F] = SyncCanAppendBR[F]
     given CanAppendElement[F] = SyncCanAppendElement[F]
     given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
@@ -26,7 +23,7 @@ object GameScreen {
       containerDiv <- CanCreateElement[F, HTMLDivElement].create
       _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.GameScreen)
 
-      cellArray <- CellArray.wired[F](runContext.difficulty)
+      cellArray <- CellArray.wired[F]
       _ <- CanAppendElement[F].perform(containerDiv, cellArray)
 
       _ <- CanAppendBR[F].perform(containerDiv)
