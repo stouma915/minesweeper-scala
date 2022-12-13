@@ -1,4 +1,4 @@
-package net.st915.minesweeper
+package net.st915
 
 package object syntax {
 

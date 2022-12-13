@@ -8,8 +8,8 @@ import net.st915.minesweeper.{Coordinate, GameState}
 
 class MonadIfNotFlagged[F[_]: Monad] extends IfNotFlagged[F] {
 
-  import net.st915.minesweeper.syntax.booleanSyntax.*
-  import net.st915.minesweeper.syntax.haskellLikeSyntax.*
+  import net.st915.syntax.booleanSyntax.*
+  import net.st915.syntax.haskellLikeSyntax.*
 
   override def perform(coord: Coordinate)(using GameState): HigherKindIf[F, GameState] = {
     given IsFlagged[F] = MonadIsFlagged[F]

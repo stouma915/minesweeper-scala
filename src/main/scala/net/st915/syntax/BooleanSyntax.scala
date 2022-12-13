@@ -1,4 +1,4 @@
-package net.st915.minesweeper.syntax
+package net.st915.syntax
 
 import cats.Monad
 
