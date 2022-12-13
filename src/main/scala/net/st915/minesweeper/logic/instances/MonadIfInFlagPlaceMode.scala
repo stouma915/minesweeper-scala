@@ -1,19 +1,17 @@
 package net.st915.minesweeper.logic.instances
 
 import cats.Monad
-import net.st915.minesweeper.GameState
 import net.st915.minesweeper.logic.instances.*
 import net.st915.minesweeper.logic.typeclasses.*
+import net.st915.minesweeper.util.HigherKindIf
+import net.st915.minesweeper.GameState
 
 class MonadIfInFlagPlaceMode[F[_]: Monad] extends IfInFlagPlaceMode[F] {
 
-  import cats.syntax.flatMap.*
-
-  override def perform(ifTrue: => F[GameState])(ifFalse: => F[GameState])(using
-  GameState): F[GameState] = {
+  override def perform(using GameState): HigherKindIf[F, GameState] = {
     given IsInFlagPlaceMode[F] = MonadIsInFlagPlaceMode[F]
 
-    IsInFlagPlaceMode[F].check >>= (if (_) ifTrue else ifFalse)
+    HigherKindIf()(IsInFlagPlaceMode[F].check)
   }
 
 }

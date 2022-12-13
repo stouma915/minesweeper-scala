@@ -9,8 +9,6 @@ import net.st915.minesweeper.logic.typeclasses.*
 
 object ToggleFlagPlaceMode {
 
-  import net.st915.minesweeper.syntax.ifSyntax.*
-
   def wired[F[_]: Sync](using GameState): F[GameState] = {
     given CanEnterFlagPlaceMode[F] = MonadCanEnterFlagPlaceMode[F]
     given CanExitFlagPlaceMode[F] = MonadCanExitFlagPlaceMode[F]

@@ -1,5 +1,6 @@
 package net.st915.minesweeper.logic.typeclasses
 
+import net.st915.minesweeper.util.HigherKindIf
 import net.st915.minesweeper.GameState
 
 object IfInFlagPlaceMode {
@@ -10,6 +11,6 @@ object IfInFlagPlaceMode {
 
 trait IfInFlagPlaceMode[F[_]] {
 
-  def perform(ifTrue: => F[GameState])(ifFalse: => F[GameState])(using GameState): F[GameState]
+  def perform(using GameState): HigherKindIf[F, GameState]
 
 }

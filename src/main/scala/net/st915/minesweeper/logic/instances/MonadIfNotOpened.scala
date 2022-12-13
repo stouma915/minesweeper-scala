@@ -3,21 +3,17 @@ package net.st915.minesweeper.logic.instances
 import cats.Monad
 import net.st915.minesweeper.logic.instances.*
 import net.st915.minesweeper.logic.typeclasses.*
+import net.st915.minesweeper.util.HigherKindIf
 import net.st915.minesweeper.{Coordinate, GameState}
 
 class MonadIfNotOpened[F[_]: Monad] extends IfNotOpened[F] {
 
-  import net.st915.minesweeper.syntax.ifSyntax.*
+  import net.st915.minesweeper.syntax.booleanSyntax.*
 
-  override def perform(coord: Coordinate)(ifTrue: => F[GameState])(ifFalse: => F[GameState])(using
-  GameState): F[GameState] = {
-    given IfOpened[F] = MonadIfOpened[F]
+  override def perform(coord: Coordinate)(using GameState): HigherKindIf[F, GameState] = {
+    given IsOpened[F] = MonadIsOpened[F]
 
-    IfOpened[F].perform(coord) then_ {
-      ifFalse
-    } else_ {
-      ifTrue
-    }
+    HigherKindIf()(IsOpened[F].check(coord).not)
   }
 
 }

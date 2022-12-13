@@ -11,8 +11,6 @@ import net.st915.minesweeper.{Coordinate, GameState}
 
 object ToggleFlagged {
 
-  import net.st915.minesweeper.syntax.ifSyntax.*
-
   def wired[F[_]: Sync](coord: Coordinate)(using GameState): F[GameState] = {
     given CanAddFlagged[F] = MonadCanAddFlagged[F]
     given CanRemoveFlagged[F] = MonadCanRemoveFlagged[F]
