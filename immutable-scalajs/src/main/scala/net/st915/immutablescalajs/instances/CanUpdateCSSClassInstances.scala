@@ -2,7 +2,7 @@ package net.st915.immutablescalajs.instances
 
 import cats.Monad
 import net.st915.immutablescalajs.dom.*
-import net.st915.immutablescalajs.properties.CSSClass
+import net.st915.immutablescalajs.dom.properties.CSSClass
 import net.st915.immutablescalajs.typeclasses.CanUpdateCSSClass
 
 trait CanUpdateCSSClassInstances {

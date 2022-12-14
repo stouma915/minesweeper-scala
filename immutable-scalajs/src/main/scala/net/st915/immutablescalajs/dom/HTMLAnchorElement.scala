@@ -1,7 +1,7 @@
 package net.st915.immutablescalajs.dom
 
 import net.st915.immutablescalajs.TagName
-import net.st915.immutablescalajs.properties.*
+import net.st915.immutablescalajs.dom.properties.*
 
 final case class HTMLAnchorElement(
   cssClass: Option[CSSClass] = None,

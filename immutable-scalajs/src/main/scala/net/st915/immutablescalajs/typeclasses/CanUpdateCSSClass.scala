@@ -1,6 +1,6 @@
 package net.st915.immutablescalajs.typeclasses
 
-import net.st915.immutablescalajs.properties.CSSClass
+import net.st915.immutablescalajs.dom.properties.CSSClass
 
 object CanUpdateCSSClass {
 

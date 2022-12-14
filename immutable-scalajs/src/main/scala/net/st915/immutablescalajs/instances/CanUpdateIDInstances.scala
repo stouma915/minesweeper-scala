@@ -2,7 +2,7 @@ package net.st915.immutablescalajs.instances
 
 import cats.Monad
 import net.st915.immutablescalajs.dom.*
-import net.st915.immutablescalajs.properties.ID
+import net.st915.immutablescalajs.dom.properties.ID
 import net.st915.immutablescalajs.typeclasses.CanUpdateID
 
 trait CanUpdateIDInstances {

@@ -2,7 +2,7 @@ package net.st915.immutablescalajs.instances
 
 import cats.Monad
 import net.st915.immutablescalajs.dom.*
-import net.st915.immutablescalajs.properties.Text
+import net.st915.immutablescalajs.dom.properties.Text
 import net.st915.immutablescalajs.typeclasses.CanUpdateText
 
 trait CanUpdateTextInstances {
