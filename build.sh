@@ -10,9 +10,9 @@ cp -rf resources out
 if [ "$1" = "production" ]; then
 	echo "This is Production Build."
 	sbt fullLinkJS
-	cp -f target/scala-$SCALA_VERSION/minesweeper-scala-opt/main.js* out
+	cp -f minesweeper/target/scala-$SCALA_VERSION/minesweeper-scala-opt/main.js* out
 else
 	echo "This is Debug Build."
 	sbt fastLinkJS
-	cp -f target/scala-$SCALA_VERSION/minesweeper-scala-fastopt/main.js* out
+	cp -f minesweeper/target/scala-$SCALA_VERSION/minesweeper-scala-fastopt/main.js* out
 fi

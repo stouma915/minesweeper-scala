@@ -2,8 +2,9 @@ FROM sbtscala/scala-sbt:eclipse-temurin-17.0.4_1.8.0_3.2.1 as builder
 
 WORKDIR /work/build
 
+COPY minesweeper minesweeper
+COPY immutable-scalajs immutable-scalajs
 COPY project project
-COPY src src
 COPY resources resources
 COPY index.html .
 COPY build.sbt .

@@ -4,10 +4,11 @@
 .bsp/
 null/
 
+target
 /project/target
 /project/project
-/target
 
 /out
 
 **.semanticdb
+
