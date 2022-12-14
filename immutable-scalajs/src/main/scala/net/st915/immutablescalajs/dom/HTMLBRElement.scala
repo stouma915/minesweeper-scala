@@ -2,4 +2,4 @@ package net.st915.immutablescalajs.dom
 
 import net.st915.immutablescalajs.TagName
 
-abstract class HTMLElement(tagName: TagName)
+final case class HTMLBRElement() extends HTMLElement(TagName.BR)
