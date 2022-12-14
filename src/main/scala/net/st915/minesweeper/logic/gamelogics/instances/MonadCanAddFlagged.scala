@@ -8,7 +8,7 @@ class MonadCanAddFlagged[F[_]: Monad] extends CanAddFlagged[F] {
 
   override def perform(coord: Coordinate)(using gameState: GameState): F[GameState] =
     Monad[F].pure {
-      gameState.copy(flaggedCoords = gameState.flaggedCoords.appended(coord))
+      gameState.copy(flaggedCoords = gameState.flaggedCoords ++ Set(coord))
     }
 
 }

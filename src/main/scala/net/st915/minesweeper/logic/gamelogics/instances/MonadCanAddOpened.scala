@@ -8,7 +8,7 @@ class MonadCanAddOpened[F[_]: Monad] extends CanAddOpened[F] {
 
   override def perform(coord: Coordinate)(using gameState: GameState): F[GameState] =
     Monad[F].pure {
-      gameState.copy(openedCoords = gameState.openedCoords.appended(coord))
+      gameState.copy(openedCoords = gameState.openedCoords ++ Set(coord))
     }
 
 }
