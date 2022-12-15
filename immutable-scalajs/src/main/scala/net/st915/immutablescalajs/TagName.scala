@@ -11,4 +11,8 @@ object TagName {
 
 }
 
-sealed class TagName private (raw: String)
+sealed class TagName private (raw: String) {
+
+  def parse: String = raw
+
+}
