@@ -1,10 +1,14 @@
 package net.st915.immutablescalajs.dom
 
 import net.st915.immutablescalajs.TagName
+import net.st915.immutablescalajs.dom.attributes.*
 import net.st915.immutablescalajs.dom.properties.*
 
 final case class HTMLParagraphElement(
-  cssClass: Option[CSSClass] = None,
-  id: Option[ID] = None,
-  text: Option[Text] = None
+  override val cssClass: Option[CSSClass],
+  override val id: Option[ID],
+  override val text: Option[Text]
 ) extends HTMLElement(TagName.Paragraph)
+    with HasCSSClass
+    with HasID
+    with HasText

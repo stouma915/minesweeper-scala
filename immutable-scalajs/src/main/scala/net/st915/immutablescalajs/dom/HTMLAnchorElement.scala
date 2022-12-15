@@ -1,11 +1,16 @@
 package net.st915.immutablescalajs.dom
 
 import net.st915.immutablescalajs.TagName
+import net.st915.immutablescalajs.dom.attributes.*
 import net.st915.immutablescalajs.dom.properties.*
 
 final case class HTMLAnchorElement(
-  cssClass: Option[CSSClass] = None,
-  id: Option[ID] = None,
-  hyperlink: Option[Hyperlink] = None,
-  text: Option[Text] = None
+  override val cssClass: Option[CSSClass],
+  override val id: Option[ID],
+  override val hyperlink: Option[Hyperlink],
+  override val text: Option[Text]
 ) extends HTMLElement(TagName.Anchor)
+    with HasCSSClass
+    with HasHyperlink
+    with HasID
+    with HasText
