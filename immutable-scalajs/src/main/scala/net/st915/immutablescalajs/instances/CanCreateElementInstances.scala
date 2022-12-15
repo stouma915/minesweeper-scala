@@ -28,7 +28,8 @@ trait CanCreateElementInstances {
       Monad[F].pure {
         HTMLDivElement(
           cssClass = None,
-          id = None
+          id = None,
+          childElements = List()
         )
       }
 
