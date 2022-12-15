@@ -9,6 +9,17 @@ final case class HTMLSpanElement(
   override val id: Option[ID],
   override val text: Option[Text]
 ) extends HTMLElement(TagName.Span)
-    with HasCSSClass
-    with HasID
-    with HasText
+    with HasCSSClass[HTMLSpanElement]
+    with HasID[HTMLSpanElement]
+    with HasText[HTMLSpanElement] {
+
+  override def copyWithNewCSSClass(newCSSClass: Option[CSSClass]): HTMLSpanElement =
+    copy(cssClass = newCSSClass)
+
+  override def copyWithNewID(newID: Option[ID]): HTMLSpanElement =
+    copy(id = newID)
+
+  override def copyWithNewText(newText: Option[Text]): HTMLSpanElement =
+    copy(text = newText)
+
+}

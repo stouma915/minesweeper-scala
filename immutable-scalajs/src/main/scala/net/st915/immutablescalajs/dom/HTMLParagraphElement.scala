@@ -9,6 +9,17 @@ final case class HTMLParagraphElement(
   override val id: Option[ID],
   override val text: Option[Text]
 ) extends HTMLElement(TagName.Paragraph)
-    with HasCSSClass
-    with HasID
-    with HasText
+    with HasCSSClass[HTMLParagraphElement]
+    with HasID[HTMLParagraphElement]
+    with HasText[HTMLParagraphElement] {
+
+  override def copyWithNewCSSClass(newCSSClass: Option[CSSClass]): HTMLParagraphElement =
+    copy(cssClass = newCSSClass)
+
+  override def copyWithNewID(newID: Option[ID]): HTMLParagraphElement =
+    copy(id = newID)
+
+  override def copyWithNewText(newText: Option[Text]): HTMLParagraphElement =
+    copy(text = newText)
+
+}

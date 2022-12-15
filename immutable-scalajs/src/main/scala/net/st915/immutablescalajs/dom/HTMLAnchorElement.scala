@@ -10,7 +10,21 @@ final case class HTMLAnchorElement(
   override val hyperlink: Option[Hyperlink],
   override val text: Option[Text]
 ) extends HTMLElement(TagName.Anchor)
-    with HasCSSClass
-    with HasHyperlink
-    with HasID
-    with HasText
+    with HasCSSClass[HTMLAnchorElement]
+    with HasID[HTMLAnchorElement]
+    with HasHyperlink[HTMLAnchorElement]
+    with HasText[HTMLAnchorElement] {
+
+  override def copyWithNewCSSClass(newCSSClass: Option[CSSClass]): HTMLAnchorElement =
+    copy(cssClass = newCSSClass)
+
+  override def copyWithNewID(newID: Option[ID]): HTMLAnchorElement =
+    copy(id = newID)
+
+  override def copyWithNewHyperlink(newHyperlink: Option[Hyperlink]): HTMLAnchorElement =
+    copy(hyperlink = newHyperlink)
+
+  override def copyWithNewText(newText: Option[Text]): HTMLAnchorElement =
+    copy(text = newText)
+
+}
