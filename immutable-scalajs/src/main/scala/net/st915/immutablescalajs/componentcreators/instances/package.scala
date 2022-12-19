@@ -8,5 +8,6 @@ package object instances {
   object canSetHyperlinkInstances extends CanSetHyperlinkInstances
   object canSetTextInstances extends CanSetTextInstances
   object canSetClickEventInstances extends CanSetClickEventInstances
+  object canSetRightClickEventInstances extends CanSetRightClickEventInstances
 
 }
