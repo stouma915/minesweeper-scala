@@ -10,7 +10,7 @@ trait CanConvertElementInstances {
 
   import cats.syntax.flatMap.*
 
-  import instances.packagePrivates.given
+  import packagePrivates.given
 
   given monadCanConvertAnchor[F[_]: Monad]
     : CanConvertElement[F, HTMLAnchorElement, ScalaJSAnchorElement] with
