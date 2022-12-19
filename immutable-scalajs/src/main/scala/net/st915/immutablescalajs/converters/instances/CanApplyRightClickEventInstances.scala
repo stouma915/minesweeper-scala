@@ -9,7 +9,7 @@ import net.st915.immutablescalajs.dom.attributes.RightClickable
 
 import scala.util.chaining.*
 
-trait CanApplyRightClickEventInstances {
+private[converters] trait CanApplyRightClickEventInstances {
 
   given monadCanApplyRightClickEvent[F[_]: Monad, A <: RightClickable[A], B <: ScalaJSElement]
     : CanApplyRightClickEvent[F, A, B] with
