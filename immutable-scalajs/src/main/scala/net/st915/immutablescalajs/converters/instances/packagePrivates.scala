@@ -1,6 +1,7 @@
 package net.st915.immutablescalajs.converters.instances
 
-private[converters] object packagePrivates extends CanCreateScalaJSElementInstances
+private[converters] object packagePrivates extends CanApplyChildElementsInstances
+    with CanCreateScalaJSElementInstances
     with CanApplyCSSClassInstances
     with CanApplyIDInstances
     with CanApplyHyperlinkInstances

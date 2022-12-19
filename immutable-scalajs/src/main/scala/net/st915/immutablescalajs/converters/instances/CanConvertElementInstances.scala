@@ -41,7 +41,8 @@ trait CanConvertElementInstances {
         CanApplyCSSClass[F, HTMLDivElement, ScalaJSDivElement](original) >>=
         CanApplyID[F, HTMLDivElement, ScalaJSDivElement](original) >>=
         CanApplyClickEvent[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyRightClickEvent[F, HTMLDivElement, ScalaJSDivElement](original)
+        CanApplyRightClickEvent[F, HTMLDivElement, ScalaJSDivElement](original) >>=
+        CanApplyChildElements[F, HTMLDivElement, ScalaJSDivElement](original)
 
   given monadCanConvertH1[F[_]: Monad]: CanConvertElement[F, HTMLH1Element, ScalaJSH1Element] with
     override def apply(original: HTMLH1Element)(
