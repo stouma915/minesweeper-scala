@@ -1,5 +1,6 @@
 package net.st915.immutablescalajs.converters
 
+import cats.effect.unsafe.IORuntime
 import net.st915.immutablescalajs.ScalaJSDocument
 
 object CanConvertElement {
@@ -10,6 +11,6 @@ object CanConvertElement {
 
 trait CanConvertElement[F[_], A, B] {
 
-  def apply(original: A)(using ScalaJSDocument): F[B]
+  def apply(original: A)(using ScalaJSDocument, IORuntime): F[B]
 
 }
