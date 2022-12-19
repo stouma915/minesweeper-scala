@@ -6,3 +6,4 @@ private[converters] object packagePrivates extends CanCreateScalaJSElementInstan
     with CanApplyHyperlinkInstances
     with CanApplyTextInstances
     with CanApplyClickEventInstances
+    with CanApplyRightClickEventInstances
