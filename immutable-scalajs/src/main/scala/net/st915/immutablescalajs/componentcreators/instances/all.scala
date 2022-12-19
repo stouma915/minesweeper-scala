@@ -1,6 +1,7 @@
 package net.st915.immutablescalajs.componentcreators.instances
 
-object all extends CanCreateElementInstances
+object all extends CanAppendChildInstances
+    with CanCreateElementInstances
     with CanSetCSSClassInstances
     with CanSetIDInstances
     with CanSetHyperlinkInstances
