@@ -13,6 +13,6 @@ object TagName {
 
 sealed class TagName private (raw: String) {
 
-  def parse: String = raw
+  def unwrap: String = raw
 
 }

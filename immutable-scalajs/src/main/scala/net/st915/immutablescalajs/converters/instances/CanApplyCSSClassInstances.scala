@@ -17,7 +17,7 @@ private[converters] trait CanApplyCSSClassInstances {
           .tap { elem =>
             original
               .cssClass
-              .map { newClass => elem.className = newClass.parse }
+              .map { newClass => elem.className = newClass.unwrap }
           }
       }
 

@@ -17,7 +17,7 @@ private[converters] trait CanApplyTextInstances {
           .tap { elem =>
             original
               .text
-              .map { newText => elem.textContent = newText.parse }
+              .map { newText => elem.textContent = newText.unwrap }
           }
       }
 

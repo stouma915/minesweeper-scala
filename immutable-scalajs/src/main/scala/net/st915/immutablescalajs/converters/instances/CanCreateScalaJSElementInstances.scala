@@ -12,7 +12,7 @@ private[converters] trait CanCreateScalaJSElementInstances {
     override def apply(original: A)(using ScalaJSDocument): F[B] =
       Monad[F].pure {
         summon[ScalaJSDocument]
-          .createElement(original.tagName.parse)
+          .createElement(original.tagName.unwrap)
           .asInstanceOf[B]
       }
 

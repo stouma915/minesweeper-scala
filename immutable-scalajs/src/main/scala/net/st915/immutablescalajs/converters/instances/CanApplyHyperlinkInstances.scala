@@ -17,7 +17,7 @@ private[converters] trait CanApplyHyperlinkInstances {
           .tap { elem =>
             original
               .hyperlink
-              .map { newHyperlink => elem.href = newHyperlink.parse }
+              .map { newHyperlink => elem.href = newHyperlink.unwrap }
           }
       }
 

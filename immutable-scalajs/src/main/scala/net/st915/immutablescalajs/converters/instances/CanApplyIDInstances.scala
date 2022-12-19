@@ -16,7 +16,7 @@ private[converters] trait CanApplyIDInstances {
           .tap { elem =>
             original
               .id
-              .map { newID => elem.id = newID.parse }
+              .map { newID => elem.id = newID.unwrap }
           }
       }
 
