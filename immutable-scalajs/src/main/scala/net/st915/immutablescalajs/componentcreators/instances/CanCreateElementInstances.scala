@@ -1,6 +1,7 @@
 package net.st915.immutablescalajs.componentcreators.instances
 
 import cats.Monad
+import cats.effect.IO
 import net.st915.immutablescalajs.componentcreators.CanCreateElement
 import net.st915.immutablescalajs.dom.*
 
@@ -29,7 +30,8 @@ trait CanCreateElementInstances {
         HTMLDivElement(
           cssClass = None,
           id = None,
-          childElements = List()
+          childElements = List(),
+          onClick = IO.unit
         )
       }
 
