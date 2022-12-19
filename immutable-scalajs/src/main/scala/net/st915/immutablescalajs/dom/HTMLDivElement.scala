@@ -9,12 +9,14 @@ final case class HTMLDivElement(
   override val cssClass: Option[CSSClass],
   override val id: Option[ID],
   override val childElements: List[HTMLElement],
-  override val onClick: IO[Unit]
+  override val onClick: IO[Unit],
+  override val onRightClick: IO[Unit]
 ) extends HTMLElement(TagName.Div)
     with HasCSSClass[HTMLDivElement]
     with HasID[HTMLDivElement]
     with HasChildElements[HTMLDivElement]
-    with Clickable[HTMLDivElement] {
+    with Clickable[HTMLDivElement]
+    with RightClickable[HTMLDivElement] {
 
   override def copyWithNewCSSClass(newCSSClass: Option[CSSClass]): HTMLDivElement =
     copy(cssClass = newCSSClass)
@@ -27,5 +29,8 @@ final case class HTMLDivElement(
 
   override def copyWithNewClickEvent(newClickEvent: IO[Unit]): HTMLDivElement =
     copy(onClick = newClickEvent)
+
+  override def copyWithNewRightClickEvent(newRightClickEvent: IO[Unit]): HTMLDivElement =
+    copy(onRightClick = newRightClickEvent)
 
 }

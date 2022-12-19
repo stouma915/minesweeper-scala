@@ -31,7 +31,8 @@ trait CanCreateElementInstances {
           cssClass = None,
           id = None,
           childElements = List(),
-          onClick = IO.unit
+          onClick = IO.unit,
+          onRightClick = IO.unit
         )
       }
 
