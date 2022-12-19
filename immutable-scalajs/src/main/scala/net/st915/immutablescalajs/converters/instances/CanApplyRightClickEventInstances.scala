@@ -17,7 +17,7 @@ private[converters] trait CanApplyRightClickEventInstances {
       Monad[F].pure {
         scalaJSElem.tap {
           _.oncontextmenu = event =>
-            (IO.pure(event.preventDefault()) >> original.onRightClick).unsafeRunAndForget()
+            (IO(event.preventDefault()) >> original.onRightClick).unsafeRunAndForget()
         }
       }
 

@@ -18,7 +18,7 @@ private[converters] trait CanApplyClickEventInstances {
         scalaJSElem
           .tap {
             _.onclick = event =>
-              (IO.pure(event.preventDefault()) >> original.onClick).unsafeRunAndForget()
+              (IO(event.preventDefault()) >> original.onClick).unsafeRunAndForget()
           }
       }
 
