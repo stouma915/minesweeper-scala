@@ -7,5 +7,6 @@ package object instances {
   object canSetIDInstances extends CanSetIDInstances
   object canSetHyperlinkInstances extends CanSetHyperlinkInstances
   object canSetTextInstances extends CanSetTextInstances
+  object canSetClickEventInstances extends CanSetClickEventInstances
 
 }

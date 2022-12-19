@@ -5,3 +5,4 @@ object all extends CanCreateElementInstances
     with CanSetIDInstances
     with CanSetHyperlinkInstances
     with CanSetTextInstances
+    with CanSetClickEventInstances
