@@ -2,13 +2,13 @@ package net.st915.immutablescalajs.componentcreators
 
 import net.st915.immutablescalajs.dom.HTMLElement
 
-object CanAppendElement {
+object CanAppendChild {
 
-  def apply[F[_], A](using ev: CanAppendElement[F, A]): CanAppendElement[F, A] = ev
+  def apply[F[_], A](using ev: CanAppendChild[F, A]): CanAppendChild[F, A] = ev
 
 }
 
-trait CanAppendElement[F[_], A] {
+trait CanAppendChild[F[_], A] {
 
   def apply(child: HTMLElement)(parent: A): F[A]
 

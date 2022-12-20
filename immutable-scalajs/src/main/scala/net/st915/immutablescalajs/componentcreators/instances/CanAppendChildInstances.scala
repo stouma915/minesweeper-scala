@@ -1,13 +1,13 @@
 package net.st915.immutablescalajs.componentcreators.instances
 
 import cats.Monad
-import net.st915.immutablescalajs.componentcreators.CanAppendElement
+import net.st915.immutablescalajs.componentcreators.CanAppendChild
 import net.st915.immutablescalajs.dom.HTMLElement
 import net.st915.immutablescalajs.dom.attributes.HasChildElements
 
 trait CanAppendChildInstances {
 
-  given monadCanAppendChild[F[_]: Monad, A <: HasChildElements[A]]: CanAppendElement[F, A] with
+  given monadCanAppendChild[F[_]: Monad, A <: HasChildElements[A]]: CanAppendChild[F, A] with
     override def apply(child: HTMLElement)(parent: A): F[A] =
       apply(List(child))(parent)
 
