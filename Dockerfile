@@ -2,6 +2,7 @@ FROM sbtscala/scala-sbt:eclipse-temurin-17.0.4_1.8.0_3.2.1 as builder
 
 WORKDIR /work/build
 
+COPY bootstrap bootstrap
 COPY minesweeper minesweeper
 COPY immutable-scalajs immutable-scalajs
 COPY project project

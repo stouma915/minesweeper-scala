@@ -29,6 +29,14 @@ lazy val minesweeper = project
   .dependsOn(immutable_scalajs)
   .enablePlugins(ScalaJSPlugin)
   .settings(
-    name := "minesweeper-scala",
+    name := "minesweeper-scala"
+  )
+
+lazy val bootstrap = project
+  .in(file("bootstrap"))
+  .dependsOn(minesweeper)
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "bootstrap",
     scalaJSUseMainModuleInitializer := true
   )
