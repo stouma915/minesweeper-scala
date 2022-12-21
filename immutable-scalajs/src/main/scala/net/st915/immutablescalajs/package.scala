@@ -11,5 +11,6 @@ package object immutablescalajs {
   type ScalaJSSpanElement = org.scalajs.dom.HTMLSpanElement
 
   type ScalaJSDocument = org.scalajs.dom.HTMLDocument
+  type ScalaJSWindow = org.scalajs.dom.Window
 
 }

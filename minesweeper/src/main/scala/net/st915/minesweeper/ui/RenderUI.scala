@@ -2,38 +2,36 @@ package net.st915.minesweeper.ui
 
 import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
+import net.st915.immutablescalajs.*
+import net.st915.immutablescalajs.converters.*
+import net.st915.immutablescalajs.dom.*
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.*
-import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.components.typeclasses.*
-import org.scalajs.dom.*
+import net.st915.minesweeper.ui.components.typeclasses.CanAppendElement
+import net.st915.minesweeper.ui.components.instances.SyncCanAppendElement
 
 object RenderUI {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](using HTMLDocument, Window, IORuntime, RunContext): F[Unit] = {
-    given CanAppendBR[F] = SyncCanAppendBR[F]
+  import net.st915.immutablescalajs.converters.instances.all.given
+
+  def wired[F[_]: Sync](using ScalaJSDocument, ScalaJSWindow, IORuntime, RunContext): F[Unit] = {
     given CanAppendElement[F] = SyncCanAppendElement[F]
 
-    val body = summon[HTMLDocument].body
+    val body = summon[ScalaJSDocument].body
 
     for {
-      informationText <- InformationText.wired[F]
+      wrappedInformationText <- InformationText.wired[F]
+      informationText <- CanConvertElement[F, HTMLDivElement, ScalaJSDivElement](wrappedInformationText)
       _ <- CanAppendElement[F].perform(body, informationText)
-
-      _ <- CanAppendBR[F].perform(body)
 
       gameScreen <- GameScreen.wired[F]
       _ <- CanAppendElement[F].perform(body, gameScreen)
 
-      _ <- CanAppendBR[F].perform(body)
-
       diffSelector <- DifficultySelector.wired[F]
       _ <- CanAppendElement[F].perform(body, diffSelector)
-
-      _ <- CanAppendBR[F].perform(body)
 
       aboutPage <- AboutPage.wired[F]
       _ <- CanAppendElement[F].perform(body, aboutPage)

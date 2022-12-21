@@ -1,32 +1,30 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.Sync
-import net.st915.dom.HTMLH1Element
-import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.components.typeclasses.*
-import net.st915.minesweeper.ui.consts.*
-import org.scalajs.dom.*
+import cats.Monad
+import net.st915.immutablescalajs.componentcreators.*
+import net.st915.immutablescalajs.dom.*
+import net.st915.immutablescalajs.dom.properties.*
 
 object InformationText {
 
   import cats.syntax.flatMap.*
-  import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](using HTMLDocument): F[HTMLDivElement] = {
-    given CanAppendElement[F] = SyncCanAppendElement[F]
-    given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
-    given CanCreateElement[F, HTMLH1Element] = MonadCanCreateElementH1[F]
-    given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
-    given CanUpdateTextContent[F] = SyncCanUpdateTextContent[F]
+  import net.st915.immutablescalajs.componentcreators.instances.all.given
 
-    for {
-      containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.InformationText)
+  def containerDiv[F[_]: Monad]: F[HTMLDivElement] =
+    CanCreateElement[F, HTMLDivElement]() >>=
+      CanSetCSSClass[F, HTMLDivElement](CSSClass("informationText"))
 
-      innerText <- CanCreateElement[F, HTMLH1Element].create
-      _ <- CanUpdateTextContent[F].perform(innerText, UITexts.CurrentlyUnderDevelopment)
-      _ <- CanAppendElement[F].perform(containerDiv, innerText)
-    } yield containerDiv
-  }
+  def informationText[F[_]: Monad]: F[HTMLH1Element] =
+    CanCreateElement[F, HTMLH1Element]() >>=
+      CanSetText[F, HTMLH1Element](Text("Currently Under Development."))
+
+  def br[F[_]: Monad]: F[HTMLBRElement] =
+    CanCreateElement[F, HTMLBRElement]()
+
+  def wired[F[_]: Monad]: F[HTMLDivElement] =
+    containerDiv >>= 
+      CanAppendChild[F, HTMLDivElement](informationText) >>=
+      CanAppendChild[F, HTMLDivElement](br)
 
 }
