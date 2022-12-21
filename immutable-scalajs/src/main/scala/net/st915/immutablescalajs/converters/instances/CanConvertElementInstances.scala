@@ -3,14 +3,15 @@ package net.st915.immutablescalajs.converters.instances
 import cats.Monad
 import cats.effect.unsafe.IORuntime
 import net.st915.immutablescalajs.*
-import net.st915.immutablescalajs.converters.*
+import net.st915.immutablescalajs.converters.CanConvertElement
+import net.st915.immutablescalajs.converters.privatetypeclasses.*
 import net.st915.immutablescalajs.dom.*
 
 trait CanConvertElementInstances {
 
   import cats.syntax.flatMap.*
 
-  import packagePrivates.given
+  import net.st915.immutablescalajs.converters.privateinstances.all.given
 
   given monadCanConvertAnchor[F[_]: Monad]
     : CanConvertElement[F, HTMLAnchorElement, ScalaJSAnchorElement] with

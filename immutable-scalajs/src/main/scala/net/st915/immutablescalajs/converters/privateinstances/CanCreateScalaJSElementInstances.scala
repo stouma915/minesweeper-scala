@@ -1,8 +1,8 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import net.st915.immutablescalajs.*
-import net.st915.immutablescalajs.converters.CanCreateScalaJSElement
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanCreateScalaJSElement
 import net.st915.immutablescalajs.dom.HTMLElement
 
 private[converters] trait CanCreateScalaJSElementInstances {

@@ -1,8 +1,8 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import net.st915.immutablescalajs.ScalaJSAnchorElement
-import net.st915.immutablescalajs.converters.CanApplyHyperlink
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanApplyHyperlink
 import net.st915.immutablescalajs.dom.attributes.HasHyperlink
 
 import scala.util.chaining.*

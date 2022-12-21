@@ -1,10 +1,10 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import net.st915.immutablescalajs.ScalaJSElement
-import net.st915.immutablescalajs.converters.CanApplyClickEvent
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanApplyClickEvent
 import net.st915.immutablescalajs.dom.attributes.Clickable
 
 import scala.util.chaining.*

@@ -1,8 +1,8 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import net.st915.immutablescalajs.ScalaJSElement
-import net.st915.immutablescalajs.converters.CanApplyID
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanApplyID
 import net.st915.immutablescalajs.dom.attributes.HasID
 
 import scala.util.chaining.*

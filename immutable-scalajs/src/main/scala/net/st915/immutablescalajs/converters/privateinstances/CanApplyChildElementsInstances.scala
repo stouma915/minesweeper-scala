@@ -1,9 +1,10 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import cats.effect.unsafe.IORuntime
 import net.st915.immutablescalajs.*
-import net.st915.immutablescalajs.converters.*
+import net.st915.immutablescalajs.converters.CanConvertElement
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanApplyChildElements
 import net.st915.immutablescalajs.dom.*
 import net.st915.immutablescalajs.dom.attributes.HasChildElements
 import net.st915.immutablescalajs.privateutil.AsInstanceOf
@@ -14,8 +15,7 @@ private[converters] trait CanApplyChildElementsInstances {
   import cats.syntax.functor.*
   import cats.syntax.traverse.*
 
-  import all.given
-  import packagePrivates.given
+  import net.st915.immutablescalajs.converters.instances.all.given
   import net.st915.immutablescalajs.privateutil.instances.all.given
 
   given monadCanApplyChildElements[F[_]: Monad, A <: HasChildElements[A], B <: ScalaJSElement]

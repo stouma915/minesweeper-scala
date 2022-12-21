@@ -1,8 +1,8 @@
-package net.st915.immutablescalajs.converters.instances
+package net.st915.immutablescalajs.converters.privateinstances
 
 import cats.Monad
 import net.st915.immutablescalajs.ScalaJSElement
-import net.st915.immutablescalajs.converters.CanApplyCSSClass
+import net.st915.immutablescalajs.converters.privatetypeclasses.CanApplyCSSClass
 import net.st915.immutablescalajs.dom.attributes.HasCSSClass
 
 import scala.util.chaining.*

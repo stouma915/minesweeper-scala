@@ -1,4 +1,4 @@
-package net.st915.immutablescalajs.converters
+package net.st915.immutablescalajs.converters.privatetypeclasses
 
 import net.st915.immutablescalajs.ScalaJSDocument
 
