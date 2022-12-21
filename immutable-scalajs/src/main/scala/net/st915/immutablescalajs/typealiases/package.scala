@@ -8,5 +8,5 @@ package object typealiases {
   type SJSH1 = ScalaJSH1Element
   type SJSParagraph = ScalaJSParagraphElement
   type SJSSpan = ScalaJSSpanElement
-  
+
 }

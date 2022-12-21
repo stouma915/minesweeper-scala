@@ -8,5 +8,5 @@ package object typealiases {
   type H1 = HTMLH1Element
   type Paragraph = HTMLParagraphElement
   type Span = HTMLSpanElement
-  
+
 }
