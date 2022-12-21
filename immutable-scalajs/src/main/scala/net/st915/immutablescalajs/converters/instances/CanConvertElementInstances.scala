@@ -13,68 +13,49 @@ trait CanConvertElementInstances {
 
   import net.st915.immutablescalajs.converters.privateinstances.all.given
 
-  given monadCanConvertAnchor[F[_]: Monad]
-    : CanConvertElement[F, HTMLAnchorElement, ScalaJSAnchorElement] with
-    override def apply(original: HTMLAnchorElement)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSAnchorElement] =
-      CanCreateScalaJSElement[F, HTMLAnchorElement, ScalaJSAnchorElement](original) >>=
-        CanApplyCSSClass[F, HTMLAnchorElement, ScalaJSAnchorElement](original) >>=
-        CanApplyID[F, HTMLAnchorElement, ScalaJSAnchorElement](original) >>=
-        CanApplyHyperlink[F, HTMLAnchorElement, ScalaJSAnchorElement](original) >>=
-        CanApplyText[F, HTMLAnchorElement, ScalaJSAnchorElement](original)
+  import net.st915.immutablescalajs.typealiases.*
+  import net.st915.immutablescalajs.dom.typealiases.*
 
-  given monadCanConvertBR[F[_]: Monad]: CanConvertElement[F, HTMLBRElement, ScalaJSBRElement] with
-    override def apply(original: HTMLBRElement)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSBRElement] =
-      CanCreateScalaJSElement[F, HTMLBRElement, ScalaJSBRElement](original)
+  given monadCanConvertAnchor[F[_]: Monad]: CanConvertElement[F, Anchor, SJSAnchor] with
+    override def apply(original: Anchor)(using ScalaJSDocument, IORuntime): F[SJSAnchor] =
+      CanCreateScalaJSElement[F, Anchor, SJSAnchor](original) >>=
+        CanApplyCSSClass[F, Anchor, SJSAnchor](original) >>=
+        CanApplyID[F, Anchor, SJSAnchor](original) >>=
+        CanApplyHyperlink[F, Anchor, SJSAnchor](original) >>=
+        CanApplyText[F, Anchor, SJSAnchor](original)
 
-  given monadCanConvertDiv[F[_]: Monad]: CanConvertElement[F, HTMLDivElement, ScalaJSDivElement]
-    with
-    override def apply(original: HTMLDivElement)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSDivElement] =
-      CanCreateScalaJSElement[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyCSSClass[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyID[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyClickEvent[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyRightClickEvent[F, HTMLDivElement, ScalaJSDivElement](original) >>=
-        CanApplyChildElements[F, HTMLDivElement, ScalaJSDivElement](original)
+  given monadCanConvertBR[F[_]: Monad]: CanConvertElement[F, BR, SJSBR] with
+    override def apply(original: BR)(using ScalaJSDocument, IORuntime): F[SJSBR] =
+      CanCreateScalaJSElement[F, BR, SJSBR](original)
 
-  given monadCanConvertH1[F[_]: Monad]: CanConvertElement[F, HTMLH1Element, ScalaJSH1Element] with
-    override def apply(original: HTMLH1Element)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSH1Element] =
-      CanCreateScalaJSElement[F, HTMLH1Element, ScalaJSH1Element](original) >>=
-        CanApplyCSSClass[F, HTMLH1Element, ScalaJSH1Element](original) >>=
-        CanApplyID[F, HTMLH1Element, ScalaJSH1Element](original) >>=
-        CanApplyText[F, HTMLH1Element, ScalaJSH1Element](original)
+  given monadCanConvertDiv[F[_]: Monad]: CanConvertElement[F, Div, SJSDiv] with
+    override def apply(original: Div)(using ScalaJSDocument, IORuntime): F[SJSDiv] =
+      CanCreateScalaJSElement[F, Div, SJSDiv](original) >>=
+        CanApplyCSSClass[F, Div, SJSDiv](original) >>=
+        CanApplyID[F, Div, SJSDiv](original) >>=
+        CanApplyClickEvent[F, Div, SJSDiv](original) >>=
+        CanApplyRightClickEvent[F, Div, SJSDiv](original) >>=
+        CanApplyChildElements[F, Div, SJSDiv](original)
 
-  given monadCanConvertParagraph[F[_]: Monad]
-    : CanConvertElement[F, HTMLParagraphElement, ScalaJSParagraphElement] with
-    override def apply(original: HTMLParagraphElement)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSParagraphElement] =
-      CanCreateScalaJSElement[F, HTMLParagraphElement, ScalaJSParagraphElement](original) >>=
-        CanApplyCSSClass[F, HTMLParagraphElement, ScalaJSParagraphElement](original) >>=
-        CanApplyID[F, HTMLParagraphElement, ScalaJSParagraphElement](original) >>=
-        CanApplyText[F, HTMLParagraphElement, ScalaJSParagraphElement](original)
+  given monadCanConvertH1[F[_]: Monad]: CanConvertElement[F, H1, SJSH1] with
+    override def apply(original: H1)(using ScalaJSDocument, IORuntime): F[SJSH1] =
+      CanCreateScalaJSElement[F, H1, SJSH1](original) >>=
+        CanApplyCSSClass[F, H1, SJSH1](original) >>=
+        CanApplyID[F, H1, SJSH1](original) >>=
+        CanApplyText[F, H1, SJSH1](original)
 
-  given monadCanConvertSpan[F[_]: Monad]: CanConvertElement[F, HTMLSpanElement, ScalaJSSpanElement]
-    with
-    override def apply(original: HTMLSpanElement)(
-      using ScalaJSDocument,
-      IORuntime
-    ): F[ScalaJSSpanElement] =
-      CanCreateScalaJSElement[F, HTMLSpanElement, ScalaJSSpanElement](original) >>=
-        CanApplyCSSClass[F, HTMLSpanElement, ScalaJSSpanElement](original) >>=
-        CanApplyID[F, HTMLSpanElement, ScalaJSSpanElement](original) >>=
-        CanApplyText[F, HTMLSpanElement, ScalaJSSpanElement](original)
+  given monadCanConvertParagraph[F[_]: Monad]: CanConvertElement[F, Paragraph, SJSParagraph] with
+    override def apply(original: Paragraph)(using ScalaJSDocument, IORuntime): F[SJSParagraph] =
+      CanCreateScalaJSElement[F, Paragraph, SJSParagraph](original) >>=
+        CanApplyCSSClass[F, Paragraph, SJSParagraph](original) >>=
+        CanApplyID[F, Paragraph, SJSParagraph](original) >>=
+        CanApplyText[F, Paragraph, SJSParagraph](original)
+
+  given monadCanConvertSpan[F[_]: Monad]: CanConvertElement[F, Span, SJSSpan] with
+    override def apply(original: Span)(using ScalaJSDocument, IORuntime): F[SJSSpan] =
+      CanCreateScalaJSElement[F, Span, SJSSpan](original) >>=
+        CanApplyCSSClass[F, Span, SJSSpan](original) >>=
+        CanApplyID[F, Span, SJSSpan](original) >>=
+        CanApplyText[F, Span, SJSSpan](original)
 
 }

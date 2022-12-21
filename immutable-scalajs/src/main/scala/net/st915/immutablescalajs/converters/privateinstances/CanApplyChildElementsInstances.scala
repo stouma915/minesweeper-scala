@@ -18,6 +18,9 @@ private[converters] trait CanApplyChildElementsInstances {
   import net.st915.immutablescalajs.converters.instances.all.given
   import net.st915.immutablescalajs.privateutil.instances.all.given
 
+  import net.st915.immutablescalajs.typealiases.*
+  import net.st915.immutablescalajs.dom.typealiases.*
+
   given monadCanApplyChildElements[F[_]: Monad, A <: HasChildElements[A], B <: ScalaJSElement]
     : CanApplyChildElements[F, A, B] with
     override def apply(original: A)(scalaJSElem: B)(using ScalaJSDocument, IORuntime): F[B] =
@@ -25,23 +28,23 @@ private[converters] trait CanApplyChildElementsInstances {
         elem <- Monad[F].pure(scalaJSElem)
         childs <- original.childElements.map { e =>
           e match
-            case a: HTMLAnchorElement =>
-              CanConvertElement[F, HTMLAnchorElement, ScalaJSAnchorElement](a) >>=
+            case a: Anchor =>
+              CanConvertElement[F, Anchor, SJSAnchor](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
-            case a: HTMLBRElement =>
-              CanConvertElement[F, HTMLBRElement, ScalaJSBRElement](a) >>=
+            case a: BR =>
+              CanConvertElement[F, BR, SJSBR](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
-            case a: HTMLDivElement =>
-              CanConvertElement[F, HTMLDivElement, ScalaJSDivElement](a) >>=
+            case a: Div =>
+              CanConvertElement[F, Div, SJSDiv](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
-            case a: HTMLH1Element =>
-              CanConvertElement[F, HTMLH1Element, ScalaJSH1Element](a) >>=
+            case a: H1 =>
+              CanConvertElement[F, H1, SJSH1](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
-            case a: HTMLParagraphElement =>
-              CanConvertElement[F, HTMLParagraphElement, ScalaJSParagraphElement](a) >>=
+            case a: Paragraph =>
+              CanConvertElement[F, Paragraph, SJSParagraph](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
-            case a: HTMLSpanElement =>
-              CanConvertElement[F, HTMLSpanElement, ScalaJSSpanElement](a) >>=
+            case a: Span =>
+              CanConvertElement[F, Span, SJSSpan](a) >>=
                 AsInstanceOf[F].perform[ScalaJSElement]
         }.sequence
         _ <- childs.map { c => Monad[F].pure(elem.appendChild(c)) }.sequence

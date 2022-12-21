@@ -7,8 +7,10 @@ import net.st915.immutablescalajs.dom.*
 
 trait CanCreateElementInstances {
 
-  given monadCanCreateAnchor[F[_]: Monad]: CanCreateElement[F, HTMLAnchorElement] with
-    override def apply(): F[HTMLAnchorElement] =
+  import net.st915.immutablescalajs.dom.typealiases.*
+
+  given monadCanCreateAnchor[F[_]: Monad]: CanCreateElement[F, Anchor] with
+    override def apply(): F[Anchor] =
       Monad[F].pure {
         HTMLAnchorElement(
           cssClass = None,
@@ -18,14 +20,14 @@ trait CanCreateElementInstances {
         )
       }
 
-  given monadCanCreateBR[F[_]: Monad]: CanCreateElement[F, HTMLBRElement] with
-    override def apply(): F[HTMLBRElement] =
+  given monadCanCreateBR[F[_]: Monad]: CanCreateElement[F, BR] with
+    override def apply(): F[BR] =
       Monad[F].pure {
         HTMLBRElement()
       }
 
-  given monadCanCreateDiv[F[_]: Monad]: CanCreateElement[F, HTMLDivElement] with
-    override def apply(): F[HTMLDivElement] =
+  given monadCanCreateDiv[F[_]: Monad]: CanCreateElement[F, Div] with
+    override def apply(): F[Div] =
       Monad[F].pure {
         HTMLDivElement(
           cssClass = None,
@@ -36,8 +38,8 @@ trait CanCreateElementInstances {
         )
       }
 
-  given monadCanCreateH1[F[_]: Monad]: CanCreateElement[F, HTMLH1Element] with
-    override def apply(): F[HTMLH1Element] =
+  given monadCanCreateH1[F[_]: Monad]: CanCreateElement[F, H1] with
+    override def apply(): F[H1] =
       Monad[F].pure {
         HTMLH1Element(
           cssClass = None,
@@ -46,8 +48,8 @@ trait CanCreateElementInstances {
         )
       }
 
-  given monadCanCreateParagraph[F[_]: Monad]: CanCreateElement[F, HTMLParagraphElement] with
-    override def apply(): F[HTMLParagraphElement] =
+  given monadCanCreateParagraph[F[_]: Monad]: CanCreateElement[F, Paragraph] with
+    override def apply(): F[Paragraph] =
       Monad[F].pure {
         HTMLParagraphElement(
           cssClass = None,
@@ -56,8 +58,8 @@ trait CanCreateElementInstances {
         )
       }
 
-  given monadCanCreateSpan[F[_]: Monad]: CanCreateElement[F, HTMLSpanElement] with
-    override def apply(): F[HTMLSpanElement] =
+  given monadCanCreateSpan[F[_]: Monad]: CanCreateElement[F, Span] with
+    override def apply(): F[Span] =
       Monad[F].pure {
         HTMLSpanElement(
           cssClass = None,
