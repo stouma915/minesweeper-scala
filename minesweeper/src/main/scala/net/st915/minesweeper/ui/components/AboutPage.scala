@@ -1,67 +1,67 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.Sync
-import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.components.typeclasses.*
-import net.st915.minesweeper.ui.consts.*
-import org.scalajs.dom.*
+import cats.Monad
+import net.st915.immutablescalajs.componentcreators.*
+import net.st915.immutablescalajs.dom.*
+import net.st915.immutablescalajs.dom.properties.*
 
 object AboutPage {
 
   import cats.syntax.flatMap.*
-  import cats.syntax.functor.*
 
-  def wired[F[_]: Sync](using HTMLDocument): F[HTMLDivElement] = {
-    given CanAppendBR[F] = SyncCanAppendBR[F]
-    given CanAppendElement[F] = SyncCanAppendElement[F]
-    given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
-    given CanCreateElement[F, HTMLLinkElement] = MonadCanCreateElementLink[F]
-    given CanCreateElement[F, HTMLSpanElement] = MonadCanCreateElementSpan[F]
-    given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
-    given CanUpdateHyperlink[F] = SyncCanUpdateHyperlink[F]
-    given CanUpdateTextContent[F] = SyncCanUpdateTextContent[F]
+  import net.st915.immutablescalajs.componentcreators.instances.all.given
 
-    for {
-      containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.AboutPage)
+  def containerDiv[F[_]: Monad]: F[HTMLDivElement] =
+    CanCreateElement[F, HTMLDivElement]() >>=
+      CanSetCSSClass[F, HTMLDivElement](CSSClass("aboutPage"))
 
-      licensePrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(licensePrefix, UITexts.ThisSiteIsLicensedUnderThe)
-      _ <- CanAppendElement[F].perform(containerDiv, licensePrefix)
-      licenseLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(licenseLink, UITexts.MITLicense)
-      _ <- CanUpdateHyperlink[F].perform(licenseLink, Links.License)
-      _ <- CanAppendElement[F].perform(containerDiv, licenseLink)
-      licenseSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(licenseSuffix, UITexts.Period)
-      _ <- CanAppendElement[F].perform(containerDiv, licenseSuffix)
+  def thisSiteIsLicensedUnderThe[F[_]: Monad]: F[HTMLSpanElement] =
+    CanCreateElement[F, HTMLSpanElement]() >>=
+      CanSetText[F, HTMLSpanElement](Text("This site is licensed under the "))
 
-      _ <- CanAppendBR[F].perform(containerDiv)
+  def mitLicense[F[_]: Monad]: F[HTMLAnchorElement] =
+    CanCreateElement[F, HTMLAnchorElement]() >>=
+      CanSetText[F, HTMLAnchorElement](Text("MIT License")) >>=
+      CanSetHyperlink[F, HTMLAnchorElement](Hyperlink("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE"))
 
-      repoPrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(repoPrefix, UITexts.ThisSiteIsOpenSource)
-      _ <- CanAppendElement[F].perform(containerDiv, repoPrefix)
-      repoLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(repoLink, UITexts.ImproveThisSite)
-      _ <- CanUpdateHyperlink[F].perform(repoLink, Links.Repository)
-      _ <- CanAppendElement[F].perform(containerDiv, repoLink)
-      repoSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(repoSuffix, UITexts.Period)
-      _ <- CanAppendElement[F].perform(containerDiv, repoSuffix)
+  def thisSiteIsOpenSource[F[_]: Monad]: F[HTMLSpanElement] =
+    CanCreateElement[F, HTMLSpanElement]() >>=
+      CanSetText[F, HTMLSpanElement](Text("This site is open source. "))
 
-      _ <- CanAppendBR[F].perform(containerDiv)
+  def improveThisSite[F[_]: Monad]: F[HTMLAnchorElement] =
+    CanCreateElement[F, HTMLAnchorElement]() >>=
+      CanSetText[F, HTMLAnchorElement](Text("Improve this site")) >>=
+      CanSetHyperlink[F, HTMLAnchorElement](Hyperlink("https://github.com/stouma915/minesweeper-scala"))
 
-      pagesPrefix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesPrefix, UITexts.PoweredBy)
-      _ <- CanAppendElement[F].perform(containerDiv, pagesPrefix)
-      pagesLink <- CanCreateElement[F, HTMLLinkElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesLink, UITexts.GitHubPages)
-      _ <- CanUpdateHyperlink[F].perform(pagesLink, Links.GitHubPages)
-      _ <- CanAppendElement[F].perform(containerDiv, pagesLink)
-      pagesSuffix <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(pagesSuffix, UITexts.Period)
-      _ <- CanAppendElement[F].perform(containerDiv, pagesSuffix)
-    } yield containerDiv
-  }
+  def poweredBy[F[_]: Monad]: F[HTMLSpanElement] =
+    CanCreateElement[F, HTMLSpanElement]() >>=
+      CanSetText[F, HTMLSpanElement](Text("Powered by "))
+
+  def githubPages[F[_]: Monad]: F[HTMLAnchorElement] =
+    CanCreateElement[F, HTMLAnchorElement]() >>=
+      CanSetText[F, HTMLAnchorElement](Text("GitHub Pages")) >>=
+      CanSetHyperlink[F, HTMLAnchorElement](Hyperlink("https://pages.github.com"))
+
+  def period[F[_]: Monad]: F[HTMLSpanElement] =
+    CanCreateElement[F, HTMLSpanElement]() >>=
+      CanSetText[F, HTMLSpanElement](Text("."))
+
+  def br[F[_]: Monad]: F[HTMLBRElement] =
+    CanCreateElement[F, HTMLBRElement]()
+
+  def wired[F[_]: Monad]: F[HTMLDivElement] =
+    containerDiv >>=
+      CanAppendChild[F, HTMLDivElement](thisSiteIsLicensedUnderThe) >>=
+      CanAppendChild[F, HTMLDivElement](mitLicense) >>=
+      CanAppendChild[F, HTMLDivElement](period) >>=
+      CanAppendChild[F, HTMLDivElement](br) >>=
+      CanAppendChild[F, HTMLDivElement](thisSiteIsOpenSource) >>=
+      CanAppendChild[F, HTMLDivElement](improveThisSite) >>=
+      CanAppendChild[F, HTMLDivElement](period) >>=
+      CanAppendChild[F, HTMLDivElement](br) >>=
+      CanAppendChild[F, HTMLDivElement](poweredBy) >>=
+      CanAppendChild[F, HTMLDivElement](githubPages) >>=
+      CanAppendChild[F, HTMLDivElement](period) >>=
+      CanAppendChild[F, HTMLDivElement](br)
 
 }

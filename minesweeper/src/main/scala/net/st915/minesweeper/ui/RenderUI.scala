@@ -34,7 +34,9 @@ object RenderUI {
       diffSelector <- DifficultySelector.wired[F]
       _ <- CanAppendElement[F].perform(body, diffSelector)
 
-      aboutPage <- AboutPage.wired[F]
+      wrappedAboutPage <- AboutPage.wired[F]
+      aboutPage <-
+        CanConvertElement[F, HTMLDivElement, ScalaJSDivElement](wrappedAboutPage)
       _ <- CanAppendElement[F].perform(body, aboutPage)
     } yield ()
   }
