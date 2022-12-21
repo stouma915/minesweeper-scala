@@ -23,7 +23,7 @@ object InformationText {
     CanCreateElement[F, HTMLBRElement]()
 
   def wired[F[_]: Monad]: F[HTMLDivElement] =
-    containerDiv >>= 
+    containerDiv >>=
       CanAppendChild[F, HTMLDivElement](informationText) >>=
       CanAppendChild[F, HTMLDivElement](br)
 

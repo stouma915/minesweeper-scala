@@ -7,8 +7,8 @@ import net.st915.immutablescalajs.converters.*
 import net.st915.immutablescalajs.dom.*
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.*
-import net.st915.minesweeper.ui.components.typeclasses.CanAppendElement
 import net.st915.minesweeper.ui.components.instances.SyncCanAppendElement
+import net.st915.minesweeper.ui.components.typeclasses.CanAppendElement
 
 object RenderUI {
 
@@ -24,7 +24,8 @@ object RenderUI {
 
     for {
       wrappedInformationText <- InformationText.wired[F]
-      informationText <- CanConvertElement[F, HTMLDivElement, ScalaJSDivElement](wrappedInformationText)
+      informationText <-
+        CanConvertElement[F, HTMLDivElement, ScalaJSDivElement](wrappedInformationText)
       _ <- CanAppendElement[F].perform(body, informationText)
 
       gameScreen <- GameScreen.wired[F]
