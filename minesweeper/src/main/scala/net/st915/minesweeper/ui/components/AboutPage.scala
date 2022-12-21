@@ -1,6 +1,7 @@
 package net.st915.minesweeper.ui.components
 
 import cats.Monad
+import net.st915.immutablescalajs.Components.BR
 import net.st915.immutablescalajs.componentcreators.*
 import net.st915.immutablescalajs.dom.*
 import net.st915.immutablescalajs.dom.properties.*
@@ -50,22 +51,19 @@ object AboutPage {
     CanCreateElement[F, HTMLSpanElement]() >>=
       CanSetText[F, HTMLSpanElement](Text("."))
 
-  def br[F[_]: Monad]: F[HTMLBRElement] =
-    CanCreateElement[F, HTMLBRElement]()
-
   def wired[F[_]: Monad]: F[HTMLDivElement] =
     containerDiv >>=
       CanAppendChild[F, HTMLDivElement](thisSiteIsLicensedUnderThe) >>=
       CanAppendChild[F, HTMLDivElement](mitLicense) >>=
       CanAppendChild[F, HTMLDivElement](period) >>=
-      CanAppendChild[F, HTMLDivElement](br) >>=
+      CanAppendChild[F, HTMLDivElement](BR) >>=
       CanAppendChild[F, HTMLDivElement](thisSiteIsOpenSource) >>=
       CanAppendChild[F, HTMLDivElement](improveThisSite) >>=
       CanAppendChild[F, HTMLDivElement](period) >>=
-      CanAppendChild[F, HTMLDivElement](br) >>=
+      CanAppendChild[F, HTMLDivElement](BR) >>=
       CanAppendChild[F, HTMLDivElement](poweredBy) >>=
       CanAppendChild[F, HTMLDivElement](githubPages) >>=
       CanAppendChild[F, HTMLDivElement](period) >>=
-      CanAppendChild[F, HTMLDivElement](br)
+      CanAppendChild[F, HTMLDivElement](BR)
 
 }
