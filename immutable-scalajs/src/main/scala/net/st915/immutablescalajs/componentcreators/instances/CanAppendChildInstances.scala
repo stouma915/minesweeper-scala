@@ -7,16 +7,15 @@ import net.st915.immutablescalajs.dom.attributes.HasChildElements
 
 trait CanAppendChildInstances {
 
+  import cats.syntax.flatMap.*
+
   given monadCanAppendChild[F[_]: Monad, A <: HasChildElements[A]]: CanAppendChild[F, A] with
     override def apply(child: HTMLElement)(parent: A): F[A] =
-      apply(List(child))(parent)
-
-    override def apply(childs: List[HTMLElement])(parent: A): F[A] =
       Monad[F].pure {
-        parent.copyWithNewChildElements(parent.childElements.appendedAll(childs))
+        parent.copyWithNewChildElements(parent.childElements.appended(child))
       }
 
-    override def apply(childs: HTMLElement*)(parent: A): F[A] =
-      apply(childs.toList)(parent)
+    override def apply[B <: HTMLElement](fchild: F[B])(parent: A): F[A] =
+      fchild >>= { child => apply(child)(parent) }
 
 }
