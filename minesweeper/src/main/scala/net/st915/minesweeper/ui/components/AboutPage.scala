@@ -22,7 +22,9 @@ object AboutPage {
   def mitLicense[F[_]: Monad]: F[HTMLAnchorElement] =
     CanCreateElement[F, HTMLAnchorElement]() >>=
       CanSetText[F, HTMLAnchorElement](Text("MIT License")) >>=
-      CanSetHyperlink[F, HTMLAnchorElement](Hyperlink("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE"))
+      CanSetHyperlink[F, HTMLAnchorElement](
+        Hyperlink("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE")
+      )
 
   def thisSiteIsOpenSource[F[_]: Monad]: F[HTMLSpanElement] =
     CanCreateElement[F, HTMLSpanElement]() >>=
@@ -31,7 +33,9 @@ object AboutPage {
   def improveThisSite[F[_]: Monad]: F[HTMLAnchorElement] =
     CanCreateElement[F, HTMLAnchorElement]() >>=
       CanSetText[F, HTMLAnchorElement](Text("Improve this site")) >>=
-      CanSetHyperlink[F, HTMLAnchorElement](Hyperlink("https://github.com/stouma915/minesweeper-scala"))
+      CanSetHyperlink[F, HTMLAnchorElement](
+        Hyperlink("https://github.com/stouma915/minesweeper-scala")
+      )
 
   def poweredBy[F[_]: Monad]: F[HTMLSpanElement] =
     CanCreateElement[F, HTMLSpanElement]() >>=
