@@ -3,11 +3,11 @@ package net.st915.minesweeper.ui.components
 import cats.Monad
 import net.st915.immutablescalajs.Components.BR
 import net.st915.immutablescalajs.componentcreators.*
-import net.st915.immutablescalajs.dom.properties.*
 
 object AboutPage {
 
   import cats.syntax.flatMap.*
+  import net.st915.immutablescalajs.dom.syntax.propertySyntax.*
 
   import net.st915.immutablescalajs.componentcreators.instances.all.given
 
@@ -15,42 +15,42 @@ object AboutPage {
 
   def containerDiv[F[_]: Monad]: F[Div] =
     CanCreateElement[F, Div]() >>=
-      CanSetCSSClass[F, Div](CSSClass("aboutPage"))
+      CanSetCSSClass[F, Div]("aboutPage".asCSSClass)
 
   def thisSiteIsLicensedUnderThe[F[_]: Monad]: F[Span] =
     CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span](Text("This site is licensed under the "))
+      CanSetText[F, Span]("This site is licensed under the ".asText)
 
   def mitLicense[F[_]: Monad]: F[Anchor] =
     CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor](Text("MIT License")) >>=
+      CanSetText[F, Anchor]("MIT License".asText) >>=
       CanSetHyperlink[F, Anchor](
-        Hyperlink("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE")
+        "https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE".asHyperlink
       )
 
   def thisSiteIsOpenSource[F[_]: Monad]: F[Span] =
     CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span](Text("This site is open source. "))
+      CanSetText[F, Span]("This site is open source. ".asText)
 
   def improveThisSite[F[_]: Monad]: F[Anchor] =
     CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor](Text("Improve this site")) >>=
+      CanSetText[F, Anchor]("Improve this site".asText) >>=
       CanSetHyperlink[F, Anchor](
-        Hyperlink("https://github.com/stouma915/minesweeper-scala")
+        "https://github.com/stouma915/minesweeper-scala".asHyperlink
       )
 
   def poweredBy[F[_]: Monad]: F[Span] =
     CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span](Text("Powered by "))
+      CanSetText[F, Span]("Powered by ".asText)
 
   def githubPages[F[_]: Monad]: F[Anchor] =
     CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor](Text("GitHub Pages")) >>=
-      CanSetHyperlink[F, Anchor](Hyperlink("https://pages.github.com"))
+      CanSetText[F, Anchor]("GitHub Pages".asText) >>=
+      CanSetHyperlink[F, Anchor]("https://pages.github.com".asHyperlink)
 
   def period[F[_]: Monad]: F[Span] =
     CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span](Text("."))
+      CanSetText[F, Span](".".asText)
 
   def wired[F[_]: Monad]: F[Div] =
     containerDiv >>=
