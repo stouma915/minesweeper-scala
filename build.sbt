@@ -17,7 +17,7 @@ lazy val immutable_scalajs =
     .in(file("immutable-scalajs"))
     .enablePlugins(ScalaJSPlugin)
     .settings(
-      name := "minesweeper-scala-immutable-scalajs",
+      name := "immutable-scalajs",
       libraryDependencies ++= Seq(
         "org.typelevel" %%% "cats-effect" % "3.4.1",
         "org.scala-js" %%% "scalajs-dom" % "2.1.0"
@@ -29,7 +29,7 @@ lazy val minesweeper = project
   .dependsOn(immutable_scalajs)
   .enablePlugins(ScalaJSPlugin)
   .settings(
-    name := "minesweeper-scala"
+    name := "minesweeper"
   )
 
 lazy val bootstrap = project
@@ -37,6 +37,6 @@ lazy val bootstrap = project
   .dependsOn(minesweeper)
   .enablePlugins(ScalaJSPlugin)
   .settings(
-    name := "bootstrap",
+    name := "minesweeper-bootstrap",
     scalaJSUseMainModuleInitializer := true
   )
