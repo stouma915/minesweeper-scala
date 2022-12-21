@@ -6,7 +6,7 @@ import net.st915.immutablescalajs.*
 import net.st915.immutablescalajs.converters.*
 import net.st915.immutablescalajs.dom.*
 import net.st915.immutablescalajs.dom.attributes.HasChildElements
-import net.st915.immutablescalajs.util.AsInstanceOf
+import net.st915.immutablescalajs.privateutil.AsInstanceOf
 
 private[converters] trait CanApplyChildElementsInstances {
 
@@ -16,7 +16,7 @@ private[converters] trait CanApplyChildElementsInstances {
 
   import all.given
   import packagePrivates.given
-  import net.st915.immutablescalajs.util.instances.all.given
+  import net.st915.immutablescalajs.privateutil.instances.all.given
 
   given monadCanApplyChildElements[F[_]: Monad, A <: HasChildElements[A], B <: ScalaJSElement]
     : CanApplyChildElements[F, A, B] with

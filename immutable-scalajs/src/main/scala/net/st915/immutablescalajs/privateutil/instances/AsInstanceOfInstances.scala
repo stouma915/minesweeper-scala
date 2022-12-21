@@ -1,9 +1,9 @@
-package net.st915.immutablescalajs.util.instances
+package net.st915.immutablescalajs.privateutil.instances
 
 import cats.Monad
-import net.st915.immutablescalajs.util.AsInstanceOf
+import net.st915.immutablescalajs.privateutil.AsInstanceOf
 
-trait AsInstanceOfInstances {
+private[immutablescalajs] trait AsInstanceOfInstances {
 
   given monadAsInstanceOf[F[_]: Monad]: AsInstanceOf[F] with
     override def perform[B](original: AnyRef): F[B] =
