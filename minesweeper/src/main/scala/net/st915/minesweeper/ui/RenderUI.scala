@@ -22,7 +22,7 @@ object RenderUI {
       _ <- CanAppendToDocument[F, Div](informationText)
 
       gameScreen <- GameScreen.wired[F]
-      _ <- CanAppendToDocument[F, ScalaJSElement](gameScreen)
+      _ <- CanAppendToDocument[F, Div](gameScreen)
 
       diffSelector <- DifficultySelector.wired[F]
       _ <- CanAppendToDocument[F, Div](diffSelector)

@@ -1,41 +1,176 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.Sync
-import cats.effect.unsafe.IORuntime
-import net.st915.minesweeper.RunContext
-import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.components.typeclasses.*
-import net.st915.minesweeper.ui.consts.*
-import org.scalajs.dom.*
+import cats.Monad
+import cats.effect.{IO, Sync}
+import net.st915.immutablescalajs.Components
+import net.st915.immutablescalajs.componentcreators.*
+import net.st915.immutablescalajs.dom.properties.*
+import net.st915.minesweeper.event.*
+import net.st915.minesweeper.idfactory.CanCreateID
+import net.st915.minesweeper.{Coordinate, EventQueue, RunContext}
 
 object GameScreen {
 
   import cats.syntax.flatMap.*
-  import cats.syntax.functor.*
+  import cats.syntax.traverse.*
+  import net.st915.immutablescalajs.dom.syntax.propertySyntax.*
 
-  def wired[F[_]: Sync](using HTMLDocument, IORuntime, RunContext): F[HTMLDivElement] = {
-    given CanAppendBR[F] = SyncCanAppendBR[F]
-    given CanAppendElement[F] = SyncCanAppendElement[F]
-    given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
-    given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
+  import net.st915.immutablescalajs.componentcreators.instances.all.given
+  import net.st915.minesweeper.idfactory.instances.all.given
 
-    for {
-      containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.GameScreen)
+  import net.st915.immutablescalajs.dom.typealiases.*
+  import net.st915.minesweeper.ui.types.*
 
-      cellArray <- CellArray.wired[F]
-      _ <- CanAppendElement[F].perform(containerDiv, cellArray)
+  def containerDiv[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("gameScreen".asCSSClass)
 
-      _ <- CanAppendBR[F].perform(containerDiv)
+  def flagIcon[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("flag".asCSSClass) >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPart flagTop".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPart flagMiddle".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPart flagBottom".asCSSClass)
+      }
 
-      flagButton <- ToggleFlagModeButton.wired[F]
-      _ <- CanAppendElement[F].perform(containerDiv, flagButton)
+  def flagPlaceholderIcon[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("flagPlaceholder".asCSSClass) >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPlaceholderPart flagPlaceholderTop".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPlaceholderPart flagPlaceholderMiddle".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("flagPlaceholderPart flagPlaceholderBottom".asCSSClass)
+      }
 
-      _ <- CanAppendBR[F].perform(containerDiv)
+  def mineIcon[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("mine".asCSSClass) >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("minePart mineTop".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("minePart mineMiddleLeft".asCSSClass)
+      } >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Div]() >>=
+          CanSetCSSClass[F, Div]("minePart mineMiddleCenter".asCSSClass)
+      }
 
-      restartButton <- RestartButton.wired[F]
-      _ <- CanAppendElement[F].perform(containerDiv, restartButton)
-    } yield containerDiv
-  }
+  def iconContainer[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("iconContainer".asCSSClass)
+
+  def flagContainer[F[_]: Monad](coord: Coordinate): F[Div] =
+    CanCreateID[F, FlagIcon](coord) >>= { id =>
+      iconContainer >>=
+        CanSetID[F, Div](id) >>=
+        CanAppendChild[F, Div](flagIcon)
+    }
+
+  def flagPlaceholderContainer[F[_]: Monad](coord: Coordinate): F[Div] =
+    CanCreateID[F, FlagPlaceholderIcon](coord) >>= { id =>
+      iconContainer >>=
+        CanSetID[F, Div](id) >>=
+        CanAppendChild[F, Div](flagPlaceholderIcon)
+    }
+
+  def mineContainer[F[_]: Monad](coord: Coordinate): F[Div] =
+    CanCreateID[F, MineIcon](coord) >>= { id =>
+      iconContainer >>=
+        CanSetID[F, Div](id) >>=
+        CanAppendChild[F, Div](mineIcon)
+    }
+
+  def mineCountContainer[F[_]: Monad](coord: Coordinate): F[Div] =
+    CanCreateID[F, MineCountContainer](coord) >>= { id =>
+      CanCreateElement[F, Div]() >>=
+        CanSetCSSClass[F, Div]("mineCountContainer".asCSSClass) >>=
+        CanSetID[F, Div](id)
+    }
+
+  def cellClickEvent[F[_]: Sync](coord: Coordinate): F[Unit] =
+    EventQueue.queue[F](CellClickEvent(coord))
+
+  def cellRightClickEvent[F[_]: Sync](coord: Coordinate): F[Unit] =
+    EventQueue.queue[F](CellRightClickEvent(coord))
+
+  def cell[F[_]: Monad](coord: Coordinate): F[Div] =
+    CanCreateID[F, Cell](coord) >>= { id =>
+      CanCreateElement[F, Div]() >>=
+        CanSetCSSClass[F, Div]("cell cellNotOpened".asCSSClass) >>=
+        CanSetID[F, Div](id) >>=
+        CanSetClickEvent[F, Div](cellClickEvent[IO](coord)) >>=
+        CanSetRightClickEvent[F, Div](cellRightClickEvent[IO](coord)) >>=
+        CanAppendChild[F, Div](flagContainer(coord)) >>=
+        CanAppendChild[F, Div](flagPlaceholderContainer(coord)) >>=
+        CanAppendChild[F, Div](mineContainer(coord)) >>=
+        CanAppendChild[F, Div](mineCountContainer(coord))
+    }
+
+  def cellLine[F[_]: Monad](y: Int)(using RunContext): F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("line".asCSSClass) >>=
+      CanAppendChilds[F, Div] {
+        (0 until summon[RunContext].difficulty.width)
+          .toList
+          .map { x => cell[F](Coordinate(x, y)) }
+          .sequence
+      }
+
+  def cellArray[F[_]: Monad](using RunContext): F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("cellArray".asCSSClass) >>=
+      CanAppendChilds[F, Div] {
+        (0 until summon[RunContext].difficulty.height)
+          .toList
+          .map(cellLine[F])
+          .sequence
+      }
+
+  def buttonClickEvent[F[_]: Sync](id: ID): F[Unit] =
+    EventQueue.queue[F](ButtonClickEvent(net.st915.minesweeper.util.ID(id.unwrap)))
+
+  def button[F[_]: Monad](id: ID, text: Text): F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("btn".asCSSClass) >>=
+      CanSetClickEvent[F, Div](buttonClickEvent[IO](id)) >>=
+      CanAppendChild[F, Div] {
+        CanCreateElement[F, Span]() >>=
+          CanSetCSSClass[F, Span]("btnText".asCSSClass) >>=
+          CanSetID[F, Span](id) >>=
+          CanSetText[F, Span](text)
+      }
+
+  def flagButton[F[_]: Monad]: F[Div] =
+    button[F]("toggleFlagPlaceMode".asID, "Enter Flag Place Mode".asText)
+
+  def restartButton[F[_]: Monad]: F[Div] =
+    button[F]("restart".asID, "Restart".asText)
+
+  def wired[F[_]: Monad](using RunContext): F[Div] =
+    containerDiv >>=
+      CanAppendChild[F, Div](cellArray) >>=
+      CanAppendChild[F, Div](Components.BR) >>=
+      CanAppendChild[F, Div](flagButton) >>=
+      CanAppendChild[F, Div](Components.BR) >>=
+      CanAppendChild[F, Div](restartButton) >>=
+      CanAppendChild[F, Div](Components.BR)
 
 }
