@@ -4,7 +4,13 @@ import cats.Monad
 import net.st915.immutablescalajs.dom.properties.ID
 import net.st915.minesweeper.Coordinate
 import net.st915.minesweeper.idfactory.CanCreateID
-import net.st915.minesweeper.ui.types.*
+import net.st915.minesweeper.ui.components.GameScreen.{
+  Cell,
+  FlagIcon,
+  FlagPlaceholderIcon,
+  MineCountContainer,
+  MineIcon
+}
 
 trait CanCreateIDInstances {
 

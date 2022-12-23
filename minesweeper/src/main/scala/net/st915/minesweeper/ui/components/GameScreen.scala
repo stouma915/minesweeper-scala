@@ -19,7 +19,12 @@ object GameScreen {
   import net.st915.minesweeper.idfactory.instances.all.given
 
   import net.st915.immutablescalajs.dom.typealiases.*
-  import net.st915.minesweeper.ui.types.*
+
+  type Cell
+  type FlagIcon
+  type FlagPlaceholderIcon
+  type MineIcon
+  type MineCountContainer
 
   def containerDiv[F[_]: Monad]: F[Div] =
     CanCreateElement[F, Div]() >>=
