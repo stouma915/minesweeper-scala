@@ -145,7 +145,7 @@ object GameScreen {
       }
 
   def buttonClickEvent[F[_]: Sync](id: ID): F[Unit] =
-    EventQueue.queue[F](ButtonClickEvent(net.st915.minesweeper.util.ID(id.unwrap)))
+    EventQueue.queue[F](ButtonClickEvent(id))
 
   def button[F[_]: Monad](id: ID, text: Text): F[Div] =
     CanCreateElement[F, Div]() >>=
