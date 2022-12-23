@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.components
 
 import cats.Monad
-import net.st915.immutablescalajs.Components.BR
+import net.st915.immutablescalajs.Components
 import net.st915.immutablescalajs.componentcreators.*
 
 object AboutPage {
@@ -57,14 +57,14 @@ object AboutPage {
       CanAppendChild[F, Div](thisSiteIsLicensedUnderThe) >>=
       CanAppendChild[F, Div](mitLicense) >>=
       CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](BR) >>=
+      CanAppendChild[F, Div](Components.BR) >>=
       CanAppendChild[F, Div](thisSiteIsOpenSource) >>=
       CanAppendChild[F, Div](improveThisSite) >>=
       CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](BR) >>=
+      CanAppendChild[F, Div](Components.BR) >>=
       CanAppendChild[F, Div](poweredBy) >>=
       CanAppendChild[F, Div](githubPages) >>=
       CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](BR)
+      CanAppendChild[F, Div](Components.BR)
 
 }

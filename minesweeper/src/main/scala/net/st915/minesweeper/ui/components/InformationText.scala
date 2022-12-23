@@ -1,7 +1,7 @@
 package net.st915.minesweeper.ui.components
 
 import cats.Monad
-import net.st915.immutablescalajs.Components.BR
+import net.st915.immutablescalajs.Components
 import net.st915.immutablescalajs.componentcreators.*
 
 object InformationText {
@@ -24,6 +24,6 @@ object InformationText {
   def wired[F[_]: Monad]: F[Div] =
     containerDiv >>=
       CanAppendChild[F, Div](informationText) >>=
-      CanAppendChild[F, Div](BR)
+      CanAppendChild[F, Div](Components.BR)
 
 }
