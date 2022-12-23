@@ -10,7 +10,7 @@ object CanAppendChild {
 
 trait CanAppendChild[F[_], A] {
 
-  def apply(child: HTMLElement)(parent: A): F[A]
+  def apply[B <: HTMLElement](child: B)(parent: A): F[A]
 
   def apply[B <: HTMLElement](fchild: F[B])(parent: A): F[A]
 

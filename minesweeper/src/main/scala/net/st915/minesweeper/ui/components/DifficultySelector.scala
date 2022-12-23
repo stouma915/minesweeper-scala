@@ -1,34 +1,57 @@
 package net.st915.minesweeper.ui.components
 
-import cats.effect.Sync
-import net.st915.minesweeper.ui.components.instances.*
-import net.st915.minesweeper.ui.components.typeclasses.*
-import net.st915.minesweeper.ui.consts.*
-import org.scalajs.dom.*
+import cats.Monad
+import net.st915.immutablescalajs.componentcreators.*
+import net.st915.immutablescalajs.dom.properties.Hyperlink
+import net.st915.immutablescalajs.{Components, ScalaJSWindow}
+import net.st915.minesweeper.Difficulty
 
 object DifficultySelector {
 
   import cats.syntax.flatMap.*
-  import cats.syntax.functor.*
+  import cats.syntax.traverse.*
+  import net.st915.immutablescalajs.dom.syntax.propertySyntax.*
 
-  def wired[F[_]: Sync](using HTMLDocument, Window): F[HTMLDivElement] = {
-    given CanAppendElement[F] = SyncCanAppendElement[F]
-    given CanCreateElement[F, HTMLDivElement] = MonadCanCreateElementDiv[F]
-    given CanCreateElement[F, HTMLSpanElement] = MonadCanCreateElementSpan[F]
-    given CanUpdateElementClass[F] = SyncCanUpdateElementClass[F]
-    given CanUpdateTextContent[F] = SyncCanUpdateTextContent[F]
+  import net.st915.immutablescalajs.componentcreators.instances.all.given
 
-    for {
-      containerDiv <- CanCreateElement[F, HTMLDivElement].create
-      _ <- CanUpdateElementClass[F].perform(containerDiv, CSSClasses.DifficultySelector)
+  import net.st915.immutablescalajs.dom.typealiases.*
 
-      selectorText <- CanCreateElement[F, HTMLSpanElement].create
-      _ <- CanUpdateTextContent[F].perform(selectorText, UITexts.DifficultiesColon)
-      _ <- CanAppendElement[F].perform(containerDiv, selectorText)
+  def diffHyperlink[F[_]: Monad](diff: Difficulty)(using ScalaJSWindow): F[Hyperlink] =
+    Monad[F].pure {
+      val currentURL = new org.scalajs.dom.URL(summon[ScalaJSWindow].location.href)
+      val param =
+        if (diff eq Difficulty.Default)
+          ""
+        else
+          s"?d=${diff.id}"
 
-      diffLinks <- DifficultyLinks.wired[F]
-      _ <- CanAppendElement[F].perform(containerDiv, diffLinks)
-    } yield containerDiv
-  }
+      Hyperlink(s"${currentURL.origin}${currentURL.pathname}$param")
+    }
+
+  def containerDiv[F[_]: Monad]: F[Div] =
+    CanCreateElement[F, Div]() >>=
+      CanSetCSSClass[F, Div]("difficultySelector".asCSSClass)
+
+  def descriptionText[F[_]: Monad]: F[Span] =
+    CanCreateElement[F, Span]() >>=
+      CanSetText[F, Span]("Difficulties:".asText)
+
+  def diffLink[F[_]: Monad](diff: Difficulty)(using ScalaJSWindow): F[Anchor] =
+    diffHyperlink(diff) >>= { diffHref =>
+      CanCreateElement[F, Anchor]() >>=
+        CanSetText[F, Anchor](diff.displayName.asText) >>=
+        CanSetHyperlink[F, Anchor](diffHref) >>=
+        CanAppendChild[F, Anchor](Components.BR)
+    }
+
+  def diffLinks[F[_]: Monad](using ScalaJSWindow): F[List[Anchor]] =
+    Difficulty.All.map(diffLink[F]).sequence
+
+  def wired[F[_]: Monad](using ScalaJSWindow): F[Div] =
+    containerDiv >>=
+      CanAppendChild[F, Div](descriptionText) >>=
+      CanAppendChild[F, Div](Components.BR) >>=
+      CanAppendChilds[F, Div](diffLinks) >>=
+      CanAppendChild[F, Div](Components.BR)
 
 }

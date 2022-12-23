@@ -16,7 +16,8 @@ trait CanCreateElementInstances {
           cssClass = None,
           id = None,
           hyperlink = None,
-          text = None
+          text = None,
+          childElements = List()
         )
       }
 

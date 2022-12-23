@@ -22,7 +22,8 @@ trait CanConvertElementInstances {
         CanApplyCSSClass[F, Anchor, SJSAnchor](original) >>=
         CanApplyID[F, Anchor, SJSAnchor](original) >>=
         CanApplyHyperlink[F, Anchor, SJSAnchor](original) >>=
-        CanApplyText[F, Anchor, SJSAnchor](original)
+        CanApplyText[F, Anchor, SJSAnchor](original) >>=
+        CanApplyChildElements[F, Anchor, SJSAnchor](original)
 
   given monadCanConvertBR[F[_]: Monad]: CanConvertElement[F, BR, SJSBR] with
     override def apply(original: BR)(using ScalaJSDocument, IORuntime): F[SJSBR] =

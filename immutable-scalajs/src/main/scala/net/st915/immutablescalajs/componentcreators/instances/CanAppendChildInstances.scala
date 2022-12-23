@@ -10,7 +10,7 @@ trait CanAppendChildInstances {
   import cats.syntax.flatMap.*
 
   given monadCanAppendChild[F[_]: Monad, A <: HasChildElements[A]]: CanAppendChild[F, A] with
-    override def apply(child: HTMLElement)(parent: A): F[A] =
+    override def apply[B <: HTMLElement](child: B)(parent: A): F[A] =
       Monad[F].pure {
         parent.copyWithNewChildElements(parent.childElements.appended(child))
       }
