@@ -149,25 +149,11 @@ object GameScreen {
           .sequence
       }
 
-  def buttonClickEvent[F[_]: Sync](id: ID): F[Unit] =
-    EventQueue.queue[F](ButtonClickEvent(id))
-
-  def button[F[_]: Monad](id: ID, text: Text): F[Div] =
-    CanCreateElement[F, Div]() >>=
-      CanSetCSSClass[F, Div]("btn".asCSSClass) >>=
-      CanSetClickEvent[F, Div](buttonClickEvent[IO](id)) >>=
-      CanAppendChild[F, Div] {
-        CanCreateElement[F, Span]() >>=
-          CanSetCSSClass[F, Span]("btnText".asCSSClass) >>=
-          CanSetID[F, Span](id) >>=
-          CanSetText[F, Span](text)
-      }
-
   def flagButton[F[_]: Monad]: F[Div] =
-    button[F]("toggleFlagPlaceMode".asID, "Enter Flag Place Mode".asText)
+    Button.wired[F]("toggleFlagPlaceMode".asID, "Enter Flag Place Mode".asText)
 
   def restartButton[F[_]: Monad]: F[Div] =
-    button[F]("restart".asID, "Restart".asText)
+    Button.wired[F]("restart".asID, "Restart".asText)
 
   def wired[F[_]: Monad](using RunContext): F[Div] =
     containerDiv >>=
