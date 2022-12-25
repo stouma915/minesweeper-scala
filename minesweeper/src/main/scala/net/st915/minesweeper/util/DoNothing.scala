@@ -1,4 +1,4 @@
-package net.st915.minesweeper.util.typeclasses
+package net.st915.minesweeper.util
 
 object DoNothing {
 
@@ -8,6 +8,6 @@ object DoNothing {
 
 trait DoNothing[F[_]] {
 
-  def perform[A](using A): F[A]
+  def apply[A]()(using A): F[A]
 
 }

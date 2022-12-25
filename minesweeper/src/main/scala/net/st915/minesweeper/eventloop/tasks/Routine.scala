@@ -5,18 +5,17 @@ import net.st915.minesweeper.GameState
 import net.st915.minesweeper.eventlistener.EventListener
 import net.st915.minesweeper.eventloop.tasks.instances.*
 import net.st915.minesweeper.eventloop.tasks.typeclasses.*
-import net.st915.minesweeper.util.instances.MonadDoNothing
-import net.st915.minesweeper.util.typeclasses.DoNothing
+import net.st915.minesweeper.util.DoNothing
 
 object Routine {
 
   import cats.syntax.flatMap.*
   import cats.syntax.functor.*
 
+  import net.st915.minesweeper.util.instances.doNothingInstances.given
+
   def wired[F[_]: Sync](gameState: GameState): F[GameState] = {
     given CanFetchEventFromQueue[F] = SyncCanFetchEventFromQueue[F]
-
-    given DoNothing[F] = MonadDoNothing[F]
 
     given GameState = gameState
 
@@ -28,7 +27,7 @@ object Routine {
           case Some(event) =>
             EventListener.wired[F](event)
           case None =>
-            DoNothing[F].perform[GameState]
+            DoNothing[F][GameState]()
     } yield newState
   }
 
