@@ -1,4 +1,4 @@
-package net.st915.util
+package net.st915.minesweeper.util
 
 import cats.Monad
 

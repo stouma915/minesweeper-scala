@@ -4,7 +4,7 @@ import cats.Monad
 import net.st915.minesweeper.logic.instances.*
 import net.st915.minesweeper.logic.typeclasses.*
 import net.st915.minesweeper.{Coordinate, GameState}
-import net.st915.util.HigherKindIf
+import net.st915.minesweeper.util.HigherKindIf
 
 class MonadIfFlagged[F[_]: Monad] extends IfFlagged[F] {
 
