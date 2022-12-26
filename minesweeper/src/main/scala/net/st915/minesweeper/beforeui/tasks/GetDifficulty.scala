@@ -1,7 +1,7 @@
 package net.st915.minesweeper.beforeui.tasks
 
 import cats.effect.Sync
-import net.st915.immutablescalajs.ScalaJSWindow
+import net.st915.immutablescalajs.{ScalaJSURLSearchParams, ScalaJSWindow}
 import net.st915.minesweeper.Difficulty
 
 object GetDifficulty {
@@ -10,7 +10,7 @@ object GetDifficulty {
 
   def getDiffParam[F[_]: Sync](using ScalaJSWindow): F[Option[String]] =
     Sync[F].pure {
-      val params = new org.scalajs.dom.URLSearchParams(summon[ScalaJSWindow].location.search)
+      val params = new ScalaJSURLSearchParams(summon[ScalaJSWindow].location.search)
 
       Option(params.get("d"))
     }

@@ -14,5 +14,6 @@ package object immutablescalajs {
   type ScalaJSWindow = org.scalajs.dom.Window
 
   type ScalaJSURL = org.scalajs.dom.URL
+  type ScalaJSURLSearchParams = org.scalajs.dom.URLSearchParams
 
 }
