@@ -2,10 +2,10 @@ package net.st915.minesweeper.ui.components
 
 import cats.Monad
 import net.st915.minesweeper.Difficulty
-import net.st915.typesafescalajs.{ScalaJSURL, ScalaJSWindow}
 import net.st915.typesafescalajs.elements.*
 import net.st915.typesafescalajs.elements.properties.*
 import net.st915.typesafescalajs.nodes.*
+import net.st915.typesafescalajs.{ScalaJSURL, ScalaJSWindow}
 
 object DifficultySelector {
 

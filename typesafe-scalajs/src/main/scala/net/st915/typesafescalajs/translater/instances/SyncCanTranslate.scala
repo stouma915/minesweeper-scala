@@ -1,8 +1,8 @@
 package net.st915.typesafescalajs.translater.instances
 
-import cats.{Eq, Monoid}
-import cats.effect.{IO, Sync}
 import cats.effect.unsafe.IORuntime
+import cats.effect.{IO, Sync}
+import cats.{Eq, Monoid}
 import net.st915.typesafescalajs.*
 import net.st915.typesafescalajs.elements.*
 import net.st915.typesafescalajs.elements.attributes.*

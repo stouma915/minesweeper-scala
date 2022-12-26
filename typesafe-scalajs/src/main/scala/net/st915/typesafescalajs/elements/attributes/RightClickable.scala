@@ -5,5 +5,5 @@ import net.st915.typesafescalajs.elements.properties.RightClickEvent
 trait RightClickable {
 
   def rightClickEvent: RightClickEvent
-  
+
 }

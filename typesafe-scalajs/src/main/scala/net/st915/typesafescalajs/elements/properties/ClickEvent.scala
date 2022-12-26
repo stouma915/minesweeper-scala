@@ -1,7 +1,7 @@
 package net.st915.typesafescalajs.elements.properties
 
-import cats.{Eq, Monoid}
 import cats.effect.IO
+import cats.{Eq, Monoid}
 
 object ClickEvent {
 
