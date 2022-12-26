@@ -12,7 +12,7 @@ final case class Anchor(
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty,
   override val href: Link = Monoid[Link].empty
-) extends CopyableElement[Anchor] with HasHyperlink with CanCopyWithNewHyperlink[Anchor] {
+) extends Element[Anchor] with HasHyperlink[Anchor] {
 
   override def copyWith(newProperty: ClassName): Anchor =
     copy(className = newProperty)

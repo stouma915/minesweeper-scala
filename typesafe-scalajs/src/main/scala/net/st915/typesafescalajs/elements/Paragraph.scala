@@ -9,7 +9,7 @@ final case class Paragraph(
   override val childs: Childs = Monoid[Childs].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
-) extends CopyableElement[Paragraph] {
+) extends Element[Paragraph] {
 
   override def copyWith(newProperty: ClassName): Paragraph =
     copy(className = newProperty)

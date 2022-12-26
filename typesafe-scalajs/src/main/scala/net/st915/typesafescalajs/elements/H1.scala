@@ -9,7 +9,7 @@ final case class H1(
   override val childs: Childs = Monoid[Childs].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
-) extends CopyableElement[H1] {
+) extends Element[H1] {
 
   override def copyWith(newProperty: ClassName): H1 =
     copy(className = newProperty)

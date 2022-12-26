@@ -9,7 +9,7 @@ final case class Span(
   override val childs: Childs = Monoid[Childs].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
-) extends CopyableElement[Span] {
+) extends Element[Span] {
 
   override def copyWith(newProperty: ClassName): Span =
     copy(className = newProperty)

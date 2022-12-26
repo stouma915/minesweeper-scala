@@ -24,7 +24,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
   private def createTextNode(original: TextNode)(using ScalaJSDocument): F[ScalaJSTextNode] =
     Sync[F].pure(summon[ScalaJSDocument].createTextNode(original.innerText.raw))
 
-  private def applyClassName[A <: ScalaJSElement](original: HasClassName)(sjsElem: A): F[A] =
+  private def applyClassName[A <: ScalaJSElement, B <: HasClassName[B]](original: B)(sjsElem: A): F[A] =
     Sync[F].blocking {
       if (Eq[ClassName].eqv(original.className, Monoid[ClassName].empty)) {
         sjsElem
@@ -33,7 +33,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyID[A <: ScalaJSElement](original: HasID)(sjsElem: A): F[A] =
+  private def applyID[A <: ScalaJSElement, B <: HasID[B]](original: B)(sjsElem: A): F[A] =
     Sync[F].blocking {
       if (Eq[ID].eqv(original.id, Monoid[ID].empty)) {
         sjsElem
@@ -42,7 +42,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyClickEvent[A <: ScalaJSElement](original: Clickable)(sjsElem: A)(using
+  private def applyClickEvent[A <: ScalaJSElement, B <: Clickable[B]](original: B)(sjsElem: A)(using
   IORuntime): F[A] =
     Sync[F].blocking {
       if (Eq[ClickEvent].eqv(original.clickEvent, Monoid[ClickEvent].empty)) {
@@ -57,7 +57,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyRightClickEvent[A <: ScalaJSElement](original: RightClickable)(sjsElem: A)(using
+  private def applyRightClickEvent[A <: ScalaJSElement, B <: RightClickable[B]](original: B)(sjsElem: A)(using
   IORuntime): F[A] =
     Sync[F].blocking {
       if (Eq[RightClickEvent].eqv(original.rightClickEvent, Monoid[RightClickEvent].empty)) {
@@ -72,7 +72,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyHyperlink[A <: ScalaJSAnchor](original: HasHyperlink)(sjsElem: A): F[A] =
+  private def applyHyperlink[A <: ScalaJSAnchor, B <: HasHyperlink[B]](original: B)(sjsElem: A): F[A] =
     Sync[F].blocking {
       if (Eq[Link].eqv(original.href, Monoid[Link].empty)) {
         sjsElem
@@ -81,7 +81,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyChilds[A <: ScalaJSElement](original: HasChilds)(sjsElem: A)(
+  private def applyChilds[A <: ScalaJSElement, B <: HasChilds[B]](original: B)(sjsElem: A)(
     using ScalaJSDocument,
     IORuntime
   ): F[A] =
@@ -90,7 +90,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       _ <- childs.map { child => Sync[F].blocking(sjsElem.appendChild(child)) }.sequence
     } yield sjsElem
 
-  private def applyCommonProperties[A <: ScalaJSElement](original: Element)(sjsElem: A)(
+  private def applyCommonProperties[A <: ScalaJSElement, B <: Element[B]](original: B)(sjsElem: A)(
     using ScalaJSDocument,
     IORuntime
   ): F[A] =

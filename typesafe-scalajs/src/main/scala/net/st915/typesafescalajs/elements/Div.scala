@@ -9,7 +9,7 @@ final case class Div(
   override val childs: Childs = Monoid[Childs].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
-) extends CopyableElement[Div] {
+) extends Element[Div] {
 
   override def copyWith(newProperty: ClassName): Div =
     copy(className = newProperty)

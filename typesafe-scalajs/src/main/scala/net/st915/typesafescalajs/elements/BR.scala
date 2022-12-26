@@ -9,7 +9,7 @@ final case class BR(
   override val childs: Childs = Monoid[Childs].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
-) extends CopyableElement[BR] {
+) extends Element[BR] {
 
   override def copyWith(newProperty: ClassName): BR =
     copy(className = newProperty)
