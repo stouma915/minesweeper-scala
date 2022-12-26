@@ -1,5 +1,6 @@
 package net.st915.typesafescalajs.translater
 
+import cats.effect.unsafe.IORuntime
 import net.st915.typesafescalajs.*
 
 object CanTranslate {
@@ -10,6 +11,6 @@ object CanTranslate {
 
 trait CanTranslate[F[_]] {
 
-  def apply(node: Node)(using ScalaJSDocument): F[ScalaJSNode]
+  def apply(node: Node)(using ScalaJSDocument, IORuntime): F[ScalaJSNode]
 
 }

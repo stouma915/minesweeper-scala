@@ -6,7 +6,9 @@ import net.st915.typesafescalajs.elements.properties.*
 final case class BR(
   override val className: ClassName = Monoid[ClassName].empty,
   override val id: ID = Monoid[ID].empty,
-  override val childs: Childs = Monoid[Childs].empty
+  override val childs: Childs = Monoid[Childs].empty,
+  override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
+  override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
 ) extends CopyableElement[BR] {
 
   override def copyWith(newProperty: ClassName): BR =
@@ -17,5 +19,11 @@ final case class BR(
 
   override def copyWith(newProperty: Childs): BR =
     copy(childs = newProperty)
+
+  override def copyWith(newProperty: ClickEvent): BR =
+    copy(clickEvent = newProperty)
+
+  override def copyWith(newProperty: RightClickEvent): BR =
+    copy(rightClickEvent = newProperty)
 
 }

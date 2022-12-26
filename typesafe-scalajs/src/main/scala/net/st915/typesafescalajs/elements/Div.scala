@@ -6,7 +6,9 @@ import net.st915.typesafescalajs.elements.properties.*
 final case class Div(
   override val className: ClassName = Monoid[ClassName].empty,
   override val id: ID = Monoid[ID].empty,
-  override val childs: Childs = Monoid[Childs].empty
+  override val childs: Childs = Monoid[Childs].empty,
+  override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
+  override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty
 ) extends CopyableElement[Div] {
 
   override def copyWith(newProperty: ClassName): Div =
@@ -17,5 +19,11 @@ final case class Div(
 
   override def copyWith(newProperty: Childs): Div =
     copy(childs = newProperty)
+
+  override def copyWith(newProperty: ClickEvent): Div =
+    copy(clickEvent = newProperty)
+
+  override def copyWith(newProperty: RightClickEvent): Div =
+    copy(rightClickEvent = newProperty)
 
 }

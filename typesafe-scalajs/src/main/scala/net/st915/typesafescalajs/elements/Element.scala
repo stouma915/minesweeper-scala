@@ -7,3 +7,5 @@ trait Element extends Node
     with HasClassName
     with HasID
     with HasChilds
+    with Clickable
+    with RightClickable

@@ -15,4 +15,6 @@ package object typesafescalajs {
   type ScalaJSNode = org.scalajs.dom.Node
   type ScalaJSTextNode = org.scalajs.dom.Text
 
+  type ScalaJSMouseEvent = org.scalajs.dom.MouseEvent
+
 }

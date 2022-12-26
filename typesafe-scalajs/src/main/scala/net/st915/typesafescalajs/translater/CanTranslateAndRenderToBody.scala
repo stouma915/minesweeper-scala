@@ -1,5 +1,6 @@
 package net.st915.typesafescalajs.translater
 
+import cats.effect.unsafe.IORuntime
 import net.st915.typesafescalajs.{Node, ScalaJSDocument}
 
 object CanTranslateAndRenderToBody {
@@ -10,6 +11,6 @@ object CanTranslateAndRenderToBody {
 
 trait CanTranslateAndRenderToBody[F[_]] {
 
-  def apply(node: Node)(using ScalaJSDocument): F[Unit]
+  def apply(node: Node)(using ScalaJSDocument, IORuntime): F[Unit]
 
 }

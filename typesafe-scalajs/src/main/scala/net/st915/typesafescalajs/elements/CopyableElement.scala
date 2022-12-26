@@ -6,3 +6,5 @@ trait CopyableElement[A] extends Element
     with CanCopyWithNewClassName[A]
     with CanCopyWithNewID[A]
     with CanCopyWithNewChilds[A]
+    with CanCopyWithNewClickEvent[A]
+    with CanCopyWithNewRightClickEvent[A]
