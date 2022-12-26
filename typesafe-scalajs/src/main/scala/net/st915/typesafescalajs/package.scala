@@ -3,6 +3,7 @@ package net.st915
 package object typesafescalajs {
 
   type ScalaJSDocument = org.scalajs.dom.HTMLDocument
+  type ScalaJSWindow = org.scalajs.dom.Window
 
   type ScalaJSElement = org.scalajs.dom.HTMLElement
   type ScalaJSAnchor = org.scalajs.dom.HTMLAnchorElement
@@ -15,6 +16,7 @@ package object typesafescalajs {
   type ScalaJSNode = org.scalajs.dom.Node
   type ScalaJSTextNode = org.scalajs.dom.Text
 
-  type ScalaJSMouseEvent = org.scalajs.dom.MouseEvent
+  type ScalaJSURL = org.scalajs.dom.URL
+  type ScalaJSURLSearchParams = org.scalajs.dom.URLSearchParams
 
 }

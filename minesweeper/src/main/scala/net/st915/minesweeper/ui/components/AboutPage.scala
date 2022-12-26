@@ -1,70 +1,44 @@
 package net.st915.minesweeper.ui.components
 
 import cats.Monad
-import net.st915.immutablescalajs.Components
-import net.st915.immutablescalajs.componentcreators.*
+import net.st915.typesafescalajs.elements.*
+import net.st915.typesafescalajs.elements.properties.*
+import net.st915.typesafescalajs.nodes.TextNode
 
 object AboutPage {
 
-  import cats.syntax.flatMap.*
-  import net.st915.immutablescalajs.dom.syntax.propertySyntax.*
+  import net.st915.typesafescalajs.syntax.appendNodeSyntax.*
 
-  import net.st915.immutablescalajs.componentcreators.instances.all.given
-
-  import net.st915.immutablescalajs.dom.typealiases.*
-
-  def containerDiv[F[_]: Monad]: F[Div] =
-    CanCreateElement[F, Div]() >>=
-      CanSetCSSClass[F, Div]("aboutPage".asCSSClass)
-
-  def thisSiteIsLicensedUnderThe[F[_]: Monad]: F[Span] =
-    CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span]("This site is licensed under the ".asText)
-
-  def mitLicense[F[_]: Monad]: F[Anchor] =
-    CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor]("MIT License".asText) >>=
-      CanSetHyperlink[F, Anchor](
-        "https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE".asHyperlink
+  def component[F[_]: Monad]: F[Div] =
+    Monad[F].pure {
+      Div(className = ClassName("aboutPage")) with_ (
+        Span() with_ (
+          TextNode("This site is licensed under the "),
+          Anchor(href =
+            Link("https://github.com/stouma915/minesweeper-scala/blob/main/LICENSE")) with_ {
+            TextNode("MIT License")
+          },
+          TextNode(".")
+        ),
+        BR(),
+        Span() with_ (
+          TextNode("This site is open source. "),
+          Anchor(href =
+            Link("https://github.com/stouma915/minesweeper-scala")) with_ {
+            TextNode("Improve this site")
+          },
+          TextNode(".")
+        ),
+        BR(),
+        Span() with_ (
+          TextNode("Powered by "),
+          Anchor(href = Link("https://pages.github.com")) with_ {
+            TextNode("GitHub Pages")
+          },
+          TextNode(".")
+        ),
+        BR()
       )
-
-  def thisSiteIsOpenSource[F[_]: Monad]: F[Span] =
-    CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span]("This site is open source. ".asText)
-
-  def improveThisSite[F[_]: Monad]: F[Anchor] =
-    CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor]("Improve this site".asText) >>=
-      CanSetHyperlink[F, Anchor](
-        "https://github.com/stouma915/minesweeper-scala".asHyperlink
-      )
-
-  def poweredBy[F[_]: Monad]: F[Span] =
-    CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span]("Powered by ".asText)
-
-  def githubPages[F[_]: Monad]: F[Anchor] =
-    CanCreateElement[F, Anchor]() >>=
-      CanSetText[F, Anchor]("GitHub Pages".asText) >>=
-      CanSetHyperlink[F, Anchor]("https://pages.github.com".asHyperlink)
-
-  def period[F[_]: Monad]: F[Span] =
-    CanCreateElement[F, Span]() >>=
-      CanSetText[F, Span](".".asText)
-
-  def wired[F[_]: Monad]: F[Div] =
-    containerDiv >>=
-      CanAppendChild[F, Div](thisSiteIsLicensedUnderThe) >>=
-      CanAppendChild[F, Div](mitLicense) >>=
-      CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](Components.BR) >>=
-      CanAppendChild[F, Div](thisSiteIsOpenSource) >>=
-      CanAppendChild[F, Div](improveThisSite) >>=
-      CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](Components.BR) >>=
-      CanAppendChild[F, Div](poweredBy) >>=
-      CanAppendChild[F, Div](githubPages) >>=
-      CanAppendChild[F, Div](period) >>=
-      CanAppendChild[F, Div](Components.BR)
+    }
 
 }

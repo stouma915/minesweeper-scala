@@ -37,7 +37,7 @@ lazy val typesafe_scalajs = project
 
 lazy val minesweeper = project
   .in(file("minesweeper"))
-  .dependsOn(immutable_scalajs)
+  .dependsOn(immutable_scalajs, typesafe_scalajs)
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "minesweeper"
