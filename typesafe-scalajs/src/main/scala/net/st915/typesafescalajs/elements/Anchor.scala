@@ -2,7 +2,6 @@ package net.st915.typesafescalajs.elements
 
 import cats.Monoid
 import net.st915.typesafescalajs.elements.attributes.HasHyperlink
-import net.st915.typesafescalajs.elements.copyables.CanCopyWithNewHyperlink
 import net.st915.typesafescalajs.elements.properties.*
 
 final case class Anchor(
