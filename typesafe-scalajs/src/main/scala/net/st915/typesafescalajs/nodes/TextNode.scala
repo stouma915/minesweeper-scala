@@ -6,6 +6,12 @@ import net.st915.typesafescalajs.nodes.attributes.HasInnerText
 import net.st915.typesafescalajs.nodes.copyables.CanCopyWithNewInnerText
 import net.st915.typesafescalajs.nodes.properties.InnerText
 
+object TextNode {
+
+  def apply(content: String): TextNode = TextNode(InnerText(content))
+
+}
+
 case class TextNode(
   override val innerText: InnerText = Monoid[InnerText].empty
 ) extends Node with HasInnerText with CanCopyWithNewInnerText[TextNode] {
