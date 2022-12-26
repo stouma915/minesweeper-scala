@@ -13,4 +13,6 @@ package object immutablescalajs {
   type ScalaJSDocument = org.scalajs.dom.HTMLDocument
   type ScalaJSWindow = org.scalajs.dom.Window
 
+  type ScalaJSURL = org.scalajs.dom.URL
+
 }

@@ -3,7 +3,7 @@ package net.st915.minesweeper.ui.components
 import cats.Monad
 import net.st915.immutablescalajs.componentcreators.*
 import net.st915.immutablescalajs.dom.properties.Hyperlink
-import net.st915.immutablescalajs.{Components, ScalaJSWindow}
+import net.st915.immutablescalajs.{Components, ScalaJSURL, ScalaJSWindow}
 import net.st915.minesweeper.Difficulty
 
 object DifficultySelector {
@@ -18,7 +18,7 @@ object DifficultySelector {
 
   def diffHyperlink[F[_]: Monad](diff: Difficulty)(using ScalaJSWindow): F[Hyperlink] =
     Monad[F].pure {
-      val currentURL = new org.scalajs.dom.URL(summon[ScalaJSWindow].location.href)
+      val currentURL = new ScalaJSURL(summon[ScalaJSWindow].location.href)
       val param =
         if (diff eq Difficulty.Default)
           ""
