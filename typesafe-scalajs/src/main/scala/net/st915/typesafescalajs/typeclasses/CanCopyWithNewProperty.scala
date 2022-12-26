@@ -1,4 +1,4 @@
-package net.st915.typesafescalajs.elements.typeclasses
+package net.st915.typesafescalajs.typeclasses
 
 object CanCopyWithNewProperty {
 

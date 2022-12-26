@@ -3,7 +3,7 @@ package net.st915.typesafescalajs.elements
 import cats.Monoid
 import net.st915.typesafescalajs.Node
 import net.st915.typesafescalajs.elements.properties.*
-import net.st915.typesafescalajs.elements.typeclasses.CanCopyWithNewProperty
+import net.st915.typesafescalajs.typeclasses.CanCopyWithNewProperty
 
 object BR {
 
