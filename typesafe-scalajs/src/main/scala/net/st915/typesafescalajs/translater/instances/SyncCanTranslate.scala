@@ -4,6 +4,7 @@ import cats.effect.unsafe.IORuntime
 import cats.effect.{IO, Sync}
 import cats.{Eq, Monoid}
 import net.st915.typesafescalajs.*
+import net.st915.typesafescalajs.domain.typealiases.*
 import net.st915.typesafescalajs.elements.*
 import net.st915.typesafescalajs.elements.attributes.*
 import net.st915.typesafescalajs.elements.properties.*
@@ -24,7 +25,8 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
   private def createTextNode(original: TextNode)(using ScalaJSDocument): F[ScalaJSTextNode] =
     Sync[F].pure(summon[ScalaJSDocument].createTextNode(original.innerText.raw))
 
-  private def applyClassName[A <: ScalaJSElement, B <: HasClassName[B]](original: B)(sjsElem: A): F[A] =
+  private def applyClassName[A <: ScalaJSElement, B <: HasClassName[B]](original: B)(sjsElem: A)
+    : F[A] =
     Sync[F].blocking {
       if (Eq[ClassName].eqv(original.className, Monoid[ClassName].empty)) {
         sjsElem
@@ -57,8 +59,9 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyRightClickEvent[A <: ScalaJSElement, B <: RightClickable[B]](original: B)(sjsElem: A)(using
-  IORuntime): F[A] =
+  private def applyRightClickEvent[A <: ScalaJSElement, B <: RightClickable[B]](original: B)(
+    sjsElem: A
+  )(using IORuntime): F[A] =
     Sync[F].blocking {
       if (Eq[RightClickEvent].eqv(original.rightClickEvent, Monoid[RightClickEvent].empty)) {
         sjsElem
@@ -72,7 +75,8 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyHyperlink[A <: ScalaJSAnchor, B <: HasHyperlink[B]](original: B)(sjsElem: A): F[A] =
+  private def applyHyperlink[A <: ScalaJSAnchor, B <: HasHyperlink[B]](original: B)(sjsElem: A)
+    : F[A] =
     Sync[F].blocking {
       if (Eq[Link].eqv(original.href, Monoid[Link].empty)) {
         sjsElem

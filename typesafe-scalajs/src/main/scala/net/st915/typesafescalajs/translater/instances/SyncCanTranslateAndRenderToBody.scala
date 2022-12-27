@@ -3,6 +3,7 @@ package net.st915.typesafescalajs.translater.instances
 import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.typesafescalajs.*
+import net.st915.typesafescalajs.domain.typealiases.ScalaJSNode
 import net.st915.typesafescalajs.translater.*
 
 import scala.util.chaining.*
