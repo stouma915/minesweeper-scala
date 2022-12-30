@@ -4,9 +4,9 @@ import cats.effect.Sync
 import cats.effect.unsafe.IORuntime
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.ui.components.*
-import net.st915.typesafescalajs.{ScalaJSDocument, ScalaJSWindow}
 import net.st915.typesafescalajs.translater.*
 import net.st915.typesafescalajs.translater.instances.*
+import net.st915.typesafescalajs.{ScalaJSDocument, ScalaJSWindow}
 
 object RenderUI {
 
