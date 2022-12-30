@@ -24,9 +24,20 @@ lazy val immutable_scalajs =
       )
     )
 
+lazy val typesafe_scalajs = project
+  .in(file("typesafe-scalajs"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "typesafe-scalajs",
+    libraryDependencies ++= Seq(
+      "org.typelevel" %%% "cats-effect" % "3.4.1",
+      "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+    )
+  )
+
 lazy val minesweeper = project
   .in(file("minesweeper"))
-  .dependsOn(immutable_scalajs)
+  .dependsOn(immutable_scalajs, typesafe_scalajs)
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "minesweeper"

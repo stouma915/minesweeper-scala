@@ -5,6 +5,7 @@ WORKDIR /work/build
 COPY bootstrap bootstrap
 COPY minesweeper minesweeper
 COPY immutable-scalajs immutable-scalajs
+COPY typesafe-scalajs typesafe-scalajs
 COPY project project
 COPY resources resources
 COPY index.html .

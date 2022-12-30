@@ -1,37 +1,34 @@
 package net.st915.minesweeper.ui.components
 
 import cats.Monad
-import cats.effect.{IO, Sync}
-import net.st915.immutablescalajs.componentcreators.*
-import net.st915.immutablescalajs.dom.properties.*
+import cats.effect.IO
 import net.st915.minesweeper.EventQueue
 import net.st915.minesweeper.event.ButtonClickEvent
+import net.st915.typesafescalajs.elements.*
+import net.st915.typesafescalajs.elements.properties.*
+import net.st915.typesafescalajs.nodes.*
+import net.st915.typesafescalajs.nodes.properties.InnerText
 
 object Button {
 
   import cats.syntax.flatMap.*
-  import net.st915.immutablescalajs.dom.syntax.propertySyntax.*
+  import net.st915.typesafescalajs.syntax.appendNodeSyntax.*
 
-  import net.st915.immutablescalajs.componentcreators.instances.all.given
+  private def buttonText[F[_]: Monad](containerID: ID, text: InnerText): F[Span] =
+    Monad[F].pure {
+      Span(className = ClassName("btnText"), id = containerID) with_ {
+        TextNode(text)
+      }
+    }
 
-  import net.st915.immutablescalajs.dom.typealiases.*
-
-  def buttonClickEvent[F[_]: Sync](id: ID): F[Unit] =
-    EventQueue.queue[F](ButtonClickEvent(id))
-
-  def containerDiv[F[_]: Monad](id: ID): F[Div] =
-    CanCreateElement[F, Div]() >>=
-      CanSetCSSClass[F, Div]("btn".asCSSClass) >>=
-      CanSetClickEvent[F, Div](buttonClickEvent[IO](id))
-
-  def buttonText[F[_]: Monad](id: ID, text: Text): F[Span] =
-    CanCreateElement[F, Span]() >>=
-      CanSetCSSClass[F, Span]("btnText".asCSSClass) >>=
-      CanSetID[F, Span](id) >>=
-      CanSetText[F, Span](text)
-
-  def wired[F[_]: Monad](id: ID, text: Text): F[Div] =
-    containerDiv(id) >>=
-      CanAppendChild[F, Div](buttonText(id, text))
+  def component[F[_]: Monad](containerID: ID, text: InnerText): F[Div] =
+    buttonText[F](containerID, text) >>= { buttonInner =>
+      Monad[F].pure {
+        Div(
+          className = ClassName("btn"),
+          clickEvent = ClickEvent(EventQueue.queue[IO](ButtonClickEvent(containerID)))
+        ) with_ buttonInner
+      }
+    }
 
 }

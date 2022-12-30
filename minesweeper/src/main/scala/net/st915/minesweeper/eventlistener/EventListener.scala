@@ -1,11 +1,11 @@
 package net.st915.minesweeper.eventlistener
 
 import cats.effect.Sync
-import net.st915.immutablescalajs.dom.properties.ID
 import net.st915.minesweeper.GameState
 import net.st915.minesweeper.event.*
 import net.st915.minesweeper.eventlistener.handlers.*
 import net.st915.minesweeper.util.DoNothing
+import net.st915.typesafescalajs.elements.properties.ID
 
 object EventListener {
 

@@ -1,7 +1,7 @@
 package net.st915.minesweeper.idfactory
 
-import net.st915.immutablescalajs.dom.properties.ID
 import net.st915.minesweeper.Coordinate
+import net.st915.typesafescalajs.elements.properties.ID
 
 object CanCreateID {
 
