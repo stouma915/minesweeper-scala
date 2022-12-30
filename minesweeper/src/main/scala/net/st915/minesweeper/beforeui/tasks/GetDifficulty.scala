@@ -1,8 +1,8 @@
 package net.st915.minesweeper.beforeui.tasks
 
 import cats.effect.Sync
-import net.st915.immutablescalajs.{ScalaJSURLSearchParams, ScalaJSWindow}
 import net.st915.minesweeper.Difficulty
+import net.st915.typesafescalajs.{ScalaJSURLSearchParams, ScalaJSWindow}
 
 object GetDifficulty {
 

@@ -2,11 +2,11 @@ package net.st915.minesweeper
 
 import cats.effect.*
 import cats.effect.unsafe.IORuntime
-import net.st915.immutablescalajs.{ScalaJSDocument, ScalaJSWindow}
 import net.st915.minesweeper.beforeui.BeforeUI
 import net.st915.minesweeper.eventloop.EventLoop
 import net.st915.minesweeper.ui.RenderUI
 import net.st915.minesweeper.{GameState, RunContext}
+import net.st915.typesafescalajs.{ScalaJSDocument, ScalaJSWindow}
 
 object Main extends IOApp {
 

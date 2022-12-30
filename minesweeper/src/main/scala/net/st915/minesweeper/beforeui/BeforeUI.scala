@@ -1,9 +1,9 @@
 package net.st915.minesweeper.beforeui
 
 import cats.effect.Sync
-import net.st915.immutablescalajs.ScalaJSWindow
 import net.st915.minesweeper.RunContext
 import net.st915.minesweeper.beforeui.tasks.*
+import net.st915.typesafescalajs.ScalaJSWindow
 
 object BeforeUI {
 
