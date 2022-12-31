@@ -85,13 +85,13 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       }
     }
 
-  private def applyChilds[A <: ScalaJSElement, B <: HasChilds[B]](original: B)(sjsElem: A)(
+  private def applyChildren[A <: ScalaJSElement, B <: HasChildren[B]](original: B)(sjsElem: A)(
     using ScalaJSDocument,
     IORuntime
   ): F[A] =
     for {
-      childs <- original.childs.raw.map(apply).sequence
-      _ <- childs.map { child => Sync[F].blocking(sjsElem.appendChild(child)) }.sequence
+      children <- original.children.raw.map(apply).sequence
+      _ <- children.map { child => Sync[F].blocking(sjsElem.appendChild(child)) }.sequence
     } yield sjsElem
 
   private def applyCommonProperties[A <: ScalaJSElement, B <: Element[B]](original: B)(sjsElem: A)(
@@ -102,7 +102,7 @@ class SyncCanTranslate[F[_]: Sync] extends CanTranslate[F] {
       applyID(original) >>=
       applyClickEvent(original) >>=
       applyRightClickEvent(original) >>=
-      applyChilds(original)
+      applyChildren(original)
 
   private def asSJSNode[A <: ScalaJSNode](original: A): F[ScalaJSNode] =
     Sync[F].blocking(original.asInstanceOf[ScalaJSNode])

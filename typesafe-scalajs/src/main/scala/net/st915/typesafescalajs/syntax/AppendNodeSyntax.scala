@@ -2,19 +2,19 @@ package net.st915.typesafescalajs.syntax
 
 import cats.Monoid
 import net.st915.typesafescalajs.Node
-import net.st915.typesafescalajs.elements.attributes.HasChilds
-import net.st915.typesafescalajs.elements.properties.Childs
+import net.st915.typesafescalajs.elements.attributes.HasChildren
+import net.st915.typesafescalajs.elements.properties.Children
 
 trait AppendNodeSyntax {
 
-  implicit class CanCopyWithNewChildsOps[A <: HasChilds[A]](element: A) {
+  implicit class HasChildrenOps[A <: HasChildren[A]](element: A) {
 
-    def with_(newChilds: Childs): A =
-      element.copyWith(Monoid[Childs].combine(element.childs, newChilds))
+    def with_(newChildren: Children): A =
+      element.copyWith(Monoid[Children].combine(element.children, newChildren))
 
-    def with_(newChilds: List[Node]): A = with_(Childs(newChilds))
+    def with_(newChildren: List[Node]): A = with_(Children(newChildren))
 
-    def with_(newChilds: Node*): A = with_(newChilds.toList)
+    def with_(newChildren: Node*): A = with_(newChildren.toList)
 
   }
 

@@ -7,7 +7,7 @@ import net.st915.typesafescalajs.elements.properties.*
 final case class Anchor(
   override val className: ClassName = Monoid[ClassName].empty,
   override val id: ID = Monoid[ID].empty,
-  override val childs: Childs = Monoid[Childs].empty,
+  override val children: Children = Monoid[Children].empty,
   override val clickEvent: ClickEvent = Monoid[ClickEvent].empty,
   override val rightClickEvent: RightClickEvent = Monoid[RightClickEvent].empty,
   override val href: Link = Monoid[Link].empty
@@ -19,8 +19,8 @@ final case class Anchor(
   override def copyWith(newProperty: ID): Anchor =
     copy(id = newProperty)
 
-  override def copyWith(newProperty: Childs): Anchor =
-    copy(childs = newProperty)
+  override def copyWith(newProperty: Children): Anchor =
+    copy(children = newProperty)
 
   override def copyWith(newProperty: ClickEvent): Anchor =
     copy(clickEvent = newProperty)
