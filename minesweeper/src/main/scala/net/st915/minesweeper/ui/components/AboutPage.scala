@@ -26,8 +26,7 @@ object AboutPage {
           Anchor(href =
             Link("https://github.com/stouma915/minesweeper-scala")) with_ {
             TextNode("Improve this site")
-          },
-          TextNode(".")
+          }
         ),
         BR(),
         Span() with_ (
