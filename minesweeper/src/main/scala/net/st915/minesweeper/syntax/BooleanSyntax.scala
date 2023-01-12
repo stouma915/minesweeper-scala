@@ -1,6 +1,7 @@
 package net.st915.minesweeper.syntax
 
 import cats.Monad
+import net.st915.minesweeper.util.{lift, liftM2}
 
 trait BooleanSyntax {
 
@@ -12,21 +13,17 @@ trait BooleanSyntax {
     import cats.syntax.functor.*
 
     def not: F[Boolean] =
-      for {
-        a <- fBool
-      } yield !a
+      lift(NOT)(fBool)
 
     def and(another: F[Boolean]): F[Boolean] =
-      for {
-        a <- fBool
-        b <- another
-      } yield a && b
+      liftM2(AND)(fBool)(another)
 
     def or(another: F[Boolean]): F[Boolean] =
-      for {
-        a <- fBool
-        b <- another
-      } yield a || b
+      liftM2(OR)(fBool)(another)
+
+    private def NOT(a: Boolean): Boolean = !a
+    private def AND(a: Boolean)(b: Boolean): Boolean = a && b
+    private def OR(a: Boolean)(b: Boolean): Boolean = a || b
 
   }
 
